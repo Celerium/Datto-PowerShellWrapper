@@ -4,19 +4,15 @@
 
 ## **Did you find a bug?**
 
-* **Ensure the bug was not already reported** by searching on GitHub under [Issues](https://github.com/Celerium/Datto-PowerShellWrapper/issues).
+* **Ensure the bug was not already reported** by searching on GitHub under [Issues](https://github.com/Celerium/DattoAPI/issues).
 
-* If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/Celerium/Datto-PowerShellWrapper/issues/new/choose).
+* If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/Celerium/DattoAPI/issues/new/choose).
   * Be sure to include a **title and clear description**, as much relevant information as possible, and a **code sample** or an **executable test case** demonstrating the expected behavior that is not occurring.
 
 ## **Did you write a patch that fixes a bug?**
 
-* [ ] Submit a pulling request to the **development** branch
+* [ ] Submit a pull request to the **dev** branch
 * [ ] Ensure the pull request description clearly describes the problem and solution.
-* [ ] Make sure the **ModuleVersion** number is updated in the **DattoAPI.psd1** file
-  * MAJOR version when you make incompatible API changes,
-  * MINOR version when you add functionality in a backwards-compatible manner, and
-  * PATCH version when you make backwards-compatible bug fixes.
 
 If the feature is accepted and I have time to test, the pull request will be approved.
 
@@ -28,10 +24,8 @@ If the feature is accepted and I have time to test, the pull request will be app
 
 * Once the new feature is ready,
 
-  - [ ] Make sure the ModuleManifest "ModuleVersion" number is updated
-  - [ ] Update any documentation if needed
-  - [ ] Submit a pulling request to the **development** branch
-
+  * [ ] Update any documentation if needed
+  * [ ] Submit a pulling request to the **development** branch
 
 If the feature is accepted and I have time to test, the pull request will be approved.
 
