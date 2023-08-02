@@ -1,3 +1,14 @@
+---
+external help file: DattoAPI-help.xml
+Module Name: DattoAPI
+online version: https://github.com/Celerium/Datto-PowerShellWrapper
+schema: 2.0.0
+title: Home
+has_children: true
+layout: default
+nav_order: 1
+---
+
 <h1 align="center">
   <br>
   <a href="http://Celerium.org"><img src="https://raw.githubusercontent.com/Celerium/Datto-PowerShellWrapper/main/.github/images/Celerium_PoSHGallery_DattoAPI.png" alt="_CeleriumDemo" width="200"></a>
