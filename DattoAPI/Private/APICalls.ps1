@@ -1,15 +1,15 @@
-function ConvertTo-QueryString {
+function ConvertTo-DattoQueryString {
 <#
     .SYNOPSIS
         Converts uri filter parameters
 
     .DESCRIPTION
-        The Invoke-ApiRequest cmdlet converts & formats uri filter parameters
+        The Invoke-DattoRequest cmdlet converts & formats uri filter parameters
         from a function which are later used to make the full resource uri for
         an API call
 
         This is an internal helper function the ties in directly with the
-        Invoke-ApiRequest & any public functions that define parameters
+        Invoke-DattoRequest & any public functions that define parameters
 
     .PARAMETER uri_Filter
         Hashtable of values to combine a functions parameters with
@@ -21,7 +21,7 @@ function ConvertTo-QueryString {
         Defines the short resource uri (url) to use when creating the API call
 
     .EXAMPLE
-        ConvertTo-QueryString -uri_Filter $uri_Filter -resource_Uri '/account'
+        ConvertTo-DattoQueryString -uri_Filter $uri_Filter -resource_Uri '/account'
 
         Example: (From public function)
             $uri_Filter = @{}
@@ -38,7 +38,7 @@ function ConvertTo-QueryString {
         N\A
 
     .LINK
-        https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/ConvertTo-QueryString.html
+        https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/ConvertTo-DattoQueryString.html
 
 #>
 
@@ -98,13 +98,13 @@ param(
 
 
 
-function Invoke-ApiRequest {
+function Invoke-DattoRequest {
 <#
     .SYNOPSIS
         Makes an API request
 
     .DESCRIPTION
-        The Invoke-ApiRequest cmdlet invokes an API request to Datto API.
+        The Invoke-DattoRequest cmdlet invokes an API request to Datto API.
 
         This is an internal function that is used by all public functions
 
@@ -120,13 +120,13 @@ function Invoke-ApiRequest {
         Defines the resource uri (url) to use when creating the API call
 
     .PARAMETER uri_Filter
-        Used with the internal function [ ConvertTo-QueryString ] to combine
+        Used with the internal function [ ConvertTo-DattoQueryString ] to combine
         a functions parameters with the resource_Uri parameter.
 
         This allows for the full uri query to occur
 
         The full resource path is made with the following data
-        $Datto_Base_URI + $resource_Uri + ConvertTo-QueryString
+        $Datto_Base_URI + $resource_Uri + ConvertTo-DattoQueryString
 
     .PARAMETER data
         Place holder parameter to use when other methods are supported
@@ -139,7 +139,7 @@ function Invoke-ApiRequest {
         parameters
 
     .EXAMPLE
-        Invoke-ApiRequest -method GET -resource_Uri '/account' -uri_Filter $uri_Filter
+        Invoke-DattoRequest -method GET -resource_Uri '/account' -uri_Filter $uri_Filter
 
         Invoke a rest method against the defined resource using any of the provided parameters
 
@@ -156,7 +156,7 @@ function Invoke-ApiRequest {
         N\A
 
     .LINK
-        https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-ApiRequest.html
+        https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-DattoRequest.html
 
 #>
 
@@ -184,7 +184,7 @@ function Invoke-ApiRequest {
 
     process{
 
-        $query_string = ConvertTo-QueryString -uri_Filter $uri_Filter -resource_Uri $resource_Uri
+        $query_string = ConvertTo-DattoQueryString -uri_Filter $uri_Filter -resource_Uri $resource_Uri
 
         Set-Variable -Name 'Datto_queryString' -Value $query_string -Scope Global -Force
 
@@ -241,9 +241,9 @@ function Invoke-ApiRequest {
             Write-Warning 'The [ Datto_invokeParameters, Datto_queryString, & Datto_CmdletNameParameters ] variables can provide extra details'
 
             switch -Wildcard ($exceptionError) {
-                '*404*' { Write-Error "Invoke-ApiRequest : [ $resource_Uri ] not found!" }
-                '*429*' { Write-Error 'Invoke-ApiRequest : API rate limited' }
-                '*504*' { Write-Error "Invoke-ApiRequest : Gateway Timeout" }
+                '*404*' { Write-Error "Invoke-DattoRequest : [ $resource_Uri ] not found!" }
+                '*429*' { Write-Error 'Invoke-DattoRequest : API rate limited' }
+                '*504*' { Write-Error "Invoke-DattoRequest : Gateway Timeout" }
                 default { Write-Error $_ }
             }
 
@@ -278,13 +278,13 @@ function Invoke-ApiRequest {
 
 
 
-function Get-InvokeMetaData {
+function Get-DattoMetaData {
 <#
     .SYNOPSIS
         Gets various Api metadata values
 
     .DESCRIPTION
-        The Get-InvokeMetaData cmdlet gets various Api metadata values from an
+        The Get-DattoMetaData cmdlet gets various Api metadata values from an
         Invoke-WebRequest to assist in various troubleshooting scenarios such
         as rate-limiting.
 
@@ -294,7 +294,7 @@ function Get-InvokeMetaData {
         The default base URI is https://api.datto.com/v1
 
     .EXAMPLE
-        Get-InvokeMetaData
+        Get-DattoMetaData
 
         Gets various Api metadata values from an Invoke-WebRequest to assist
         in various troubleshooting scenarios such as rate-limiting.
@@ -303,7 +303,7 @@ function Get-InvokeMetaData {
             https://api.datto.com/v1
 
     .EXAMPLE
-        Get-InvokeMetaData -base_uri http://myapi.gateway.example.com
+        Get-DattoMetaData -base_uri http://myapi.gateway.example.com
 
         Gets various Api metadata values from an Invoke-WebRequest to assist
         in various troubleshooting scenarios such as rate-limiting.
@@ -315,7 +315,7 @@ function Get-InvokeMetaData {
         N\A
 
     .LINK
-        https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-InvokeMetaData.html
+        https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-DattoMetaData.html
 #>
 
     [CmdletBinding()]

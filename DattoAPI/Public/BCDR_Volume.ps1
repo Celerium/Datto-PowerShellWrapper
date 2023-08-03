@@ -55,7 +55,7 @@ function Get-DattoVolume {
 
         Set-Variable -Name 'Datto_assetVolumeParameters' -Value $PSBoundParameters -Scope Global -Force
 
-        Invoke-ApiRequest -method GET -resource_Uri $resource_Uri -uri_Filter $PSBoundParameters
+        Invoke-DattoRequest -method GET -resource_Uri $resource_Uri -uri_Filter $PSBoundParameters
 
     }
 

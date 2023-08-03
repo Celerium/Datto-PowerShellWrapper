@@ -1904,20 +1904,20 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>ConvertTo-QueryString</command:name>
+      <command:name>ConvertTo-DattoQueryString</command:name>
       <command:verb>ConvertTo</command:verb>
-      <command:noun>QueryString</command:noun>
+      <command:noun>DattoQueryString</command:noun>
       <maml:description>
         <maml:para>Converts uri filter parameters</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Invoke-ApiRequest cmdlet converts &amp; formats uri filter parameters from a function which are later used to make the full resource uri for an API call</maml:para>
-      <maml:para>This is an internal helper function the ties in directly with the Invoke-ApiRequest &amp; any public functions that define parameters</maml:para>
+      <maml:para>The Invoke-DattoRequest cmdlet converts &amp; formats uri filter parameters from a function which are later used to make the full resource uri for an API call</maml:para>
+      <maml:para>This is an internal helper function the ties in directly with the Invoke-DattoRequest &amp; any public functions that define parameters</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>ConvertTo-QueryString</maml:name>
+        <maml:name>ConvertTo-DattoQueryString</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
           <maml:name>uri_Filter</maml:name>
           <maml:description>
@@ -1982,7 +1982,7 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>ConvertTo-QueryString -uri_Filter $uri_Filter -resource_Uri '/account'</dev:code>
+        <dev:code>ConvertTo-DattoQueryString -uri_Filter $uri_Filter -resource_Uri '/account'</dev:code>
         <dev:remarks>
           <maml:para>Example: (From public function)     $uri_Filter = @{}</maml:para>
           <maml:para>    ForEach ( $Key in $PSBoundParameters.GetEnumerator() ){         if( $excludedParameters -contains $Key.Key ){$null}         else{ $uri_Filter += @{ $Key.Key = $Key.Value } }     }</maml:para>
@@ -1992,8 +1992,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/ConvertTo-QueryString.html</maml:linkText>
-        <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/ConvertTo-QueryString.html</maml:uri>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/ConvertTo-DattoQueryString.html</maml:linkText>
+        <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/ConvertTo-DattoQueryString.html</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -2214,6 +2214,83 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-DattoMetaData</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>DattoMetaData</command:noun>
+      <maml:description>
+        <maml:para>Gets various Api metadata values</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Get-DattoMetaData cmdlet gets various Api metadata values from an Invoke-WebRequest to assist in various troubleshooting scenarios such as rate-limiting.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-DattoMetaData</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+          <maml:name>base_uri</maml:name>
+          <maml:description>
+            <maml:para>Define the base URI for the Datto API connection using Datto's URI or a custom URI.</maml:para>
+            <maml:para>The default base URI is https://api.datto.com/v1</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>$Datto_Base_URI</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+        <maml:name>base_uri</maml:name>
+        <maml:description>
+          <maml:para>Define the base URI for the Datto API connection using Datto's URI or a custom URI.</maml:para>
+          <maml:para>The default base URI is https://api.datto.com/v1</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>$Datto_Base_URI</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>N\A</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>Get-DattoMetaData</dev:code>
+        <dev:remarks>
+          <maml:para>Gets various Api metadata values from an Invoke-WebRequest to assist in various troubleshooting scenarios such as rate-limiting.</maml:para>
+          <maml:para>The default full base uri test path is:     https://api.datto.com/v1</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>Get-DattoMetaData -base_uri http://myapi.gateway.example.com</dev:code>
+        <dev:remarks>
+          <maml:para>Gets various Api metadata values from an Invoke-WebRequest to assist in various troubleshooting scenarios such as rate-limiting.</maml:para>
+          <maml:para>The full base uri test path in this example is:     http://myapi.gateway.example.com/device</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-DattoMetaData.html</maml:linkText>
+        <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-DattoMetaData.html</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-DattoModuleSettings</command:name>
       <command:verb>Get</command:verb>
       <command:noun>DattoModuleSettings</command:noun>
@@ -2344,83 +2421,6 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Get-InvokeMetaData</command:name>
-      <command:verb>Get</command:verb>
-      <command:noun>InvokeMetaData</command:noun>
-      <maml:description>
-        <maml:para>Gets various Api metadata values</maml:para>
-      </maml:description>
-    </command:details>
-    <maml:description>
-      <maml:para>The Get-InvokeMetaData cmdlet gets various Api metadata values from an Invoke-WebRequest to assist in various troubleshooting scenarios such as rate-limiting.</maml:para>
-    </maml:description>
-    <command:syntax>
-      <command:syntaxItem>
-        <maml:name>Get-InvokeMetaData</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
-          <maml:name>base_uri</maml:name>
-          <maml:description>
-            <maml:para>Define the base URI for the Datto API connection using Datto's URI or a custom URI.</maml:para>
-            <maml:para>The default base URI is https://api.datto.com/v1</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>$Datto_Base_URI</dev:defaultValue>
-        </command:parameter>
-      </command:syntaxItem>
-    </command:syntax>
-    <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
-        <maml:name>base_uri</maml:name>
-        <maml:description>
-          <maml:para>Define the base URI for the Datto API connection using Datto's URI or a custom URI.</maml:para>
-          <maml:para>The default base URI is https://api.datto.com/v1</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>$Datto_Base_URI</dev:defaultValue>
-      </command:parameter>
-    </command:parameters>
-    <command:inputTypes />
-    <command:returnValues />
-    <maml:alertSet>
-      <maml:alert>
-        <maml:para>N\A</maml:para>
-      </maml:alert>
-    </maml:alertSet>
-    <command:examples>
-      <command:example>
-        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Get-InvokeMetaData</dev:code>
-        <dev:remarks>
-          <maml:para>Gets various Api metadata values from an Invoke-WebRequest to assist in various troubleshooting scenarios such as rate-limiting.</maml:para>
-          <maml:para>The default full base uri test path is:     https://api.datto.com/v1</maml:para>
-        </dev:remarks>
-      </command:example>
-      <command:example>
-        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>Get-InvokeMetaData -base_uri http://myapi.gateway.example.com</dev:code>
-        <dev:remarks>
-          <maml:para>Gets various Api metadata values from an Invoke-WebRequest to assist in various troubleshooting scenarios such as rate-limiting.</maml:para>
-          <maml:para>The full base uri test path in this example is:     http://myapi.gateway.example.com/device</maml:para>
-        </dev:remarks>
-      </command:example>
-    </command:examples>
-    <command:relatedLinks>
-      <maml:navigationLink>
-        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-InvokeMetaData.html</maml:linkText>
-        <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-InvokeMetaData.html</maml:uri>
-      </maml:navigationLink>
-    </command:relatedLinks>
-  </command:command>
-  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
-    <command:details>
       <command:name>Import-DattoModuleSettings</command:name>
       <command:verb>Import</command:verb>
       <command:noun>DattoModuleSettings</command:noun>
@@ -2525,21 +2525,21 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Invoke-ApiRequest</command:name>
+      <command:name>Invoke-DattoRequest</command:name>
       <command:verb>Invoke</command:verb>
-      <command:noun>ApiRequest</command:noun>
+      <command:noun>DattoRequest</command:noun>
       <maml:description>
         <maml:para>Makes an API request</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Invoke-ApiRequest cmdlet invokes an API request to Datto API.</maml:para>
+      <maml:para>The Invoke-DattoRequest cmdlet invokes an API request to Datto API.</maml:para>
       <maml:para>This is an internal function that is used by all public functions</maml:para>
       <maml:para>As of 2023-08 the Datto v1 API only supports GET requests</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Invoke-ApiRequest</maml:name>
+        <maml:name>Invoke-DattoRequest</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>method</maml:name>
           <maml:description>
@@ -2568,9 +2568,9 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>uri_Filter</maml:name>
           <maml:description>
-            <maml:para>Used with the internal function [ ConvertTo-QueryString ] to combine a functions parameters with the resource_Uri parameter.</maml:para>
+            <maml:para>Used with the internal function [ ConvertTo-DattoQueryString ] to combine a functions parameters with the resource_Uri parameter.</maml:para>
             <maml:para>This allows for the full uri query to occur</maml:para>
-            <maml:para>The full resource path is made with the following data $Datto_Base_URI + $resource_Uri + ConvertTo-QueryString</maml:para>
+            <maml:para>The full resource path is made with the following data $Datto_Base_URI + $resource_Uri + ConvertTo-DattoQueryString</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
           <dev:type>
@@ -2634,9 +2634,9 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
         <maml:name>uri_Filter</maml:name>
         <maml:description>
-          <maml:para>Used with the internal function [ ConvertTo-QueryString ] to combine a functions parameters with the resource_Uri parameter.</maml:para>
+          <maml:para>Used with the internal function [ ConvertTo-DattoQueryString ] to combine a functions parameters with the resource_Uri parameter.</maml:para>
           <maml:para>This allows for the full uri query to occur</maml:para>
-          <maml:para>The full resource path is made with the following data $Datto_Base_URI + $resource_Uri + ConvertTo-QueryString</maml:para>
+          <maml:para>The full resource path is made with the following data $Datto_Base_URI + $resource_Uri + ConvertTo-DattoQueryString</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
         <dev:type>
@@ -2681,7 +2681,7 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Invoke-ApiRequest -method GET -resource_Uri '/account' -uri_Filter $uri_Filter</dev:code>
+        <dev:code>Invoke-DattoRequest -method GET -resource_Uri '/account' -uri_Filter $uri_Filter</dev:code>
         <dev:remarks>
           <maml:para>Invoke a rest method against the defined resource using any of the provided parameters</maml:para>
           <maml:para>Example:     Name                           Value     ----                           -----     Method                         GET     Uri                            https://api.datto.com/v1/account?accountId=12345&amp;details=True     Headers                        {Authorization = Bearer 123456789}     Body</maml:para>
@@ -2690,8 +2690,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-ApiRequest.html</maml:linkText>
-        <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-ApiRequest.html</maml:uri>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-DattoRequest.html</maml:linkText>
+        <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-DattoRequest.html</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>

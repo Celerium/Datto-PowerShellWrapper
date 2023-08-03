@@ -2,13 +2,13 @@
 external help file: DattoAPI-help.xml
 grand_parent: Internal
 Module Name: DattoAPI
-online version: https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-InvokeMetaData.html
+online version: https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-DattoMetaData.html
 parent: GET
 schema: 2.0.0
-title: Get-InvokeMetaData
+title: Get-DattoMetaData
 ---
 
-# Get-InvokeMetaData
+# Get-DattoMetaData
 
 ## SYNOPSIS
 Gets various Api metadata values
@@ -16,11 +16,11 @@ Gets various Api metadata values
 ## SYNTAX
 
 ```powershell
-Get-InvokeMetaData [[-base_uri] <String>] [<CommonParameters>]
+Get-DattoMetaData [[-base_uri] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Get-InvokeMetaData cmdlet gets various Api metadata values from an
+The Get-DattoMetaData cmdlet gets various Api metadata values from an
 Invoke-WebRequest to assist in various troubleshooting scenarios such
 as rate-limiting.
 
@@ -28,7 +28,7 @@ as rate-limiting.
 
 ### EXAMPLE 1
 ```powershell
-Get-InvokeMetaData
+Get-DattoMetaData
 ```
 
 Gets various Api metadata values from an Invoke-WebRequest to assist
@@ -39,7 +39,7 @@ The default full base uri test path is:
 
 ### EXAMPLE 2
 ```powershell
-Get-InvokeMetaData -base_uri http://myapi.gateway.example.com
+Get-DattoMetaData -base_uri http://myapi.gateway.example.com
 ```
 
 Gets various Api metadata values from an Invoke-WebRequest to assist
@@ -79,5 +79,5 @@ N\A
 
 ## RELATED LINKS
 
-[https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-InvokeMetaData.html](https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-InvokeMetaData.html)
+[https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-DattoMetaData.html](https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-DattoMetaData.html)
 

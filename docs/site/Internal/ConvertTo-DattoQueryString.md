@@ -2,13 +2,13 @@
 external help file: DattoAPI-help.xml
 grand_parent: Internal
 Module Name: DattoAPI
-online version: https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/ConvertTo-QueryString.html
+online version: https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/ConvertTo-DattoQueryString.html
 parent: PUT
 schema: 2.0.0
-title: ConvertTo-QueryString
+title: ConvertTo-DattoQueryString
 ---
 
-# ConvertTo-QueryString
+# ConvertTo-DattoQueryString
 
 ## SYNOPSIS
 Converts uri filter parameters
@@ -16,22 +16,22 @@ Converts uri filter parameters
 ## SYNTAX
 
 ```powershell
-ConvertTo-QueryString [-uri_Filter] <Hashtable> [-resource_Uri] <String> [<CommonParameters>]
+ConvertTo-DattoQueryString [-uri_Filter] <Hashtable> [-resource_Uri] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Invoke-ApiRequest cmdlet converts & formats uri filter parameters
+The Invoke-DattoRequest cmdlet converts & formats uri filter parameters
 from a function which are later used to make the full resource uri for
 an API call
 
 This is an internal helper function the ties in directly with the
-Invoke-ApiRequest & any public functions that define parameters
+Invoke-DattoRequest & any public functions that define parameters
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```powershell
-ConvertTo-QueryString -uri_Filter $uri_Filter -resource_Uri '/account'
+ConvertTo-DattoQueryString -uri_Filter $uri_Filter -resource_Uri '/account'
 ```
 
 Example: (From public function)
@@ -92,5 +92,5 @@ N\A
 
 ## RELATED LINKS
 
-[https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/ConvertTo-QueryString.html](https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/ConvertTo-QueryString.html)
+[https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/ConvertTo-DattoQueryString.html](https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/ConvertTo-DattoQueryString.html)
 

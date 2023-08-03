@@ -18,7 +18,7 @@ Sets the API public & secret keys used to authenticate API calls.
 ### [Add-DattoBaseURI](site/Internal/Add-DattoBaseURI.md)
 Sets the base URI for the Datto API connection.
 
-### [ConvertTo-QueryString](site/Internal/ConvertTo-QueryString.md)
+### [ConvertTo-DattoQueryString](site/Internal/ConvertTo-DattoQueryString.md)
 Converts uri filter parameters
 
 ### [Export-DattoModuleSettings](site/Internal/Export-DattoModuleSettings.md)
@@ -54,6 +54,9 @@ Gets Datto BCDR devices from the the Datto API.
 ### [Get-DattoDomain](site/SaaS/Get-DattoDomain.md)
 Get Datto SaaS protection data about what domains are being protected
 
+### [Get-DattoMetaData](site/Internal/Get-DattoMetaData.md)
+Gets various Api metadata values
+
 ### [Get-DattoModuleSettings](site/Internal/Get-DattoModuleSettings.md)
 Gets the saved Datto configuration settings
 
@@ -69,13 +72,10 @@ Gets Datto BCDR shares for a given device
 ### [Get-DattoVolume](site/BCDR/Get-DattoVolume.md)
 Gets an asset(s)(agent or share) for a specific volume on a device
 
-### [Get-InvokeMetaData](site/Internal/Get-InvokeMetaData.md)
-Gets various Api metadata values
-
 ### [Import-DattoModuleSettings](site/Internal/Import-DattoModuleSettings.md)
 Imports the Datto BaseURI, API, & JSON configuration information to the current session.
 
-### [Invoke-ApiRequest](site/Internal/Invoke-ApiRequest.md)
+### [Invoke-DattoRequest](site/Internal/Invoke-DattoRequest.md)
 Makes an API request
 
 ### [Remove-DattoAPIKey](site/Internal/Remove-DattoAPIKey.md)

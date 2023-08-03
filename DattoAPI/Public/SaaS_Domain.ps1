@@ -34,7 +34,7 @@ function Get-DattoDomain {
 
         Set-Variable -Name 'Datto_domainParameters' -Value $PSBoundParameters -Scope Global -Force
 
-        Invoke-ApiRequest -method GET -resource_Uri $resource_Uri -uri_Filter $PSBoundParameters
+        Invoke-DattoRequest -method GET -resource_Uri $resource_Uri -uri_Filter $PSBoundParameters
 
     }
 

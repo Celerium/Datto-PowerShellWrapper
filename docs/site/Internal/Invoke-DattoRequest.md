@@ -2,13 +2,13 @@
 external help file: DattoAPI-help.xml
 grand_parent: Internal
 Module Name: DattoAPI
-online version: https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-ApiRequest.html
+online version: https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-DattoRequest.html
 parent: GET
 schema: 2.0.0
-title: Invoke-ApiRequest
+title: Invoke-DattoRequest
 ---
 
-# Invoke-ApiRequest
+# Invoke-DattoRequest
 
 ## SYNOPSIS
 Makes an API request
@@ -16,12 +16,12 @@ Makes an API request
 ## SYNTAX
 
 ```powershell
-Invoke-ApiRequest [[-method] <String>] [-resource_Uri] <String> [[-uri_Filter] <Hashtable>]
+Invoke-DattoRequest [[-method] <String>] [-resource_Uri] <String> [[-uri_Filter] <Hashtable>]
  [[-data] <Hashtable>] [-allPages] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Invoke-ApiRequest cmdlet invokes an API request to Datto API.
+The Invoke-DattoRequest cmdlet invokes an API request to Datto API.
 
 This is an internal function that is used by all public functions
 
@@ -31,7 +31,7 @@ As of 2023-08 the Datto v1 API only supports GET requests
 
 ### EXAMPLE 1
 ```powershell
-Invoke-ApiRequest -method GET -resource_Uri '/account' -uri_Filter $uri_Filter
+Invoke-DattoRequest -method GET -resource_Uri '/account' -uri_Filter $uri_Filter
 ```
 
 Invoke a rest method against the defined resource using any of the provided parameters
@@ -80,13 +80,13 @@ Accept wildcard characters: False
 ```
 
 ### -uri_Filter
-Used with the internal function \[ ConvertTo-QueryString \] to combine
+Used with the internal function \[ ConvertTo-DattoQueryString \] to combine
 a functions parameters with the resource_Uri parameter.
 
 This allows for the full uri query to occur
 
 The full resource path is made with the following data
-$Datto_Base_URI + $resource_Uri + ConvertTo-QueryString
+$Datto_Base_URI + $resource_Uri + ConvertTo-DattoQueryString
 
 ```yaml
 Type: Hashtable
@@ -146,5 +146,5 @@ N\A
 
 ## RELATED LINKS
 
-[https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-ApiRequest.html](https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-ApiRequest.html)
+[https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-DattoRequest.html](https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-DattoRequest.html)
 

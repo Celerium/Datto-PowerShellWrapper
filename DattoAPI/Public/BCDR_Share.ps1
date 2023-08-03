@@ -84,8 +84,8 @@ function Get-DattoShare {
         Set-Variable -Name 'Datto_assetShareParameters' -Value $PSBoundParameters -Scope Global -Force
 
         switch ($allPages) {
-            $true   { Invoke-ApiRequest -method GET -resource_Uri $resource_Uri -uri_Filter $PSBoundParameters -allPages }
-            $false  { Invoke-ApiRequest -method GET -resource_Uri $resource_Uri -uri_Filter $PSBoundParameters }
+            $true   { Invoke-DattoRequest -method GET -resource_Uri $resource_Uri -uri_Filter $PSBoundParameters -allPages }
+            $false  { Invoke-DattoRequest -method GET -resource_Uri $resource_Uri -uri_Filter $PSBoundParameters }
         }
 
     }
