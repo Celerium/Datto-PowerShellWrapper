@@ -21,7 +21,7 @@ function Get-DattoApplication {
         N\A
 
     .LINK
-        https://github.com/Celerium/Datto-PowerShellWrapper
+        https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Get-DattoApplication.html
 #>
 
     [CmdletBinding(DefaultParameterSetName = 'index')]

@@ -140,7 +140,7 @@ function Get-DattoBCDR {
         N\A
 
     .LINK
-        https://github.com/Celerium/Datto-PowerShellWrapper
+        https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoBCDR.html
 #>
 
     [CmdletBinding(DefaultParameterSetName = 'index_Devices')]

@@ -146,5 +146,5 @@ N\A
 
 ## RELATED LINKS
 
-[https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-APIRequest.html](https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-APIRequest.html)
+[https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-ApiRequest.html](https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-ApiRequest.html)
 

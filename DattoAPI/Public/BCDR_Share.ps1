@@ -43,7 +43,7 @@ function Get-DattoShare {
         N\A
 
     .LINK
-        https://github.com/Celerium/Datto-PowerShellWrapper
+        https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoShare.html
 #>
 
     [CmdletBinding(DefaultParameterSetName = 'index')]

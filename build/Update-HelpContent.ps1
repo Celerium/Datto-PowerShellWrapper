@@ -173,6 +173,7 @@ Try{
     Import-Module "C:\Celerium\Projects\_API\Datto-PowerShellWrapper\DattoAPI\DattoAPI.psd1" -Force -Verbose
     $Commands = Get-Command -Module DattoAPI -ErrorAction Stop | Sort-Object Name
 
+    <#
         if (Get-InstalledModule -Name $moduleName -ErrorAction SilentlyContinue -Verbose:$false){
             $Commands = Get-Command -Module $moduleName -ErrorAction Stop | Sort-Object Name
             Import-Module -Name $moduleName -Force -Verbose:$false
@@ -180,6 +181,7 @@ Try{
         else{
             throw "The $moduleName module was not found"
         }
+        #>
 
     ForEach ($folder in $docFolders){
 

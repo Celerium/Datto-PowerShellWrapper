@@ -37,7 +37,7 @@ function Add-DattoAPIKey {
         N\A
 
     .LINK
-        https://github.com/Celerium/Datto-PowerShellWrapper
+        https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Add-DattoAPIKey.html
 #>
 
     [cmdletbinding()]
@@ -96,7 +96,7 @@ function Get-DattoAPIKey {
         N\A
 
     .LINK
-        https://github.com/Celerium/Datto-PowerShellWrapper
+        https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-DattoAPIKey.html
 #>
 
     [cmdletbinding()]
@@ -167,7 +167,7 @@ function Remove-DattoAPIKey {
         N\A
 
     .LINK
-        https://portal.dattobackup.com/integrations/api
+        https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Remove-DattoAPIKey.html
 #>
 
     [cmdletbinding(SupportsShouldProcess)]
@@ -223,7 +223,7 @@ function Test-DattoAPIKey {
         N\A
 
     .LINK
-        https://github.com/Celerium/Datto-PowerShellWrapper
+        https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Test-DattoAPIKey.html
 #>
 
     [cmdletbinding()]

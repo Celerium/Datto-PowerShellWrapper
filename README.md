@@ -14,7 +14,6 @@
 [![PoshGallery_Platforms][PoshGallery_Platforms-shield]][PoshGallery_Platforms-url]
 [![PoshGallery_Downloads][PoshGallery_Downloads-shield]][PoshGallery_Downloads-url]
 [![codeSize][codeSize-shield]][codeSize-url]
-[![GitHub_License][GitHub_License-shield]][GitHub_License-url]
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -22,6 +21,7 @@
 [![Issues][issues-shield]][issues-url]
 
 [![Blog][Website-shield]][Website-url]
+[![GitHub_License][GitHub_License-shield]][GitHub_License-url]
 
 ---
 
@@ -169,7 +169,7 @@ Calling an API resource is as simple as running `Get-Datto<resourceName>`
 | SaaS      | Applications    | -         | `Get-DattoApplication`    | -         | -         |
 
 - :warning: `Get-DattoBCDR` & `Get-DattoSaaS` are special functions.
-- They are **NOT** endpoints in Datto's REST API and are a single set of commands the can run endpoints in their associate sections.
+- These are **NOT** endpoints in Datto's REST API and are a single set of commands the can run endpoints in their associate sections.
 - I included them because they was made scripting easier and felt like a nice to have feature IMO
 
 Each `Get-Datto*` function will respond with the raw data that Datto's API provides.
@@ -221,7 +221,7 @@ Distributed under the MIT License. See [`LICENSE.txt`](https://github.com/Celeri
     ·
     <a href="https://celerium.org/#/contact" target="_blank">Website</a>
     ·
-    <a href="https://celerium.org/#/contact" target="_blank">Email</a>
+    <a href="mailto: celerium@celerium.org">Email</a>
     ·
     <a href="https://www.reddit.com/user/CeleriumIO" target="_blank">Reddit</a>
     ·

@@ -16,7 +16,7 @@ function Get-DattoDomain {
         N\A
 
     .LINK
-        https://github.com/Celerium/Datto-PowerShellWrapper
+        https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Get-DattoDomain.html
 #>
 
     [CmdletBinding()]

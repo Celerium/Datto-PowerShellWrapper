@@ -157,12 +157,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoAgent.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoAgent.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -313,12 +309,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoAlert.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoAlert.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -469,12 +461,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoAsset.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoAsset.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -1228,12 +1216,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoBCDR.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoBCDR.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -1451,12 +1435,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoDevice.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoDevice.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -1607,12 +1587,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoShare.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoShare.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -1707,12 +1683,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoVolume.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoVolume.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -1817,12 +1789,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Add-DattoAPIKey.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Add-DattoAPIKey.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -1929,12 +1897,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Add-DattoBaseURI.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Add-DattoBaseURI.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -2130,12 +2094,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Export-DattoModuleSettings.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Export-DattoModuleSettings.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -2206,12 +2166,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-DattoAPIKey.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-DattoAPIKey.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -2251,12 +2207,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-DattoBaseURI.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-DattoBaseURI.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -2385,12 +2337,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-DattoModuleSettings.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-DattoModuleSettings.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -2466,12 +2414,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-InvokeMetaData.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-InvokeMetaData.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -2574,12 +2518,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Import-DattoModuleSettings.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Import-DattoModuleSettings.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -2750,8 +2690,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-APIRequest.html</maml:linkText>
-        <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-APIRequest.html</maml:uri>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-ApiRequest.html</maml:linkText>
+        <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-ApiRequest.html</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -2838,12 +2778,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Remove-DattoAPIKey.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Remove-DattoAPIKey.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://portal.dattobackup.com/integrations/api</maml:linkText>
-        <maml:uri>https://portal.dattobackup.com/integrations/api</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -2930,12 +2866,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Remove-DattoBaseURI.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Remove-DattoBaseURI.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -3083,12 +3015,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Remove-DattoModuleSettings.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Remove-DattoModuleSettings.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -3164,12 +3092,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Test-DattoAPIKey.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Test-DattoAPIKey.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -3474,12 +3398,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Reporting/Get-DattoActivityLog.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Reporting/Get-DattoActivityLog.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -3546,12 +3466,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Get-DattoApplication.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Get-DattoApplication.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -3591,12 +3507,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Get-DattoDomain.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Get-DattoDomain.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -3773,12 +3685,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Get-DattoSaaS.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Get-DattoSaaS.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -3845,12 +3753,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Get-DattoSeat.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Get-DattoSeat.html</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>https://github.com/Celerium/Datto-PowerShellWrapper</maml:linkText>
-        <maml:uri>https://github.com/Celerium/Datto-PowerShellWrapper</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>

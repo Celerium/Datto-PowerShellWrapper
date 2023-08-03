@@ -156,7 +156,7 @@ function Invoke-ApiRequest {
         N\A
 
     .LINK
-        https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-APIRequest.html
+        https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Invoke-ApiRequest.html
 
 #>
 
@@ -276,6 +276,8 @@ function Invoke-ApiRequest {
 
 }
 
+
+
 function Get-InvokeMetaData {
 <#
     .SYNOPSIS
@@ -313,7 +315,7 @@ function Get-InvokeMetaData {
         N\A
 
     .LINK
-        https://github.com/Celerium/Datto-PowerShellWrapper
+        https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-InvokeMetaData.html
 #>
 
     [CmdletBinding()]

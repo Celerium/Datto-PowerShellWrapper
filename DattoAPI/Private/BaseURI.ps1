@@ -38,7 +38,7 @@ function Add-DattoBaseURI {
         N\A
 
     .LINK
-        https://github.com/Celerium/Datto-PowerShellWrapper
+        https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Add-DattoBaseURI.html
 #>
 
     [cmdletbinding()]
@@ -81,7 +81,7 @@ function Get-DattoBaseURI {
         N\A
 
     .LINK
-        https://github.com/Celerium/Datto-PowerShellWrapper
+        https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-DattoBaseURI.html
 #>
 
     [cmdletbinding()]
@@ -113,7 +113,7 @@ function Remove-DattoBaseURI {
         N\A
 
     .LINK
-        https://github.com/Celerium/Datto-PowerShellWrapper
+        https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Remove-DattoBaseURI.html
 #>
 
     [cmdletbinding(SupportsShouldProcess)]

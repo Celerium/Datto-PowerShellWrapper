@@ -76,5 +76,5 @@ N\A
 
 ## RELATED LINKS
 
-[https://portal.dattobackup.com/integrations/api](https://portal.dattobackup.com/integrations/api)
+[https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Remove-DattoAPIKey.html](https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Remove-DattoAPIKey.html)
 

@@ -87,7 +87,7 @@ function Get-DattoActivityLog {
             Cannot get the filter to returned data when run from Datto's own portal as well.
 
     .LINK
-        https://github.com/Celerium/Datto-PowerShellWrapper
+        https://celerium.github.io/Datto-PowerShellWrapper/site/Reporting/Get-DattoActivityLog.html
 #>
 
     [CmdletBinding(DefaultParameterSetName = 'index')]

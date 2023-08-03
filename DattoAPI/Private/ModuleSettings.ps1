@@ -40,7 +40,7 @@ function Export-DattoModuleSettings {
         N\A
 
     .LINK
-        https://github.com/Celerium/Datto-PowerShellWrapper
+        https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Export-DattoModuleSettings.html
 #>
 
     [CmdletBinding(DefaultParameterSetName = 'set')]
@@ -122,7 +122,7 @@ function Get-DattoModuleSettings{
         N\A
 
     .LINK
-        https://github.com/Celerium/Datto-PowerShellWrapper
+        https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-DattoModuleSettings.html
 #>
 
     [CmdletBinding(DefaultParameterSetName = 'index')]
@@ -209,7 +209,7 @@ function Import-DattoModuleSettings {
         N\A
 
     .LINK
-        https://github.com/Celerium/Datto-PowerShellWrapper
+        https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Import-DattoModuleSettings.html
 #>
 
     [CmdletBinding(DefaultParameterSetName = 'set')]
@@ -296,7 +296,7 @@ function Remove-DattoModuleSettings {
         N\A
 
     .LINK
-        https://github.com/Celerium/Datto-PowerShellWrapper
+        https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Remove-DattoModuleSettings.html
 #>
 
     [CmdletBinding(SupportsShouldProcess, DefaultParameterSetName = 'set')]

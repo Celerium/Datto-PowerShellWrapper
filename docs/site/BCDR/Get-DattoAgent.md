@@ -144,5 +144,5 @@ The /agent uri does NOT return any data as this appears to be a deprecated endpo
 
 ## RELATED LINKS
 
-[https://github.com/Celerium/Datto-PowerShellWrapper](https://github.com/Celerium/Datto-PowerShellWrapper)
+[https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoAgent.html](https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoAgent.html)
 

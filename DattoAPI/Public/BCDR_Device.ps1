@@ -69,7 +69,7 @@ function Get-DattoDevice {
             In testing only 0 or 1 appear to do anything.
 
     .LINK
-        https://github.com/Celerium/Datto-PowerShellWrapper
+        https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoDevice.html
 #>
 
     [CmdletBinding(DefaultParameterSetName = 'index')]

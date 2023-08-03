@@ -43,7 +43,7 @@ function Get-DattoAlert {
         a valid parameter for this endpoint.
 
     .LINK
-        https://github.com/Celerium/Datto-PowerShellWrapper
+        https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoAlert.html
 #>
 
     [CmdletBinding(DefaultParameterSetName = 'index')]

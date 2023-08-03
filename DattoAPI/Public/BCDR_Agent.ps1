@@ -56,7 +56,7 @@ function Get-DattoAgent {
             The /asset/agent DOES return data.
 
     .LINK
-        https://github.com/Celerium/Datto-PowerShellWrapper
+        https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoAgent.html
 #>
 
     [CmdletBinding(DefaultParameterSetName = 'index')]

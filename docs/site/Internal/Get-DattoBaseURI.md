@@ -45,5 +45,5 @@ N\A
 
 ## RELATED LINKS
 
-[https://github.com/Celerium/Datto-PowerShellWrapper](https://github.com/Celerium/Datto-PowerShellWrapper)
+[https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-DattoBaseURI.html](https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Get-DattoBaseURI.html)
 

@@ -183,5 +183,5 @@ Documentation around the Show* endpoints just defines that an integer is accepte
 
 ## RELATED LINKS
 
-[https://github.com/Celerium/Datto-PowerShellWrapper](https://github.com/Celerium/Datto-PowerShellWrapper)
+[https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoDevice.html](https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoDevice.html)
 

@@ -234,5 +234,5 @@ As of 2022-04 the clientName parameter does not appear to be a working filter fo
 
 ## RELATED LINKS
 
-[https://github.com/Celerium/Datto-PowerShellWrapper](https://github.com/Celerium/Datto-PowerShellWrapper)
+[https://celerium.github.io/Datto-PowerShellWrapper/site/Reporting/Get-DattoActivityLog.html](https://celerium.github.io/Datto-PowerShellWrapper/site/Reporting/Get-DattoActivityLog.html)
 
