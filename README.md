@@ -82,7 +82,7 @@ Whether you use this project, have learned something from it, or just like it, p
 
 ## About The Project
 
-The [DattoAPI](https://www.datto.com/) offers users the ability to extract data from Datto into a third-party reporting tools and aims to abstract away the details of interacting with Datto's API endpoints in such a way that is consistent with PowerShell nomenclature. This gives system administrators and PowerShell developers a convenient and familiar way of using Datto's API to create documentation scripts, automation, and integrations.
+The [DattoAPI](https://www.datto.com/) offers users the ability to extract data from Datto into third-party reporting tools and aims to abstract away the details of interacting with Datto's API endpoints in such a way that is consistent with PowerShell nomenclature. This gives system administrators and PowerShell developers a convenient and familiar way of using Datto's API to create documentation scripts, automation, and integrations.
 
 - :book: Project documentation can be found on [Github Pages](https://celerium.github.io/Datto-PowerShellWrapper/)
 - :book: Datto's REST API documentation on their management portal [here](https://portal.dattobackup.com/integrations/api) *[ Requires a login ]*.
@@ -126,23 +126,23 @@ Get-Help Get-DattoDevice -Full
 
 ## Initial Setup
 
-After install this module, you will need to configure both the *base URI* & *API access tokens* that are used to talk with the Datto API.
+After installing this module, you will need to configure both the *base URI* & *API access tokens* that are used to talk with the Datto API.
 
 1. Run `Add-DattoBaseURI`
-   - By default, Datto's `https://api.datto.com/v1` uri is used.
-   - If you have your own API gateway or proxy, you may put in your own custom uri by specifying the `-base_uri` parameter:
+   - By default, Datto's `https://api.datto.com/v1` URI is used.
+   - If you have your own API gateway or proxy, you may put in your own custom URI by specifying the `-base_uri` parameter:
       - `Add-DattoBaseURI -base_uri http://myapi.gateway.celerium.org`
 <br>
 
 2. Run `Add-DattoAPIKey -Api_Key_Public 12345 -Api_Key_Secret 123456789`
-   - It will prompt you to enter in your API access tokens if you do not specify them.
+   - It will prompt you to enter your API access tokens if you do not specify them.
    - Datto API access tokens are generated via the Datto portal at *Admin > Integrations*
 <br>
 
 3. [**optional**] Run `Export-DattoModuleSettings`
    - This will create a config file at `%UserProfile%\DattoAPI` that securely holds the *base uri* & *API access tokens* information.
    - Next time you run `Import-Module -Name DattoAPI`, this configuration file will automatically be loaded.
-   - :warning: Exporting module settings encrypts your API access tokens in a format that can **only be unencrypted with your Windows account**. It makes use of PowerShell's `System.Security.SecureString` type, which uses reversible encrypted tied to your user principal. This means that you cannot copy your configuration file to another computer or user account and expect it to work.
+   - :warning: Exporting module settings encrypt your API access tokens in a format that can **only be unencrypted with your Windows account**. It makes use of PowerShell's `System.Security.SecureString` type, which uses reversible encrypted tied to your user principal. This means that you cannot copy your configuration file to another computer or user account and expect it to work.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -169,8 +169,8 @@ Calling an API resource is as simple as running `Get-Datto<resourceName>`
 | SaaS      | Applications    | -         | `Get-DattoApplication`    | -         | -         |
 
 - :warning: `Get-DattoBCDR` & `Get-DattoSaaS` are special functions.
-- These are **NOT** endpoints in Datto's REST API and are a single set of commands the can run endpoints in their associate sections.
-- I included them because they was made scripting easier and felt like a nice to have feature IMO
+- These are **NOT** endpoints in Datto's REST API and are a single set of commands that can run endpoints in their associate sections.
+- I included them because they made scripting easier and felt like a nice-to-have feature IMO
 
 Each `Get-Datto*` function will respond with the raw data that Datto's API provides.
 
@@ -184,7 +184,7 @@ Each `Get-Datto*` function will respond with the raw data that Datto's API provi
 
 - [ ] Add Changelog
 - [ ] Build more robust Pester & ScriptAnalyzer tests
-- [ ] Build a better API authentication parameters to more securely handle API keys
+- [ ] Build better API authentication parameters to more securely handle API keys
 - [ ] Figure out how to do CI & PowerShell gallery automation
 - [ ] Add example scripts & automation
 
@@ -196,7 +196,7 @@ See the [open issues](https://github.com/Celerium/Datto-PowerShellWrapper/issues
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what makes the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
@@ -232,7 +232,7 @@ Distributed under the MIT License. See [`LICENSE.txt`](https://github.com/Celeri
 
 ## Acknowledgments
 
-Big thank you to the following people and services as they have provided me lots of helpful information as I continue this project!
+Big thank you to the following people and services as they have provided me with lots of helpful information as I continue this project!
 
 - [GitHub Pages](https://pages.github.com)
 - [Img Shields](https://shields.io)
@@ -244,11 +244,11 @@ Big thank you to the following people and services as they have provided me lots
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[Az_Coverage-shield]:               https://img.shields.io/azure-devops/coverage/AzCelerium/CeleriumDemo/3?style=for-the-badge
-[Az_Coverage-url]:                  https://dev.azure.com/AzCelerium/CeleriumDemo/_build?definitionId=3
+[Az_Coverage-shield]:               https://img.shields.io/azure-devops/coverage/AzCelerium/DattoAPI/4?style=for-the-badge
+[Az_Coverage-url]:                  https://dev.azure.com/AzCelerium/DattoAPI/_build?definitionId=4
 
-[Az_Pipeline-shield]:               https://img.shields.io/azure-devops/build/AzCelerium/CeleriumDemo/3?style=for-the-badge&label=DevOps_Build
-[Az_Pipeline-url]:                  https://dev.azure.com/AzCelerium/CeleriumDemo/_build?definitionId=3
+[Az_Pipeline-shield]:               https://img.shields.io/azure-devops/build/AzCelerium/DattoAPI/4?style=for-the-badge&label=DevOps_Build
+[Az_Pipeline-url]:                  https://dev.azure.com/AzCelerium/DattoAPI/_build?definitionId=4
 
 [GitHub_Pages-shield]:              https://img.shields.io/github/actions/workflow/status/celerium/Datto-PowerShellWrapper/pages%2Fpages-build-deployment?style=for-the-badge&label=GitHub%20Pages
 [GitHub_Pages-url]:                 https://github.com/Celerium/Datto-PowerShellWrapper/actions/workflows/pages/pages-build-deployment
