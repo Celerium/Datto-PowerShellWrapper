@@ -66,10 +66,7 @@
         [String[]]$Modules = @('ModuleBuilder', 'Pester', 'platyPS'),
 
         [Parameter(Mandatory=$false, ParameterSetName = 'Update')]
-        [Switch]$Update,
-
-        [Parameter(Mandatory=$false)]
-        [Switch]$Force
+        [Switch]$Force_Update
     )
 
 #EndRegion  [ Parameters ]
@@ -126,17 +123,17 @@ if ($valid_Modules) {
         if ( [bool](Get-InstalledModule -Name $module.Name -ErrorAction SilentlyContinue) -eq $false ){
 
             Write-Verbose " -       - $(Get-Date -Format MM-dd-HH:mm) - Installing [ $($module.Name) | $($module.Version) ]"
-            Install-Module -Name $module.Name
+            Install-Module -Name $module.Name -Force
 
         }
         else{
 
-            if ($Update){
+            if ($Force_Update){
 
                 $Version = (Find-Module -Name $module.Name).Version
                 Write-Verbose " -       - $(Get-Date -Format MM-dd-HH:mm) - Updating [ $($module.Name)| [ $($module.Version) --> $Version ] ]"
 
-                Update-Module -Name $module.Name -Force:$Force_Update
+                Update-Module -Name $module.Name -Force
 
             }
             else {
