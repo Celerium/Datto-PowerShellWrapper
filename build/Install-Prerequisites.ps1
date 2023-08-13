@@ -84,42 +84,74 @@ $StartDate = Get-Date
 
 #EndRegion  [ Prerequisites ]
 
-#Region     [ Main Code ]
+Write-Verbose " - (1/2) - $(Get-Date -Format MM-dd-HH:mm) - Checking Package Provider"
 
-<#
-foreach ($Module in $Modules) {
+#Region     [ Modules & Providers ]
 
-    if ( [bool](Get-InstalledModule -Name $Module -ErrorAction SilentlyContinue) ) {
-        Write-Verbose "-       - $(Get-Date -Format MM-dd-HH:mm) - [ $Module ] is already installed"
+try {
 
-        if($Update){
-            Update-Module -Name $Module -Force:$Force
-        }
+    $packageProvider    = Get-PackageProvider | Where-Object {$_.Name -eq 'NuGet'}
 
-    }
-    else{
-
-        Write-Verbose "-       - $(Get-Date -Format MM-dd-HH:mm) - Installing [ $Module ]"
-
-        Install-Module -Name $Module -Force:$Force
-
-    }
-
-}#>
-
-foreach ($Module in $Modules) {
-
-    try {
-        Get-InstalledModule -Name $Module -ErrorAction Stop
-    }
-    catch {
-        Write-Host "Installing [ $Module ]"
-        Install-Module -Name $Module -Force
+    If ( $null -eq $packageProvider ){
+        throw 'The NuGet prerequisites are not installed, update NuGet then close & reopen PowerShell'
     }
 
 }
+Catch{
+    Write-Error $_
+    exit 1
+}
 
-Get-InstalledModule $Modules
+#EndRegion  [ Modules & Providers ]
+
+Write-Verbose " - (2/2) - $(Get-Date -Format MM-dd-HH:mm) - Installing Modules"
+
+#Region     [ Main Code ]
+
+$valid_Modules = [System.Collections.Generic.List[object]]::new()
+    foreach ($module in $modules) {
+
+        $found_Module = Find-Module -Name $Module -ErrorAction SilentlyContinue
+        if ($found_Module){
+            $valid_Modules.Add($found_Module) > $null
+        }
+        else{ Write-Warning " -       - $(Get-Date -Format MM-dd-HH:mm) - [ $Module ] is not valid or was not found" }
+
+    }
+
+if ($valid_Modules) {
+
+    foreach ($module in $valid_Modules) {
+
+        if ( [bool](Get-InstalledModule -Name $module.Name -ErrorAction SilentlyContinue) -eq $false ){
+
+            Write-Verbose " -       - $(Get-Date -Format MM-dd-HH:mm) - Installing [ $($module.Name) | $($module.Version) ]"
+            Install-Module -Name $module.Name
+
+        }
+        else{
+
+            if ($Update){
+
+                $Version = (Find-Module -Name $module.Name).Version
+                Write-Verbose " -       - $(Get-Date -Format MM-dd-HH:mm) - Updating [ $($module.Name)| [ $($module.Version) --> $Version ] ]"
+
+                Update-Module -Name $module.Name -Force:$Force_Update
+
+            }
+            else {
+                Write-Verbose " -       - $(Get-Date -Format MM-dd-HH:mm) - Already installed [ $($module.Name) | $($module.Version) ]"
+            }
+
+        }
+
+    }
+
+}
+else{
+    Write-Error " -       - $(Get-Date -Format MM-dd-HH:mm) - No valid modules found at this time"
+    exit 1
+}
 
 #EndRegion  [ Main Code ]
 

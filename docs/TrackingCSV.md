@@ -30,18 +30,19 @@ I recommend downloading the CSV from the link provided rather then viewing the t
 |BCDR     |/bcdr/device/{serialNumber}/asset/{volumeName}|GET   |Get-DattoVolume           |YES     |                                                     |
 |Internal |                                              |POST  |Add-DattoAPIKey           |YES     |                                                     |
 |Internal |                                              |POST  |Add-DattoBaseURI          |YES     |                                                     |
-|Internal |                                              |PUT   |ConvertTo-DattoQueryString     |YES     |                                                     |
+|Internal |                                              |POST  |Initialize-DattoModule    |YES     |                                                     |
+|Internal |                                              |PUT   |ConvertTo-DattoQueryString|YES     |                                                     |
 |Internal |                                              |GET   |Export-DattoModuleSettings|YES     |                                                     |
 |Internal |                                              |GET   |Get-DattoAPIKey           |YES     |                                                     |
 |Internal |                                              |GET   |Get-DattoBaseURI          |YES     |                                                     |
 |Internal |                                              |GET   |Get-DattoModuleSettings   |YES     |                                                     |
 |Internal |                                              |GET   |Import-DattoModuleSettings|YES     |                                                     |
-|Internal |                                              |GET   |Invoke-DattoRequest         |YES     |                                                     |
+|Internal |                                              |GET   |Invoke-DattoRequest       |YES     |                                                     |
 |Internal |                                              |DELETE|Remove-DattoAPIKey        |YES     |                                                     |
 |Internal |                                              |DELETE|Remove-DattoBaseURI       |YES     |                                                     |
 |Internal |                                              |DELETE|Remove-DattoModuleSettings|YES     |                                                     |
 |Internal |                                              |GET   |Test-DattoAPIKey          |YES     |                                                     |
-|Internal |                                              |GET   |Get-DattoMetaData        |YES     |                                                     |
+|Internal |                                              |GET   |Get-DattoMetaData         |YES     |                                                     |
 |Reporting|/report/activity-log                          |GET   |Get-DattoActivityLog      |YES     |                                                     |
 |SaaS     |/sass/{sassCustomerId}/applications           |GET   |Get-DattoApplication      |YES     |                                                     |
 |SaaS     |/sass/domains                                 |GET   |Get-DattoDomain           |YES     |                                                     |

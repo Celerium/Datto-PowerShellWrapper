@@ -5,7 +5,8 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  version: 2.0.1
+  version: 2.0.2
+  moduleName: DattoAPI
 
 jobs:
 
@@ -31,7 +32,7 @@ jobs:
       inputs:
         pwsh: false
         targetType: filePath
-        filePath: $(Build.SourcesDirectory)/build/build.ps1
+        filePath: $(Build.SourcesDirectory)/build/Invoke-moduleBuild.ps1
         arguments: -version $(version)
 
     - task: PublishBuildArtifacts@1
@@ -39,7 +40,7 @@ jobs:
       name: publishartifactPowerShell
       inputs:
         ArtifactName: module
-        PathtoPublish: $(Build.SourcesDirectory)/Output
+        PathtoPublish: $(Build.SourcesDirectory)/build/versions/$(moduleName)/$(version)
 
 # Windows - Core
 
@@ -63,7 +64,7 @@ jobs:
       inputs:
         pwsh: true
         targetType: filePath
-        filePath: $(Build.SourcesDirectory)/build/build.ps1
+        filePath: $(Build.SourcesDirectory)/build/Invoke-moduleBuild.ps1
         arguments: -version $(version)
 
     - task: PublishBuildArtifacts@1
@@ -71,7 +72,7 @@ jobs:
       name: publishartifactPowerShellCore
       inputs:
         ArtifactName: module
-        PathtoPublish: $(Build.SourcesDirectory)/Output
+        PathtoPublish: $(Build.SourcesDirectory)/build/versions/$(moduleName)/$(version)
 
 # Linux - Ubuntu
 
@@ -95,7 +96,7 @@ jobs:
       inputs:
         pwsh: true
         targetType: filePath
-        filePath: $(Build.SourcesDirectory)/build/build.ps1
+        filePath: $(Build.SourcesDirectory)/build/Invoke-moduleBuild.ps1
         arguments: -version $(version)
 
     - task: PublishBuildArtifacts@1
@@ -103,7 +104,7 @@ jobs:
       name: publishartifact
       inputs:
         ArtifactName: module
-        PathtoPublish: $(Build.SourcesDirectory)/Output
+        PathtoPublish: $(Build.SourcesDirectory)/build/versions/$(moduleName)/$(version)
 
 # Linux - macOS
 
@@ -127,7 +128,7 @@ jobs:
       inputs:
         pwsh: true
         targetType: filePath
-        filePath: $(Build.SourcesDirectory)/build/build.ps1
+        filePath: $(Build.SourcesDirectory)/build/Invoke-moduleBuild.ps1
         arguments: -version $(version)
 
     - task: PublishBuildArtifacts@1
@@ -135,4 +136,4 @@ jobs:
       name: publishartifactmacOS
       inputs:
         ArtifactName: module
-        PathtoPublish: $(Build.SourcesDirectory)/Output
+        PathtoPublish: $(Build.SourcesDirectory)/build/versions/$(moduleName)/$(version)

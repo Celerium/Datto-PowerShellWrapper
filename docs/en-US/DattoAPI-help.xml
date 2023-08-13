@@ -2,6 +2,126 @@
 <helpItems schema="maml" xmlns="http://msh">
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Set-DattoAPIKey</command:name>
+      <command:verb>Set</command:verb>
+      <command:noun>DattoAPIKey</command:noun>
+      <maml:description>
+        <maml:para>Sets the API public &amp; secret keys used to authenticate API calls.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Add-DattoAPIKey cmdlet sets the API public &amp; secret keys which are used to authenticate all API calls made to Datto.</maml:para>
+      <maml:para>Once the API public &amp; secret keys are defined, the secret key is encrypted using SecureString.</maml:para>
+      <maml:para>The Datto API public &amp; secret keys are generated via the Datto portal at Admin &gt; Integrations</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Set-DattoAPIKey</maml:name>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters />
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>N\A</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>Add-DattoAPIKey</dev:code>
+        <dev:remarks>
+          <maml:para>Prompts to enter in the API public key and secret key.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>Add-DattoAPIKey -Api_Key_Public '12345'</dev:code>
+        <dev:remarks>
+          <maml:para>The Datto API will use the string entered into the [ -Api_Key_Public ] parameter as the public key &amp; will then prompt to enter in the secret key.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>'12345' | Add-DattoAPIKey</dev:code>
+        <dev:remarks>
+          <maml:para>The Datto API will use the string entered as the secret key &amp; will prompt to enter in the public key.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/_Unique/Set-DattoAPIKey.html</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Add-DattoAPIKey.html</maml:linkText>
+        <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Add-DattoAPIKey.html</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Set-DattoBaseURI</command:name>
+      <command:verb>Set</command:verb>
+      <command:noun>DattoBaseURI</command:noun>
+      <maml:description>
+        <maml:para>Sets the base URI for the Datto API connection.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Add-DattoBaseURI cmdlet sets the base URI which is later used to construct the full URI for all API calls.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Set-DattoBaseURI</maml:name>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters />
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>N\A</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>Add-DattoBaseURI</dev:code>
+        <dev:remarks>
+          <maml:para>The base URI will use https://api.datto.com/v1 which is Datto's default URI.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>Add-DattoBaseURI -data_center US</dev:code>
+        <dev:remarks>
+          <maml:para>The base URI will use https://api.datto.com/v1 which is Datto's US URI.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>Add-DattoBaseURI -base_uri http://myapi.gateway.example.com</dev:code>
+        <dev:remarks>
+          <maml:para>A custom API gateway of http://myapi.gateway.example.com will be used for all API calls to Datto's API.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/_Unique/Set-DattoBaseURI.html</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Add-DattoBaseURI.html</maml:linkText>
+        <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Add-DattoBaseURI.html</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-DattoAgent</command:name>
       <command:verb>Get</command:verb>
       <command:noun>DattoAgent</command:noun>
@@ -2520,6 +2640,48 @@
       <maml:navigationLink>
         <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Import-DattoModuleSettings.html</maml:linkText>
         <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Import-DattoModuleSettings.html</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Initialize-DattoModule</command:name>
+      <command:verb>Initialize</command:verb>
+      <command:noun>DattoModule</command:noun>
+      <maml:description>
+        <maml:para>Initialize the DattoAPI module</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Invoke-DattoRequest cmdlet initialize the DattoAPI module when the imported into the users session.</maml:para>
+      <maml:para>Only used during the import of the module</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Initialize-DattoModule</maml:name>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters />
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>N\A</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>Initialize-DattoModule</dev:code>
+        <dev:remarks>
+          <maml:para>Initialize the DattoAPI module with starter values</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Initialize-DattoModule.html</maml:linkText>
+        <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/Internal/Initialize-DattoModule.html</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>

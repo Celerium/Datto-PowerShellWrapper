@@ -60,7 +60,7 @@ function Get-DattoAgent {
 #>
 
     [CmdletBinding(DefaultParameterSetName = 'index')]
-    [Alias('Get-DattoBCDRAgent')]
+    #[Alias('Get-DattoBCDRAgent')]
     Param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'indexByDevice')]
         [ValidateNotNullOrEmpty()]

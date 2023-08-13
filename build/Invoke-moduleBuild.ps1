@@ -23,24 +23,30 @@
     module into an output folder, various Pester & code coverage tests,
     markdown documentation and more.
 
-.PARAMETER Modules
-    Defines one or more modules to install
+.PARAMETER SourcePath
+    The path to the module folder, manifest or build.psd1
 
-.PARAMETER Update
-    Update the modules if they are already installed
+    The default value is ...\moduleName\moduleName.psd1
 
-.PARAMETER Force
-    Force install and or update modules
+.PARAMETER OutputDirectory
+    Where to build the module
+
+    The default value is ...\build\versions\1.2.3
+
+.PARAMETER Version
+    The module version (must be a valid System.Version such as PowerShell supports for modules)
+
+.PARAMETER UnversionedOutputDirectory
+    Overrides the VersionedOutputDirectory, producing an OutputDirectory without a version number as the last folder
 
 .EXAMPLE
-    .\build.ps1
+    .\Invoke-moduleBuild.ps1 -Version 1.2.3
 
-    Installs the prerequisites needed to build and test a Celerium PowerShell project.
-
-    No progress information is sent to the console while the script is running.
+    Compiles the module files located in ..\moduleName and builds
+    a combined module in ...\build\versions\1.2.3
 
 .INPUTS
-    Modules[String]
+    SourcePath[String]
 
 .OUTPUTS
     N\A
@@ -60,15 +66,22 @@
 
 #Region  [ Parameters ]
 
-[CmdletBinding(DefaultParameterSetName = 'Install', SupportsShouldProcess = $true)]
+[CmdletBinding(SupportsShouldProcess = $true)]
     param (
-        [Parameter(Mandatory=$false, ParameterSetName = 'Build', ValueFromPipeline = $true)]
+        [Parameter(Mandatory=$false, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
-        [String]$SourcePath = "$($PSScriptRoot | Split-Path)\Source\DattoAPI.psd1",
+        [String]$SourcePath = "$($PSScriptRoot | Split-Path)\DattoAPI\DattoAPI.psd1",
 
         [Parameter(Mandatory=$false)]
         [ValidateNotNullOrEmpty()]
-        [String]$Version = '2.0.1'
+        [String]$OutputDirectory = "$($PSScriptRoot | Split-Path)\build\versions",
+
+        [Parameter(Mandatory=$true)]
+        [ValidateNotNullOrEmpty()]
+        [String]$Version,
+
+        [Parameter(Mandatory=$false)]
+        [Switch]$UnversionedOutputDirectory
     )
 
 #EndRegion  [ Parameters ]
@@ -83,29 +96,27 @@ $StartDate = Get-Date
 
 #EndRegion  [ Prerequisites ]
 
-#Region     [ Main Code ]
+#Region     [ Build Module ]
 
-#$RootPath1 = $PSScriptRoot | Split-Path | Split-Path
-#$RootPath2 = $PSScriptRoot
-
-#Set-Variable -Name Testrootpath1 -Value $RootPath1 -Scope Global -Force
-#Set-Variable -Name Testrootpath2 -Value $RootPath2 -Scope Global -Force
-
-
+#Added because of weird Az DevOps issue
 if ( $PSVersionTable.PSVersion.Major -eq '5' ){
-    $SourcePath = "$($PSScriptRoot | Split-Path)\Source\DattoAPI.psd1"
+
+    $SourcePath         = "$($PSScriptRoot | Split-Path)\DattoAPI\DattoAPI.psd1"
+    $OutputDirectory    = "$($PSScriptRoot | Split-Path)\build\versions"
+
 }
 
-$params = @{
-    SourcePath = $SourcePath
-    #CopyPaths = @("$PSScriptRoot\README.md", "$PSScriptRoot\Source\KpInfo.nuspec")
-    Version = $Version
-    UnversionedOutputDirectory = $true
-}
+    $params = @{
+        SourcePath      = $SourcePath
+        OutputDirectory = $OutputDirectory
+        Version         = $Version
+        PublicFilter    = 'Private\*.ps1','Public\*.ps1'
+        UnversionedOutputDirectory = $UnversionedOutputDirectory
+    }
 
-Build-Module @params -Verbose
+    Build-Module @params -Verbose
 
-#EndRegion  [ Main Code ]
+#EndRegion  [ Build Module ]
 
 Write-Verbose ''
 Write-Verbose "END - $(Get-Date -Format yyyy-MM-dd-HH:mm)"

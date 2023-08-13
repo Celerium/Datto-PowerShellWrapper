@@ -24,8 +24,17 @@
     The Update-HelpContent script calls the Update-HelpContent script to
     update module markdown help files
 
+.PARAMETER moduleName
+    The name of the module to update help docs for
+
+.PARAMETER SourcePath
+    The source location of the module
+
+.PARAMETER githubPageUri
+    The github project url to inject into help docs
+
 .EXAMPLE
-    .\Update-HelpContent.ps1
+    .\Invoke-HelpContent.ps1
         -moduleName DattoAPI
         -helpDocsPath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs"
         -csvFilePath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\S1-Endpoints-v2.1.csv"
@@ -49,21 +58,58 @@
 <############################################################################################
                                         Code
 ############################################################################################>
-#Requires -Version 5.0
+#Requires -Version 5.1
+#Requires -Modules @{ ModuleName="platyPS"; ModuleVersion="0.14.2" }
 
-if ( [bool](Get-Command -Name Update-HelpContent -ErrorAction SilentlyContinue) ){
+#Region  [ Parameters ]
+
+[CmdletBinding(SupportsShouldProcess = $true)]
+    param (
+        [Parameter(Mandatory=$false)]
+        [ValidateNotNullOrEmpty()]
+        [String]$moduleName = 'DattoAPI',
+
+        [Parameter(Mandatory=$false, ValueFromPipeline = $true)]
+        [ValidateNotNullOrEmpty()]
+        [String]$SourcePath = $($PSScriptRoot | Split-Path),
+
+        [Parameter(Mandatory=$false)]
+        [ValidateNotNullOrEmpty()]
+        [String]$githubPageUri = "https://celerium.github.io/Datto-PowerShellWrapper"
+    )
+
+#EndRegion  [ Parameters ]
+
+Write-Verbose ''
+Write-Verbose "START - $(Get-Date -Format yyyy-MM-dd-HH:mm) - [ $($PSCmdlet.ParameterSetName) ]"
+Write-Verbose ''
+
+#Region     [ Prerequisites ]
+
+$StartDate = Get-Date
+
+#EndRegion  [ Prerequisites ]
+
+#Region  [ Update Help ]
+
+    Import-Module "$SourcePath\build\Update-HelpContent.ps1" -Force
 
     $parameters = @{
-        moduleName      = 'DattoAPI'
-        helpDocsPath    = "C:\Celerium\Projects\_API\Datto-PowerShellWrapper\docs"
-        csvFilePath     = "C:\Celerium\Projects\_API\Datto-PowerShellWrapper\docs\Endpoints.csv"
-        githubPageUri   = "https://celerium.github.io/Datto-PowerShellWrapper"
+        moduleName      = $moduleName
+        helpDocsPath    = "$SourcePath\docs"
+        csvFilePath     = "$SourcePath\docs\Endpoints.csv"
+        githubPageUri   = $githubPageUri
         verbose         = $true
     }
 
     Update-HelpContent @parameters
 
-}
-else{
-    Write-Error "The [ Update-HelpContent ] function was not found. Please import the function first"
-}
+#EndRegion  [ Update Help ]
+
+Write-Verbose ''
+Write-Verbose "END - $(Get-Date -Format yyyy-MM-dd-HH:mm)"
+Write-Verbose ''
+
+$TimeToComplete = New-TimeSpan -Start $StartDate -End (Get-Date)
+Write-Verbose 'Time to complete'
+Write-Verbose ($TimeToComplete | Select-Object * -ExcludeProperty Ticks,Total*,Milli* | Out-String)
