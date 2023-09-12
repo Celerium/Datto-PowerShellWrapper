@@ -7,7 +7,6 @@
 </h1>
 
 [![Az_Pipeline][Az_Pipeline-shield]][Az_Pipeline-url]
-[![Az_Coverage][Az_Coverage-shield]][Az_Coverage-url]
 [![GitHub_Pages][GitHub_Pages-shield]][GitHub_Pages-url]
 
 [![PoshGallery_Version][PoshGallery_Version-shield]][PoshGallery_Version-url]
@@ -244,8 +243,6 @@ Big thank you to the following people and services as they have provided me with
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[Az_Coverage-shield]:               https://img.shields.io/azure-devops/coverage/AzCelerium/DattoAPI/4?style=for-the-badge
-[Az_Coverage-url]:                  https://dev.azure.com/AzCelerium/DattoAPI/_build?definitionId=4
 
 [Az_Pipeline-shield]:               https://img.shields.io/azure-devops/build/AzCelerium/DattoAPI/4?style=for-the-badge&label=DevOps_Build
 [Az_Pipeline-url]:                  https://dev.azure.com/AzCelerium/DattoAPI/_build?definitionId=4
