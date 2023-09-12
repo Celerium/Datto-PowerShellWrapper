@@ -1,8 +1,8 @@
 <#
 .NOTES
-    Copyright 1990-2023 Celerium
+    Copyright 1990-2024 Celerium
 
-    NAME: build.ps1
+    NAME: Invoke-moduleBuild.ps1
     Type: PowerShell
 
         AUTHOR:  David Schulte
@@ -17,21 +17,18 @@
     Builds & prepares the PowerShell module for deployment
 
 .DESCRIPTION
-    The build script builds & prepares the PowerShell module for deployment
-
-    The builds runs through various workflows such as the creation of the
-    module into an output folder, various Pester & code coverage tests,
-    markdown documentation and more.
+    The Invoke-moduleBuild.ps1 script builds & prepares the PowerShell
+    module for deployment
 
 .PARAMETER SourcePath
     The path to the module folder, manifest or build.psd1
 
-    The default value is ...\moduleName\moduleName.psd1
+    Default value: .\moduleName\moduleName.psd1
 
 .PARAMETER OutputDirectory
     Where to build the module
 
-    The default value is ...\build\versions\1.2.3
+    Example: .\build\1.2.3
 
 .PARAMETER Version
     The module version (must be a valid System.Version such as PowerShell supports for modules)
@@ -43,7 +40,7 @@
     .\Invoke-moduleBuild.ps1 -Version 1.2.3
 
     Compiles the module files located in ..\moduleName and builds
-    a combined module in ...\build\versions\1.2.3
+    a combined module in ...\build\1.2.3
 
 .INPUTS
     SourcePath[String]
@@ -74,7 +71,7 @@
 
         [Parameter(Mandatory=$false)]
         [ValidateNotNullOrEmpty()]
-        [String]$OutputDirectory = "$($PSScriptRoot | Split-Path)\build\versions",
+        [String]$OutputDirectory = "$($PSScriptRoot | Split-Path)\build",
 
         [Parameter(Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -102,7 +99,7 @@ $StartDate = Get-Date
 if ( $PSVersionTable.PSVersion.Major -eq '5' ){
 
     $SourcePath         = "$($PSScriptRoot | Split-Path)\DattoAPI\DattoAPI.psd1"
-    $OutputDirectory    = "$($PSScriptRoot | Split-Path)\build\versions"
+    $OutputDirectory    = "$($PSScriptRoot | Split-Path)\build"
 
 }
 
@@ -115,6 +112,12 @@ if ( $PSVersionTable.PSVersion.Major -eq '5' ){
     }
 
     Build-Module @params -Verbose
+
+    #Replace & comment out NestedModules from nonBuilt module
+    $modulePath = "$OutputDirectory\DattoAPI\$Version\DattoAPI.psd1"
+
+    Update-Metadata -Path $modulePath -PropertyName NestedModules -Value  @()
+    (Get-Content -Path $modulePath -Raw) -replace 'NestedModules = @\(\)', '# NestedModules = @()' | Set-Content -Path $modulePath
 
 #EndRegion  [ Build Module ]
 

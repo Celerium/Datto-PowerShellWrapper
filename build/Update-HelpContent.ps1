@@ -1,111 +1,100 @@
+function Update-HelpContent {
 <#
-.NOTES
-    Copyright 2020-2023 Celerium
+    .NOTES
+        Copyright 1990-2024 Celerium
 
-    NAME: Update-HelpContent.ps1
-    Type: PowerShell
+        NAME: Update-HelpContent.ps1
+        Type: PowerShell
 
-        AUTHOR:  David Schulte
-        DATE:    2022-11-26
-        EMAIL:   celerium@celerium.org
-        Updated:
-        Date:
+            AUTHOR:  David Schulte
+            DATE:    2022-11-26
+            EMAIL:   celerium@celerium.org
+            Updated:
+            Date:
 
-    VERSION HISTORY:
-    0.1 - 2022-11-26 - Initial Release
+        TODO:
+        Find a better way to make\update the main module file, as of 2022-11 this script double generates markdown files
+        When run with PowerShell 7, examples with comma separated values turn into line breaks
 
-    TODO:
-    Find a better way to make\update the main module file, as of 2022-11 this script double generates markdown files
-    When run with PowerShell 7, examples with comma separated values turn into line breaks
-    Figure out how MS external help works
-        Do I even need to care about updatable online help?
+    .SYNOPSIS
+        Updates or creates markdown help files
 
-.SYNOPSIS
-    Updates or creates markdown help files
+    .DESCRIPTION
+        The Update-HelpContent script updates or creates markdown help files which are
+        used by both Github pages and as external help.
 
-.DESCRIPTION
-    The Update-HelpContent script updates or creates markdown help files which are
-    used by both Github pages and as external help.
+        The markdown documents created contain metadata that GitHub pages directly use
+        to build its entire documentation structure\site.
 
-    The markdown documents created contain metadata that GitHub pages directly use
-    to build its entire documentation structure\site.
+        This also generates external XML\cab help files.
+            - 2022-11: More research is needed to fully implement external help
 
-    This also generates external XML\cab help files.
-        - 2022-11: More research is needed to fully implement external help
+    .PARAMETER moduleName
+        The name of the module to generate help documents for
 
-.PARAMETER moduleName
-    The name of the module to generate help documents for
+        Example: DattoAPI
 
-    Example: DattoAPI
+    .PARAMETER helpDocsPath
+        Location to store the markdown help docs
 
-.PARAMETER helpDocsPath
-    Location to store the markdown help docs
+        All markdown help docs should be located outside the module folder.
+        Reference:
+            Yes - "Datto-PowerShellWrapper\docs"
+            NO  - "Datto-PowerShellWrapper\DattoAPI\docs"
 
-    All markdown help docs should be located outside the module folder.
-    Reference:
-        Yes - "Datto-PowerShellWrapper\docs"
-        NO  - "Datto-PowerShellWrapper\DattoAPI\docs"
+        Example: "C:\Celerium\Projects\Datto-PowerShellWrapper\docs"
 
-    Example: "C:\Celerium\Projects\Datto-PowerShellWrapper\docs"
+    .PARAMETER csvFilePath
+        Location where the tracking CSV is located including the CSV file name
 
-.PARAMETER csvFilePath
-    Location where the tracking CSV is located including the CSV file name
+        The tracking CSV should be located in "Datto-PowerShellWrapper\docs"
+        Reference:
+            Yes - "Datto-PowerShellWrapper\docs\S1-Endpoints-v2.1.csv"
+            NO  - "Datto-PowerShellWrapper\DattoAPI\docs\S1-Endpoints-v2.1.csv"
 
-    The tracking CSV should be located in "Datto-PowerShellWrapper\docs"
-    Reference:
-        Yes - "Datto-PowerShellWrapper\docs\S1-Endpoints-v2.1.csv"
-        NO  - "Datto-PowerShellWrapper\DattoAPI\docs\S1-Endpoints-v2.1.csv"
+        Example: "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\S1-Endpoints-v2.1.csv"
 
-    Example: "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\S1-Endpoints-v2.1.csv"
+    .PARAMETER githubPageUri
+        Base url of the modules github pages
 
-.PARAMETER githubPageUri
-    Base url of the modules github pages
+        Example: "https://celerium.github.io/Datto-PowerShellWrapper"
 
-    Example: "https://celerium.github.io/Datto-PowerShellWrapper"
+    .PARAMETER ShowHelpDocs
+        Opens the directory with the HelpDocs when completed
 
-.PARAMETER ShowHelpDocs
-    Opens the directory with the HelpDocs when completed
+    .EXAMPLE
+        .\Update-HelpContent.ps1
+            -moduleName DattoAPI
+            -helpDocsPath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs"
+            -csvFilePath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\S1-Endpoints-v2.1.csv"
+            -githubPageUri "https://celerium.github.io/Datto-PowerShellWrapper"
 
-.EXAMPLE
-    .\Update-HelpContent.ps1
-        -moduleName DattoAPI
-        -helpDocsPath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs"
-        -csvFilePath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\S1-Endpoints-v2.1.csv"
-        -githubPageUri "https://celerium.github.io/Datto-PowerShellWrapper"
+        Updates markdown docs and external help files
 
-    Updates markdown docs and external help files
+        No progress information is sent to the console while the script is running.
 
-    No progress information is sent to the console while the script is running.
+    .EXAMPLE
+        .\Update-HelpContent.ps1
+            -moduleName DattoAPI
+            -helpDocsPath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs"
+            -csvFilePath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\S1-Endpoints-v2.1.csv"
+            -githubPageUri "https://celerium.github.io/Datto-PowerShellWrapper"
+            -verbose
 
-.EXAMPLE
-    .\Update-HelpContent.ps1
-        -moduleName DattoAPI
-        -helpDocsPath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs"
-        -csvFilePath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\S1-Endpoints-v2.1.csv"
-        -githubPageUri "https://celerium.github.io/Datto-PowerShellWrapper"
-        -verbose
+        Updates markdown docs and external help files
 
-    Updates markdown docs and external help files
+        Progress information is sent to the console while the script is running.
 
-    Progress information is sent to the console while the script is running.
+    .INPUTS
+        helpDocsPath
 
-.INPUTS
-    helpDocsPath
+    .OUTPUTS
+        N\A
 
-.OUTPUTS
-    N\A
-
-.LINK
-    https://celerium.org
+    .LINK
+        https://celerium.org
 
 #>
-
-<############################################################################################
-                                        Code
-############################################################################################>
-#Requires -Version 5.0
-
-function Update-HelpContent {
 
 #Region  [ Parameters ]
 
@@ -170,18 +159,16 @@ Try{
         throw "The platyPS module was not found"
     }
 
-    Import-Module "C:\Celerium\Projects\_API\Datto-PowerShellWrapper\DattoAPI\DattoAPI.psd1" -Force -Verbose
-    $Commands = Get-Command -Module DattoAPI -ErrorAction Stop | Sort-Object Name
+    $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\build')) )"
+    $modulePath = "$rootPath\$moduleName"
 
-    <#
-        if (Get-InstalledModule -Name $moduleName -ErrorAction SilentlyContinue -Verbose:$false){
+        if (Test-Path -Path "$modulePath\DattoAPI.psd1"){
+            Import-Module -Name "$modulePath\DattoAPI.psd1" -Force -Verbose:$false
             $Commands = Get-Command -Module $moduleName -ErrorAction Stop | Sort-Object Name
-            Import-Module -Name $moduleName -Force -Verbose:$false
         }
         else{
-            throw "The $moduleName module was not found"
+            throw "The [ $moduleName ] module was not found"
         }
-        #>
 
     ForEach ($folder in $docFolders){
 
@@ -383,6 +370,10 @@ New-ExternalHelp -Path $helpFilePaths -OutputPath $externalHelp -Force > $null
 New-ExternalHelpCab -CabFilesFolder $externalHelp -LandingPagePath $modulePage -OutputFolder $externalHelpCab -IncrementHelpVersion > $null
 
 #EndRegion  [ External Help ]
+
+if (Get-Module -Name $moduleName){
+    Remove-Module -Name $moduleName -Force -Verbose:$false
+}
 
 #Open File Explorer to show doc output
 if ($ShowHelpDocs){

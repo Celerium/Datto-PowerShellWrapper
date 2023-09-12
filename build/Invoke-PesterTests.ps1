@@ -1,36 +1,125 @@
-
-
 <#
-#Invoke from external source
-$Container = New-PesterContainer -Path '.\Tests\Private\APIKey.Tests.ps1' -Data @{ 'Api_Key' = '12344' }
-Invoke-Pester -Container $Container -Output Detailed -TagFilter Add
+    .NOTES
+        Copyright 1990-2024 Celerium
 
-#Code Coverage
-$ContainerCC = New-PesterContainer -Path '.\Tests\Private\APIKey.Tests.ps1'
-Invoke-Pester -Container $ContainerCC -Output Detailed -TagFilter Add
+        NAME: Invoke-PesterTests.ps1
+        Type: PowerShell
+
+            AUTHOR:  David Schulte
+            DATE:    2023-04-1
+            EMAIL:   celerium@Celerium.org
+            Updated:
+            Date:
+
+        TODO:
+
+    .SYNOPSIS
+        Invoke Pester tests against all functions in a module
+
+    .DESCRIPTION
+        Invoke Pester tests against all functions in a module
+
+    .PARAMETER moduleName
+        The name of the local module to import
+
+        Default value: DattoAPI
+
+    .PARAMETER Version
+        The version of the local module to import
+
+    .PARAMETER ExcludeTag
+        Tags associated to test to skip
+
+    .PARAMETER buildTarget
+        Which version of the module to run tests against
+
+        Allowed values:
+            'built', 'notBuilt'
+
+    .PARAMETER Output
+        How detailed should the pester output be
+
+        Default value: Normal
+
+        Allowed values:
+            'Detailed', 'Diagnostic', 'Minimal', 'None', 'Normal'
+
+
+    .EXAMPLE
+        .\Invoke-PesterTests -moduleName DattoAPI -Version 1.2.3
+
+        Runs various pester tests against all functions in the module
+        and outputs the results to the console.
+
+        An XML of the tests is also output to the build directory
+
+    .INPUTS
+        N\A
+
+    .OUTPUTS
+        N\A
+
+    .LINK
+        https://celerium.org
+
 #>
 
-#$PesterPreference = [PesterConfiguration]::Default
-#$PesterPreference.CodeCoverage.Enabled = $true
+<############################################################################################
+                                        Code
+############################################################################################>
+#Requires -Version 5.1
+#Requires -Modules @{ ModuleName='Pester'; ModuleVersion='5.5.0' }
 
-#$pester_Configuration = New-PesterConfiguration
-#$pester_Configuration.CodeCoverage.Enabled = $true
-#$pester_Configuration.CodeCoverage.OutputPath = '.\ApiKey_Coverage.xml'
-#$pester_Configuration.CodeCoverage.OutputEncoding = 'utf8'
-#$pester_Configuration.CodeCoverage.OutputFormat = 'JaCoCo'
+#Region     [ Parameters ]
 
-<#
-$Test_Results = Invoke-Pester -Path .\Tests\Private\APIKey.Tests.ps1 `
-                    -CodeCoverage .\DattoAPI\Private\APIKey.ps1 `
-                    -CodeCoverageOutputFile '.\ApiKey_Coverage.xml' `
-                    -CodeCoverageOutputFileFormat JaCoCo -PassThru
-#>
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory = $false)]
+    [ValidateNotNullOrEmpty()]
+    [string]$moduleName = 'DattoAPI',
 
-$pester_defaultConfig = New-PesterConfiguration
+    [Parameter(Mandatory=$true)]
+    [ValidateNotNullOrEmpty()]
+    [string]$version,
 
-Set-Variable -Name test_defaultConfig -Value $pester_defaultConfig -Scope Global -Force
+    [Parameter(Mandatory=$false)]
+    [string[]]$ExcludeTag = 'PLACEHOLDER',
 
-$pester_Container = New-PesterContainer -Path '.\Tests\Private\APIKey.Tests.ps1' -Data @{ 'Api_Key' = '12345' }
+    [Parameter(Mandatory=$false)]
+    [ValidateSet('built','notBuilt')]
+    [string]$buildTarget = 'notBuilt',
+
+    [Parameter(Mandatory=$false)]
+    [ValidateSet('Detailed', 'Diagnostic', 'Minimal', 'None', 'Normal')]
+    [string]$output = 'Normal'
+)
+
+#EndRegion  [ Parameters ]
+
+#Region     [ Prerequisites ]
+
+try {
+
+    $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\build')) )"
+
+    switch ($buildTarget){
+        'built'     { $modulePath = "$rootPath\build\$moduleName\$version" }
+        'notBuilt'  { $modulePath = "$rootPath\$moduleName" }
+    }
+
+    $testPath = "$rootPath\Tests"
+
+}
+catch {
+    Write-Error $_
+    exit 1
+}
+
+#EndRegion  [ Prerequisites ]
+
+#Region     [ Pester Configuration ]
+
+$pester_Container = New-PesterContainer -Path $testPath -Data @{ 'moduleName' = $moduleName; 'Version' = $Version; 'buildTarget' = $buildTarget }
 
 $pester_Options = @{
 
@@ -39,45 +128,35 @@ $pester_Options = @{
         PassThru = $true
     }
 
-    CodeCoverage = @{
-        Enabled = $true
-        Path = ".\DattoAPI\Private\APIKey.ps1"
-        OutputPath = '.\ApiKey_Coverage.xml'
-        OutputFormat = 'JaCoCo'
-        OutputEncoding = 'UTF8'
+    Filter = @{
+        ExcludeTag = $ExcludeTag
     }
+
     TestResult = @{
         Enabled = $true
-        OutputPath = '.\ApiKey_Test.xml'
         OutputFormat = 'NUnitXml'
+        OutputPath = ".\build\$($moduleName)_Results.xml"
         OutputEncoding = 'UTF8'
     }
 
+    Should = @{
+        ErrorAction = 'Continue'
+    }
+
     Output = @{
-        Verbosity = 'Detailed'
+        Verbosity = $output
     }
 
 }
 
-$pester_Configuration = New-PesterConfiguration -Hashtable $pester_Options
+    $pester_Configuration = New-PesterConfiguration -Hashtable $pester_Options
 
-$Test_Results = Invoke-Pester -Configuration $pester_Configuration
+#EndRegion  [ Pester Configuration ]
 
-Set-Variable -Name Test_Results -Value $Test_Results -Scope Global -Force
+#Region     [ Pester Invoke ]
 
-#$pester_Configuration.Run.Container = $pester_Container
+$pester_Results = Invoke-Pester -Configuration $pester_Configuration
+    Set-Variable -Name Invoke_PesterResults -Value $pester_Results -Scope Global -Force
 
-#$Test_Results = Invoke-Pester -Configuration $pester_Configuration
+#EndRegion  [ Pester Invoke ]
 
-#$Test_Results = Invoke-Pester -Container $pester_Container
-
-#$pester_Configuration = New-PesterConfiguration
-#$pester_Configuration.CodeCoverage.Enabled = $true
-#$pester_Configuration.CodeCoverage.OutputPath = '.\ApiKey_Coverage.xml'
-#$pester_Configuration.CodeCoverage.OutputEncoding = 'utf8'
-#$pester_Configuration.CodeCoverage.OutputFormat = 'JaCoCo'
-
-
-
-
-#$Test_Results = Invoke-Pester -Path .\Tests\Private\APIKey.Tests.ps1 - .\DattoAPI\Private\APIKey.ps1 -PassThru

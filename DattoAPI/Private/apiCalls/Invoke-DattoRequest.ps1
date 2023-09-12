@@ -84,6 +84,11 @@ function Invoke-DattoRequest {
 
     process{
 
+        # Load Web assembly when needed as PowerShell Core has the assembly preloaded
+        if ( !("System.Web.HttpUtility" -as [Type]) ) {
+            Add-Type -Assembly System.Web
+        }
+
         $query_string = ConvertTo-DattoQueryString -uri_Filter $uri_Filter -resource_Uri $resource_Uri
 
         Set-Variable -Name 'Datto_queryString' -Value $query_string -Scope Global -Force
@@ -101,7 +106,7 @@ function Invoke-DattoRequest {
             $parameters = [ordered] @{
                 "Method"    = $method
                 "Uri"       = $query_string.Uri
-                "Headers"   = @{ 'Authorization' = 'Basic {0}'-f $Api_Token_base64 }
+                "Headers"   = @{ 'Authorization' = 'Basic {0}'-f $Api_Token_base64; 'Content-Type' = 'application/json' }
                 "Body"      = $body
             }
             Set-Variable -Name 'Datto_invokeParameters' -Value $parameters -Scope Global -Force
@@ -149,7 +154,7 @@ function Invoke-DattoRequest {
 
         }
         finally {
-            [void] ( $Datto_Headers.Remove('Authorization') )
+            [void] ( $Datto_invokeParameters.Remove('Authorization') )
         }
 
 

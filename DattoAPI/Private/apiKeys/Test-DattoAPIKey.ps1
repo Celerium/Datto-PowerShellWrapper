@@ -43,40 +43,47 @@ function Test-DattoAPIKey {
         [string]$base_uri = $Datto_Base_URI
     )
 
-    $resource_uri = "/bcdr/agent"
+    Begin{ $resource_uri = "/bcdr/agent" }
 
-    try {
+    Process{
 
-        $Api_Token = Get-DattoAPIKey -plainText
-        $Api_Token_base64 = [Convert]::ToBase64String( [Text.Encoding]::ASCII.GetBytes( ("{0}:{1}" -f ($Api_Token).PublicKey,($Api_Token).SecretKey) ) )
+        try {
 
-        $Datto_Headers.Add('Authorization', 'Basic {0}'-f $Api_Token_base64)
+            $Api_Token = Get-DattoAPIKey -plainText
+            $Api_Token_base64 = [Convert]::ToBase64String( [Text.Encoding]::ASCII.GetBytes( ("{0}:{1}" -f ($Api_Token).PublicKey,($Api_Token).SecretKey) ) )
 
-        $rest_output = Invoke-WebRequest -method Get -uri ($base_uri + $resource_uri) -headers $Datto_Headers -ErrorAction Stop
-    }
-    catch {
+            $Datto_Headers.Add('Authorization', 'Basic {0}'-f $Api_Token_base64)
 
-        [PSCustomObject]@{
-            Method = $_.Exception.Response.Method
-            StatusCode = $_.Exception.Response.StatusCode.value__
-            StatusDescription = $_.Exception.Response.StatusDescription
-            Message = $_.Exception.Message
-            URI = $($Datto_Base_URI + $resource_uri)
+            $rest_output = Invoke-WebRequest -method Get -uri ($base_uri + $resource_uri) -headers $Datto_Headers -ErrorAction Stop
+        }
+        catch {
+
+            [PSCustomObject]@{
+                Method = $_.Exception.Response.Method
+                StatusCode = $_.Exception.Response.StatusCode.value__
+                StatusDescription = $_.Exception.Response.StatusDescription
+                Message = $_.Exception.Message
+                URI = $($Datto_Base_URI + $resource_uri)
+            }
+
+        }
+        finally {
+            [void] ( $Datto_Headers.Remove('Authorization') )
+        }
+
+        if ($rest_output){
+            $data = @{}
+            $data = $rest_output
+
+            [PSCustomObject]@{
+                StatusCode = $data.StatusCode
+                StatusDescription = $data.StatusDescription
+                URI = $($Datto_Base_URI + $resource_uri)
+            }
         }
 
     }
-    finally {
-        [void] ( $Datto_Headers.Remove('Authorization') )
-    }
 
-    if ($rest_output){
-        $data = @{}
-        $data = $rest_output
+    End{}
 
-        [PSCustomObject]@{
-            StatusCode = $data.StatusCode
-            StatusDescription = $data.StatusDescription
-            URI = $($Datto_Base_URI + $resource_uri)
-        }
-    }
 }

@@ -50,16 +50,25 @@ function Add-DattoBaseURI {
         [String]$data_center
     )
 
-    # Trim superfluous forward slash from address (if applicable)
-    if ($base_uri[$base_uri.Length-1] -eq "/") {
-        $base_uri = $base_uri.Substring(0,$base_uri.Length-1)
+    Begin{}
+
+    Process{
+
+        # Trim superfluous forward slash from address (if applicable)
+        if ($base_uri[$base_uri.Length-1] -eq "/") {
+            $base_uri = $base_uri.Substring(0,$base_uri.Length-1)
+        }
+
+        switch ($data_center) {
+            'US' { $base_uri = 'https://api.datto.com/v1' }
+        }
+
+        Set-Variable -Name "Datto_Base_URI" -Value $base_uri -Option ReadOnly -Scope global -Force
+
     }
 
-    switch ($data_center) {
-        'US' { $base_uri = 'https://api.datto.com/v1' }
-    }
+    end{}
 
-    Set-Variable -Name "Datto_Base_URI" -Value $base_uri -Option ReadOnly -Scope global -Force
 }
 
 New-Alias -Name Set-DattoBaseURI -Value Add-DattoBaseURI

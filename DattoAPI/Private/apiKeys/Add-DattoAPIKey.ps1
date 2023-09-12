@@ -51,18 +51,26 @@ function Add-DattoAPIKey {
         [string]$Api_Key_Secret
     )
 
-    if ($Api_Key_Secret) {
-        $x_api_key = ConvertTo-SecureString $Api_Key_Secret -AsplainText -Force
+    Begin{}
 
-        Set-Variable -Name "Datto_Public_Key" -Value $Api_Key_Public -Option ReadOnly -Scope global -Force
-        Set-Variable -Name "Datto_Secret_Key" -Value $x_api_key -Option ReadOnly -Scope global -Force
-    }
-    else {
-        $x_api_key = Read-Host -Prompt 'Please enter your API key' -AsSecureString
+    Process{
 
-        Set-Variable -Name "Datto_Public_Key" -Value $Api_Key_Public -Option ReadOnly -Scope global -Force
-        Set-Variable -Name "Datto_Secret_Key" -Value $x_api_key -Option ReadOnly -Scope global -Force
+        if ($Api_Key_Secret) {
+            $x_api_key = ConvertTo-SecureString $Api_Key_Secret -AsPlainText -Force
+
+            Set-Variable -Name "Datto_Public_Key" -Value $Api_Key_Public -Option ReadOnly -Scope global -Force
+            Set-Variable -Name "Datto_Secret_Key" -Value $x_api_key -Option ReadOnly -Scope global -Force
+        }
+        else {
+            $x_api_key = Read-Host -Prompt 'Please enter your API key' -AsSecureString
+
+            Set-Variable -Name "Datto_Public_Key" -Value $Api_Key_Public -Option ReadOnly -Scope global -Force
+            Set-Variable -Name "Datto_Secret_Key" -Value $x_api_key -Option ReadOnly -Scope global -Force
+        }
+
     }
+
+    End{}
 }
 
 New-Alias -Name Set-DattoAPIKey -Value Add-DattoAPIKey -Force

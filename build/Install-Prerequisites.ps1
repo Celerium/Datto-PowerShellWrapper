@@ -1,6 +1,6 @@
 <#
 .NOTES
-    Copyright 1990-2023 Celerium
+    Copyright 1990-2024 Celerium
 
     NAME: Install-Prerequisites.ps1
     Type: PowerShell
@@ -55,7 +55,6 @@
                                         Code
 ############################################################################################>
 #Requires -Version 5.1
-<# #Requires -RunAsAdministrator #>
 
 #Region  [ Parameters ]
 

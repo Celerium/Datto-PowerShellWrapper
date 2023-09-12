@@ -52,6 +52,9 @@ function Export-DattoModuleSettings {
         [string]$DattoConfFile = 'config.psd1'
     )
 
+    Write-Warning "Secrets are stored using Windows Data Protection API (DPAPI)"
+    Write-Warning "DPAPI provides user context encryption in Windows but NOT in other operating systems like Linux or UNIX. It is recommended to use a more secure & cross-platform storage method"
+
     # Confirm variables exist and are not null before exporting
     if ($Datto_Base_URI -and $Datto_Public_Key -and $Datto_Secret_Key -and $Datto_JSON_Conversion_Depth) {
         $secureString = $Datto_Secret_Key | ConvertFrom-SecureString

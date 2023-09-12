@@ -11,11 +11,7 @@
         Updated:
         Date:
 
-    VERSION HISTORY:
-    0.1 - 2022-11-26 - Initial Release
-
     TODO:
-    N\A
 
 .SYNOPSIS
     Calls the Update-HelpContent script to update module markdown help files
@@ -92,7 +88,7 @@ $StartDate = Get-Date
 
 #Region  [ Update Help ]
 
-    Import-Module "$SourcePath\build\Update-HelpContent.ps1" -Force
+    Import-Module "$SourcePath\build\Update-HelpContent.ps1" -Force -Verbose:$false
 
     $parameters = @{
         moduleName      = $moduleName

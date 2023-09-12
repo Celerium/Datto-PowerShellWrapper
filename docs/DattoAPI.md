@@ -1,7 +1,7 @@
 ---
 parent: Home 
 Module Name: DattoAPI
-Module Guid: d536355d-2a81-444f-9e08-9eeeda6db819 d536355d-2a81-444f-9e08-9eeeda6db819 d536355d-2a81-444f-9e08-9eeeda6db819
+Module Guid: d536355d-2a81-444f-9e08-9eeeda6db819
 Download Help Link: https://celerium.github.io/Datto-PowerShellWrapper/docs/cab
 Help Version: 1.0.0.0
 Locale: en-US
@@ -74,9 +74,6 @@ Gets an asset(s)(agent or share) for a specific volume on a device
 
 ### [Import-DattoModuleSettings](site/Internal/Import-DattoModuleSettings.md)
 Imports the Datto BaseURI, API, & JSON configuration information to the current session.
-
-### [Initialize-DattoModule](site/Internal/Initialize-DattoModule.md)
-Initialize the DattoAPI module
 
 ### [Invoke-DattoRequest](site/Internal/Invoke-DattoRequest.md)
 Makes an API request
