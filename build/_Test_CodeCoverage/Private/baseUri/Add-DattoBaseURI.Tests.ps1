@@ -58,11 +58,7 @@ param (
 
     [Parameter(Mandatory=$true)]
     [ValidateNotNullOrEmpty()]
-    [String]$version,
-
-    [Parameter(Mandatory=$true)]
-    [ValidateSet('built','notBuilt')]
-    [string]$buildTarget
+    [String]$version
 )
 
 #EndRegion  [ Parameters ]
@@ -73,32 +69,33 @@ param (
     BeforeAll {
 
         $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\Tests')) )"
+        #$modulePath = "$rootPath\build\versions\$moduleName\$version"
+        $scriptPath = "$rootPath\$moduleName\Private\baseUri\"
 
-        switch ($buildTarget){
-            'built'     { $modulePath = "$rootPath\build\$moduleName\$version" }
-            'notBuilt'  { $modulePath = "$rootPath\$moduleName" }
-        }
+        $import_Scripts = Get-ChildItem -Path $scriptPath
 
-        if (Get-Module -Name $moduleName){
-            Remove-Module -Name $moduleName -Force
-        }
-        Import-Module -Name "$modulePath\$moduleName.psd1" -ErrorAction Stop -ErrorVariable moduleError *> $null
+        Foreach ($script in $import_Scripts){
 
-        if ($moduleError){
-            $moduleError
-            exit 1
+            if (Get-Module -Name $script.BaseName){
+                Remove-Module -Name $script.BaseName -Force
+            }
+            Import-Module $script.FullName -ErrorAction Stop -ErrorVariable moduleError *> $null
+
+            if ($moduleError){
+                $moduleError
+                exit 1
+            }
+
         }
 
     }
 
     AfterAll{
-
-        Remove-DattoAPIKey -WarningAction SilentlyContinue
-
-        if (Get-Module -Name $moduleName){
-            Remove-Module -Name $moduleName -Force
+        Foreach ($script in $import_Scripts){
+            if (Get-Module -Name $script.BaseName){
+                Remove-Module -Name $script.BaseName -Force
+            }
         }
-
     }
 
 #Available in Describe and Context but NOT It

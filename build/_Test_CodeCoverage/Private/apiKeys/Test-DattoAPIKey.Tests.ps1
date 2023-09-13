@@ -93,10 +93,13 @@ param (
 
     AfterAll{
 
+        Remove-DattoBaseUri -WarningAction SilentlyContinue
         Remove-DattoAPIKey -WarningAction SilentlyContinue
 
-        if (Get-Module -Name $moduleName){
-            Remove-Module -Name $moduleName -Force
+        Foreach ($script in $import_Scripts){
+            if (Get-Module -Name $script.BaseName){
+                Remove-Module -Name $script.BaseName -Force
+            }
         }
 
     }
@@ -117,35 +120,33 @@ Describe "Testing [ $commandName ] function with [ $pester_TestName ]" {
 
     Context "[ $commandName ] testing function" {
 
-        It "Running [ $commandName ] should remove all apiKey variables" {
+        <#
+        It "[ -base_uri ] without input should be the default uri" {
+            Add-DattoBaseUri
             Add-DattoAPIKey -Api_Key_Public '12345' -Api_Key_Secret "DattoApiKey"
-            Remove-DattoAPIKey
-            $Datto_Public_Key | Should -BeNullOrEmpty
-            $Datto_Secret_Key | Should -BeNullOrEmpty
+
+            Test-DattoApiKey -ErrorAction SilentlyContinue
+            $base_uri | Should -Be 'https://api.datto.com/v1'
+
         }
 
-        It "If the [ Datto_Public_Key ] is already empty a warning should be thrown" {
+        It "[ -base_uri ] without input should test the agents endpoint" {
+            Add-DattoBaseUri
             Add-DattoAPIKey -Api_Key_Public '12345' -Api_Key_Secret "DattoApiKey"
-            Remove-Variable -Name "Datto_Public_Key" -Scope global -Force
 
-            Remove-DattoAPIKey -WarningAction SilentlyContinue -WarningVariable apiKeyWarning
-            $apiKeyWarning | Should -Be "The Datto API [ public ] key is not set. Nothing to remove"
+            Test-DattoApiKey -ErrorAction SilentlyContinue
+            $base_uri + $resource_uri | Should -Be 'https://api.datto.com/v1/bcdr/agent'
+
         }
+        #>
 
-        It "If the [ Datto_Secret_Key ] is already empty a warning should be thrown" {
-            Add-DattoAPIKey -Api_Key_Public '12345' -Api_Key_Secret "DattoApiKey"
-            Remove-Variable -Name "Datto_Secret_Key" -Scope global -Force
-
-            Remove-DattoAPIKey -WarningAction SilentlyContinue -WarningVariable apiKeyWarning
-            $apiKeyWarning | Should -Be "The Datto API [ secret ] key is not set. Nothing to remove"
-        }
-
-        It "If the apiKeys are already gone two warnings should be thrown" {
+        It "[ Test-DattoAPIKey ] with a bad API key should fail to authenticate" {
+            Add-DattoBaseUri
             Add-DattoAPIKey -Api_Key_Public '12345' -Api_Key_Secret "DattoApiKey"
             Remove-DattoAPIKey
 
-            Remove-DattoAPIKey -WarningAction SilentlyContinue -WarningVariable apiKeyWarning
-            $apiKeyWarning.Count | Should -Be '2'
+            $Value = Test-DattoAPIKey 3>$null
+            $Value.Message | Should -BeLike '*(401) Unauthorized*'
         }
 
     }

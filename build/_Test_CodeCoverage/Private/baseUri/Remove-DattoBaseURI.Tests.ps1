@@ -1,9 +1,9 @@
 <#
     .SYNOPSIS
-        Pester tests for the DattoAPI apiKeys functions
+        Pester tests for the DattoAPI baseURI functions
 
     .DESCRIPTION
-        Pester tests for the DattoAPI apiKeys functions
+        Pester tests for the DattoAPI baseURI functions
 
     .PARAMETER moduleName
         The name of the local module to import
@@ -18,12 +18,12 @@
             'built', 'notBuilt'
 
     .EXAMPLE
-        Invoke-Pester -Path .\Tests\Private\apiKeys\Remove-DattoAPIKey.Tests.ps1
+        Invoke-Pester -Path .\Tests\Private\baseUri\Remove-DattoBaseURI.Tests.ps1
 
         Runs a pester test and outputs simple results
 
     .EXAMPLE
-        Invoke-Pester -Path .\Tests\Private\apiKeys\Remove-DattoAPIKey.Tests.ps1 -Output Detailed
+        Invoke-Pester -Path .\Tests\Private\baseUri\Remove-DattoBaseURI.Tests.ps1 -Output Detailed
 
         Runs a pester test and outputs detailed results
 
@@ -58,11 +58,7 @@ param (
 
     [Parameter(Mandatory=$true)]
     [ValidateNotNullOrEmpty()]
-    [String]$version,
-
-    [Parameter(Mandatory=$true)]
-    [ValidateSet('built','notBuilt')]
-    [string]$buildTarget
+    [String]$version
 )
 
 #EndRegion  [ Parameters ]
@@ -72,40 +68,34 @@ param (
 #Available inside It but NOT Describe or Context
     BeforeAll {
 
-        Set-Variable -Name PSCommandPath123 -Value $PSCommandPath -Scope Global -Force
-
         $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\Tests')) )"
+        #$modulePath = "$rootPath\build\versions\$moduleName\$version"
+        $scriptPath = "$rootPath\$moduleName\Private\baseUri\"
 
-        Set-Variable -Name rootPath123 -Value $rootPath -Scope Global -Force
+        $import_Scripts = Get-ChildItem -Path $scriptPath
 
-        switch ($buildTarget){
-            'built'     { $modulePath = "$rootPath\build\$moduleName\$version" }
-            'notBuilt'  { $modulePath = "$rootPath\$moduleName" }
-        }
+        Foreach ($script in $import_Scripts){
 
-        if (Get-Module -Name $moduleName){
-            Remove-Module -Name $moduleName -Force
-        }
-        Import-Module -Name "$modulePath\$moduleName.psd1" -ErrorAction Stop -ErrorVariable moduleError *> $null
+            if (Get-Module -Name $script.BaseName){
+                Remove-Module -Name $script.BaseName -Force
+            }
+            Import-Module $script.FullName -ErrorAction Stop -ErrorVariable moduleError *> $null
 
-        if ($moduleError){
-            $moduleError
-            exit 1
+            if ($moduleError){
+                $moduleError
+                exit 1
+            }
+
         }
 
     }
 
     AfterAll{
-
-        Remove-DattoBaseUri -WarningAction SilentlyContinue
-        Remove-DattoAPIKey -WarningAction SilentlyContinue
-
         Foreach ($script in $import_Scripts){
             if (Get-Module -Name $script.BaseName){
                 Remove-Module -Name $script.BaseName -Force
             }
         }
-
     }
 
 
@@ -124,12 +114,17 @@ Describe "Testing [ $commandName ] function with [ $pester_TestName ]" {
 
     Context "[ $commandName ] testing function" {
 
-        It "[ Test-DattoAPIKey ] with a bad API key should fail to authenticate" {
-            Add-DattoBaseUri
-            Add-DattoAPIKey -Api_Key_Public '12345' -Api_Key_Secret "DattoApiKey"
+        It "The baseUri variable should not longer exist" {
+            Add-DattoBaseURI
+            Remove-DattoBaseURI
+            $Datto_Base_URI | Should -BeNullOrEmpty
+        }
 
-            $Value = Test-DattoAPIKey 3>$null
-            $Value.Message | Should -BeLike '*(401) Unauthorized*'
+        It "If the baseUri is already gone a warning should be thrown" {
+            Add-DattoBaseURI
+            Remove-DattoBaseURI
+            Remove-DattoBaseURI -WarningAction SilentlyContinue -WarningVariable baseUriWarning
+            [bool]$baseUriWarning | Should -BeTrue
         }
 
     }

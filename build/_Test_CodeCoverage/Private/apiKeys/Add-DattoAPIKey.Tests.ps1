@@ -18,12 +18,12 @@
             'built', 'notBuilt'
 
     .EXAMPLE
-        Invoke-Pester -Path .\Tests\Private\apiKeys\Remove-DattoAPIKey.Tests.ps1
+        Invoke-Pester -Path .\Tests\Private\apiKeys\Get-DattoAPIKey.Tests.ps1
 
         Runs a pester test and outputs simple results
 
     .EXAMPLE
-        Invoke-Pester -Path .\Tests\Private\apiKeys\Remove-DattoAPIKey.Tests.ps1 -Output Detailed
+        Invoke-Pester -Path .\Tests\Private\apiKeys\Get-DattoAPIKey.Tests.ps1 -Output Detailed
 
         Runs a pester test and outputs detailed results
 
@@ -101,7 +101,6 @@ param (
 
     }
 
-
 #Available in Describe and Context but NOT It
 #Can be used in [ It ] with [ -TestCases @{ VariableName = $VariableName } ]
     BeforeDiscovery{
@@ -113,39 +112,33 @@ param (
 
 #EndRegion  [ Prerequisites ]
 
-Describe "Testing [ $commandName ] function with [ $pester_TestName ]" {
 
-    Context "[ $commandName ] testing function" {
+Describe "Testing [ $commandName ] functions with [ $pester_TestName ]" {
 
-        It "Running [ $commandName ] should remove all apiKey variables" {
-            Add-DattoAPIKey -Api_Key_Public '12345' -Api_Key_Secret "DattoApiKey"
-            Remove-DattoAPIKey
+    Context "[ $commandName ] testing functions" {
+
+        It "[ $commandName ] should have an alias of [ Set-DattoAPIKey ]" {
+            Get-Alias -Name Set-DattoAPIKey | Should -BeTrue
+        }
+
+        It "The Datto_Public_Key variable should initially be empty or null" {
             $Datto_Public_Key | Should -BeNullOrEmpty
+            Remove-DattoAPIKey -WarningAction SilentlyContinue
+        }
+
+        It "The Datto_Secret_Key variable should initially be empty or null" {
             $Datto_Secret_Key | Should -BeNullOrEmpty
+            Remove-DattoAPIKey -WarningAction SilentlyContinue
         }
 
-        It "If the [ Datto_Public_Key ] is already empty a warning should be thrown" {
-            Add-DattoAPIKey -Api_Key_Public '12345' -Api_Key_Secret "DattoApiKey"
-            Remove-Variable -Name "Datto_Public_Key" -Scope global -Force
-
-            Remove-DattoAPIKey -WarningAction SilentlyContinue -WarningVariable apiKeyWarning
-            $apiKeyWarning | Should -Be "The Datto API [ public ] key is not set. Nothing to remove"
+        It "[ -Api_Key_Secret ] should accept a value from the pipeline" {
+            "DattoApiKey" | Add-DattoAPIKey -Api_Key_Public '12345'
+            Get-DattoAPIKey | Should -Not -BeNullOrEmpty
         }
 
-        It "If the [ Datto_Secret_Key ] is already empty a warning should be thrown" {
+        It "When both parameters [ -Api_Key_Public ] & [ -Api_Key_Secret ] are called they should not return empty" {
             Add-DattoAPIKey -Api_Key_Public '12345' -Api_Key_Secret "DattoApiKey"
-            Remove-Variable -Name "Datto_Secret_Key" -Scope global -Force
-
-            Remove-DattoAPIKey -WarningAction SilentlyContinue -WarningVariable apiKeyWarning
-            $apiKeyWarning | Should -Be "The Datto API [ secret ] key is not set. Nothing to remove"
-        }
-
-        It "If the apiKeys are already gone two warnings should be thrown" {
-            Add-DattoAPIKey -Api_Key_Public '12345' -Api_Key_Secret "DattoApiKey"
-            Remove-DattoAPIKey
-
-            Remove-DattoAPIKey -WarningAction SilentlyContinue -WarningVariable apiKeyWarning
-            $apiKeyWarning.Count | Should -Be '2'
+            Get-DattoAPIKey | Should -Not -BeNullOrEmpty
         }
 
     }
