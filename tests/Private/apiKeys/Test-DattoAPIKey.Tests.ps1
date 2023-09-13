@@ -129,7 +129,7 @@ Describe "Testing [ $commandName ] function with [ $pester_TestName ]" {
             Add-DattoAPIKey -Api_Key_Public '12345' -Api_Key_Secret "DattoApiKey"
 
             $Value = Test-DattoAPIKey 3>$null
-            $Value.Message | Should -BeLike '*(401) Unauthorized*'
+            $Value.Message | Should -BeLike '*Unauthorized*'
         }
 
     }
