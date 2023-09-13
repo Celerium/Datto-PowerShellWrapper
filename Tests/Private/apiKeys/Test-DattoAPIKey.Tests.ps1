@@ -72,7 +72,11 @@ param (
 #Available inside It but NOT Describe or Context
     BeforeAll {
 
-        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\Tests')) )"
+        Set-Variable -Name PSCommandPath123 -Value $PSCommandPath -Scope Global -Force
+
+        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\tests')) )"
+
+        Set-Variable -Name rootPath123 -Value $rootPath -Scope Global -Force
 
         switch ($buildTarget){
             'built'     { $modulePath = "$rootPath\build\$moduleName\$version" }
