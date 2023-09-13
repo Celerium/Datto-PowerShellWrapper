@@ -68,7 +68,7 @@ param (
 #Available inside It but NOT Describe or Context
     BeforeAll {
 
-        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\tests')) )"
+        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\tests', [System.StringComparison]::OrdinalIgnoreCase)) )"
         #$modulePath = "$rootPath\build\versions\$moduleName\$version"
         $scriptPath = "$rootPath\$moduleName\Private\baseUri\"
 

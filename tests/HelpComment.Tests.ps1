@@ -87,7 +87,7 @@ param (
 #Can be used in [ It ] with [ -TestCases @{ VariableName = $VariableName } ]
     BeforeDiscovery{
 
-        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\tests')) )"
+        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\tests', [System.StringComparison]::OrdinalIgnoreCase)) )"
         $pester_TestName = (Get-Item -Path $PSCommandPath).Name
 
         switch ($buildTarget){
