@@ -88,6 +88,11 @@ $StartDate = Get-Date
 
 #Region  [ Update Help ]
 
+#Added because of weird Az DevOps issue
+if ( $PSVersionTable.PSVersion.Major -eq '5' ){
+    $SourcePath = "$($PSScriptRoot | Split-Path)"
+}
+
     Import-Module "$SourcePath\build\Update-HelpContent.ps1" -Force -Verbose:$false
 
     $parameters = @{
