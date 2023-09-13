@@ -630,6 +630,8 @@ function Test-DattoAPIKey {
             $Api_Token = Get-DattoAPIKey -plainText
             $Api_Token_base64 = [Convert]::ToBase64String( [Text.Encoding]::ASCII.GetBytes( ("{0}:{1}" -f ($Api_Token).PublicKey,($Api_Token).SecretKey) ) )
 
+            $Datto_Headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+            $Datto_Headers.Add("Content-Type", 'application/json')
             $Datto_Headers.Add('Authorization', 'Basic {0}'-f $Api_Token_base64)
 
             $rest_output = Invoke-WebRequest -method Get -uri ($base_uri + $resource_uri) -headers $Datto_Headers -ErrorAction Stop
@@ -646,7 +648,7 @@ function Test-DattoAPIKey {
 
         }
         finally {
-            [void] ( $Datto_Headers.Remove('Authorization') )
+            Remove-Variable -Name Datto_Headers -Force
         }
 
         if ($rest_output){
@@ -665,7 +667,7 @@ function Test-DattoAPIKey {
     End{}
 
 }
-#EndRegion '.\Private\apiKeys\Test-DattoAPIKey.ps1' 90
+#EndRegion '.\Private\apiKeys\Test-DattoAPIKey.ps1' 92
 #Region '.\Private\baseUri\Add-DattoBaseURI.ps1' 0
 function Add-DattoBaseURI {
 <#
