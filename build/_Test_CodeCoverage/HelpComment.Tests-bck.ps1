@@ -81,7 +81,7 @@ param (
 #Can be used in [ It ] with [ -TestCases @{ VariableName = $VariableName } ]
     BeforeDiscovery{
 
-        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\Tests')) )"
+        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\tests')) )"
         $pester_TestName = (Get-Item -Path $PSCommandPath).Name
         $commandName = $pester_TestName -replace '.Tests.ps1',''
 
@@ -103,7 +103,7 @@ param (
 #Available inside It but NOT Describe or Context
     BeforeAll {
 
-        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\Tests')) )"
+        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\tests')) )"
 
         switch ($buildTarget){
             'built'     { $modulePath = "$rootPath\build\$moduleName\$version" }

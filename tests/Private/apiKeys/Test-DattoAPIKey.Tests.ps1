@@ -74,7 +74,7 @@ param (
 
         Set-Variable -Name PSCommandPath123 -Value $PSCommandPath -Scope Global -Force
 
-        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\Tests')) )"
+        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\tests')) )"
 
         Set-Variable -Name rootPath123 -Value $rootPath -Scope Global -Force
 

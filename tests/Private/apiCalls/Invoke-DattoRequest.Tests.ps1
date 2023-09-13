@@ -72,7 +72,7 @@ param (
 #Available inside It but NOT Describe or Context
     BeforeAll {
 
-        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\Tests')) )"
+        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\tests')) )"
 
         switch ($buildTarget){
             'built'     { $modulePath = "$rootPath\build\$moduleName\$version" }
