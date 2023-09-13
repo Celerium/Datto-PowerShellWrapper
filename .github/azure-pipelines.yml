@@ -27,15 +27,6 @@ jobs:
         filePath: $(Build.SourcesDirectory)/build/Install-Prerequisites.ps1
 
     - task: PowerShell@2
-      displayName: Pester Tests - notBuilt
-      name: PesterTestsnotBuilt
-      inputs:
-        pwsh: false
-        targetType: filePath
-        filePath: $(Build.SourcesDirectory)/build/Invoke-PesterTests.ps1
-        arguments: -version $(version)
-
-    - task: PowerShell@2
       displayName: Build Documentation
       name: BuildDocumentation
       inputs:
@@ -53,8 +44,8 @@ jobs:
         arguments: -version $(version)
 
     - task: PowerShell@2
-      displayName: Pester Tests - Built
-      name: PesterTestsBuilt
+      displayName: Pester Tests
+      name: PesterTests
       inputs:
         pwsh: false
         targetType: filePath

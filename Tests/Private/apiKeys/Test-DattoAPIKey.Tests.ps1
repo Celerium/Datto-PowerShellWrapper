@@ -120,30 +120,9 @@ Describe "Testing [ $commandName ] function with [ $pester_TestName ]" {
 
     Context "[ $commandName ] testing function" {
 
-        <#
-        It "[ -base_uri ] without input should be the default uri" {
-            Add-DattoBaseUri
-            Add-DattoAPIKey -Api_Key_Public '12345' -Api_Key_Secret "DattoApiKey"
-
-            Test-DattoApiKey -ErrorAction SilentlyContinue
-            $base_uri | Should -Be 'https://api.datto.com/v1'
-
-        }
-
-        It "[ -base_uri ] without input should test the agents endpoint" {
-            Add-DattoBaseUri
-            Add-DattoAPIKey -Api_Key_Public '12345' -Api_Key_Secret "DattoApiKey"
-
-            Test-DattoApiKey -ErrorAction SilentlyContinue
-            $base_uri + $resource_uri | Should -Be 'https://api.datto.com/v1/bcdr/agent'
-
-        }
-        #>
-
         It "[ Test-DattoAPIKey ] with a bad API key should fail to authenticate" {
             Add-DattoBaseUri
             Add-DattoAPIKey -Api_Key_Public '12345' -Api_Key_Secret "DattoApiKey"
-            Remove-DattoAPIKey
 
             $Value = Test-DattoAPIKey 3>$null
             $Value.Message | Should -BeLike '*(401) Unauthorized*'
