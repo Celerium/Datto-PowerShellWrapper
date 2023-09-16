@@ -140,11 +140,17 @@ if ($githubPageUri[$githubPageUri.Length-1] -eq "/" -or $githubPageUri[$githubPa
     $githubPageUri = $githubPageUri.Substring(0,$githubPageUri.Length-1)
 }
 
-$modulePage         = "$helpDocsPath\$moduleName.md"
-$tempFolder         = "$helpDocsPath\temp"
-$siteStructureFolder= "$helpDocsPath\site"
-$externalHelp       = "$helpDocsPath\en-US"
-$externalHelpCab    = "$helpDocsPath\cab"
+$modulePage         = Join-Path -Path $helpDocsPath -ChildPath "$moduleName.md"
+$tempFolder         = Join-Path -Path $helpDocsPath -ChildPath "temp"
+$siteStructureFolder= Join-Path -Path $helpDocsPath -ChildPath "site"
+$externalHelp       = Join-Path -Path $helpDocsPath -ChildPath "en-US"
+$externalHelpCab    = Join-Path -Path $helpDocsPath -ChildPath "cab"
+
+#$modulePage         = "$helpDocsPath\$moduleName.md"
+#$tempFolder         = "$helpDocsPath\temp"
+#$siteStructureFolder= "$helpDocsPath\site"
+#$externalHelp       = "$helpDocsPath\en-US"
+#$externalHelpCab    = "$helpDocsPath\cab"
 
 $docFolders = $helpDocsPath,$tempFolder,$siteStructureFolder,$externalHelp,$externalHelpCab
 
@@ -159,11 +165,22 @@ Try{
         throw "The platyPS module was not found"
     }
 
-    $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\build')) )"
-    $modulePath = "$rootPath\$moduleName"
+    if ($IsWindows -or $PSEdition -eq 'Desktop') {
+        Write-Verbose "Running on a [ WINDOWS ]  operating system"
+        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\build', [System.StringComparison]::OrdinalIgnoreCase)) )"
+    }
+    else{
+        Write-Verbose "Running on a [ non-Windows ] operating system"
+        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('/build', [System.StringComparison]::OrdinalIgnoreCase)) )"
+    }
 
-        if (Test-Path -Path "$modulePath\DattoAPI.psd1"){
-            Import-Module -Name "$modulePath\DattoAPI.psd1" -Force -Verbose:$false
+    #$rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\build')) )"
+    $modulePath = Join-Path -Path $rootPath -ChildPath $moduleName
+    $modulePsd1 = Join-Path -Path $modulePath -ChildPath "$moduleName.psd1"
+    #$modulePath = "$rootPath\$moduleName"
+
+        if (Test-Path -Path $modulePsd1 ){
+            Import-Module -Name $modulePsd1 -Force -Verbose:$false
             $Commands = Get-Command -Module $moduleName -ErrorAction Stop | Sort-Object Name
         }
         else{
@@ -256,7 +273,8 @@ ForEach ( $Cmdlet in $Commands ) {
             Write-Warning " -       - $(Get-Date -Format MM-dd-HH:mm) - Unique command found, manually adjust the CSV file & metadata for [ $($Cmdlet.Name) ]"
         }
 
-    $CategoryPath = "$siteStructureFolder\$Category"
+    $CategoryPath = Join-Path -Path $siteStructureFolder -ChildPath $Category
+    #$CategoryPath = "$siteStructureFolder\$Category"
         if ( (Test-Path -Path $CategoryPath -PathType Container) -eq $false ){
             New-Item -Path $CategoryPath -ItemType Directory > $null
         }
@@ -275,9 +293,11 @@ ForEach ( $Cmdlet in $Commands ) {
     $newContent | Set-Content -Path $modulePage
 
     #Adjust module powershell code fence
-    $content = Get-Content -Path "$CategoryPath\$($Cmdlet.Name + '.md')" -Raw
+    $content = Get-Content -Path $( Join-Path -Path $CategoryPath -ChildPath "$($Cmdlet.Name + '.md')" ) -Raw
+    #$content = Get-Content -Path "$CategoryPath\$($Cmdlet.Name + '.md')" -Raw
     $newContent = $content -replace '(?m)(?<fence>^```)(?=\r\n\w+)', "`${fence}powershell"
-    $newContent | Set-Content -Path "$CategoryPath\$($Cmdlet.Name + '.md')" -NoNewline
+    $newContent | Set-Content -Path $( Join-Path -Path $CategoryPath -ChildPath "$($Cmdlet.Name + '.md')" ) -NoNewline
+    #$newContent | Set-Content -Path "$CategoryPath\$($Cmdlet.Name + '.md')" -NoNewline
 
 #Region     [ Template Code ]
 
@@ -315,23 +335,28 @@ Have a look around and if you would like to contribute please read over the [Con
         }
 
         if( $Template -eq 'index.md' ){
-            New-Item -Path "$CategoryPath\$Template" -ItemType File -Value $fileContents -Force > $null
+            New-Item -Path $(Join-Path -Path $CategoryPath -ChildPath $Template) -ItemType File -Value $fileContents -Force > $null
+            #New-Item -Path "$CategoryPath\$Template" -ItemType File -Value $fileContents -Force > $null
         }
         else{
-            New-Item -Path "$CategoryPath\$( ($Template -replace '.md','').ToUpper() + '.md' )" -ItemType File -Value $fileContents -Force > $null
+            New-Item -Path $( Join-Path -Path $CategoryPath -ChildPath $(($Template -replace '.md','').ToUpper() + '.md') ) -ItemType File -Value $fileContents -Force > $null
+            #New-Item -Path "$CategoryPath\$( ($Template -replace '.md','').ToUpper() + '.md' )" -ItemType File -Value $fileContents -Force > $null
         }
 
         #Title and Parents
-        $content = Get-Content -Path "$CategoryPath\$Template"
+        $content = Get-Content -Path $(Join-Path -Path $CategoryPath -ChildPath $Template)
+        #$content = Get-Content -Path "$CategoryPath\$Template"
         $newContent = $content -replace 'xxparentxx',"$Category"
-        $newContent | Set-Content -Path "$CategoryPath\$Template"
+        $newContent | Set-Content -Path $(Join-Path -Path $CategoryPath -ChildPath $Template)
+        #$newContent | Set-Content -Path "$CategoryPath\$Template"
 
         if( $Template -eq 'index.md' ){
 
             $Counts = 'xdeleteCountx', 'xgetCountx', 'xpostCountx', 'xputCountx'
             ForEach ($Count in $Counts){
 
-                $content = Get-Content -Path "$CategoryPath\$Template"
+                $content = Get-Content -Path $(Join-Path -Path $CategoryPath -ChildPath $Template)
+                #$content = Get-Content -Path "$CategoryPath\$Template"
 
                 Switch($Count){
                     'xdeleteCountx' { $countValue = ($CSV | Where-Object {$_.Method -eq 'Delete' -and $_.Category -eq $Category} | Measure-Object).count }
@@ -341,7 +366,8 @@ Have a look around and if you would like to contribute please read over the [Con
                 }
 
                 $newContent = $content -replace $Count,$countValue
-                $newContent | Set-Content -Path "$CategoryPath\$Template"
+                $newContent | Set-Content -Path $(Join-Path -Path $CategoryPath -ChildPath $Template)
+                #$newContent | Set-Content -Path "$CategoryPath\$Template"
 
             }
         }

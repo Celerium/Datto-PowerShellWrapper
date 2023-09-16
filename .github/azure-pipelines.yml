@@ -33,6 +33,7 @@ jobs:
         pwsh: false
         targetType: filePath
         filePath: $(Build.SourcesDirectory)/build/Invoke-HelpContent.ps1
+        arguments: -Verbose
 
     - task: PowerShell@2
       displayName: Build Module

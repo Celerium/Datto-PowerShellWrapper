@@ -93,11 +93,14 @@ $StartDate = Get-Date
 #    $SourcePath = "$($PSScriptRoot | Split-Path)"
 #}
 
+try {
+
     if ($IsWindows -or $PSEdition -eq 'Desktop') {
+        Write-Verbose "Running on a [ WINDOWS ]  operating system"
         $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\build', [System.StringComparison]::OrdinalIgnoreCase)) )"
     }
     else{
-        Write-Verbose "Running on a non-Windows operating system"
+        Write-Verbose "Running on a [ non-Windows ] operating system"
         $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('/build', [System.StringComparison]::OrdinalIgnoreCase)) )"
     }
 
@@ -126,6 +129,12 @@ $StartDate = Get-Date
     #>
 
     Update-HelpContent @parameters
+
+}
+catch {
+    Write-Error $_
+    exit 1
+}
 
 #EndRegion  [ Update Help ]
 
