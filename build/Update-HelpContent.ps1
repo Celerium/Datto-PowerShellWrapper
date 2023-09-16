@@ -154,7 +154,7 @@ $externalHelpCab    = Join-Path -Path $helpDocsPath -ChildPath "cab"
 
 $docFolders = $helpDocsPath,$tempFolder,$siteStructureFolder,$externalHelp,$externalHelpCab
 
-$TemplatePages = 'delete.md', 'get.md', 'index.md', 'post.md', 'put.md'
+$TemplatePages = 'DELETE.md', 'GET.md', 'index.md', 'POST.md', 'PUT.md'
 
 Try{
 
@@ -393,7 +393,13 @@ $helpFiles = (Get-ChildItem -Path $siteStructureFolder -Include "*.md" -Exclude 
 
 New-ExternalHelp -Path $helpFilePaths -OutputPath $externalHelp -Force > $null
 
-New-ExternalHelpCab -CabFilesFolder $externalHelp -LandingPagePath $modulePage -OutputFolder $externalHelpCab -IncrementHelpVersion > $null
+if ($IsWindows -or $PSEdition -eq 'Desktop') {
+    New-ExternalHelpCab -CabFilesFolder $externalHelp -LandingPagePath $modulePage -OutputFolder $externalHelpCab -IncrementHelpVersion > $null
+
+}
+else{
+    Write-Warning " -       - $(Get-Date -Format MM-dd-HH:mm) - [ New-ExternalHelpCab ] MakeCab.exe requirement is not compatible at this time"
+}
 
 #EndRegion  [ External Help ]
 
