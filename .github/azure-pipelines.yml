@@ -5,7 +5,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  API_Keys: Test_Secrets
+  group: Test_Secrets
   version: 2.1.0
   moduleName: DattoAPI
 
@@ -101,7 +101,7 @@ jobs:
         pwsh: true
         targetType: filePath
         filePath: $(Build.SourcesDirectory)/build/Invoke-PesterTests.ps1
-        arguments: -version $(version) -buildTarget built
+        arguments: -version $(version) -buildTarget built -Api_Key_Public $(API_UserName) -Api_Key_Secret $(API_Password) -IncludeTag apiCalls -output Detailed
 
     - task: PublishBuildArtifacts@1
       displayName: Publish Artifact
@@ -150,7 +150,7 @@ jobs:
         pwsh: true
         targetType: filePath
         filePath: $(Build.SourcesDirectory)/build/Invoke-PesterTests.ps1
-        arguments: -version $(version) -buildTarget built
+        arguments: -version $(version) -buildTarget built -Api_Key_Public $(API_UserName) -Api_Key_Secret $(API_Password) -IncludeTag apiCalls -output Detailed
 
     - task: PublishBuildArtifacts@1
       displayName: Publish Artifact
@@ -201,7 +201,7 @@ jobs:
         pwsh: true
         targetType: filePath
         filePath: $(Build.SourcesDirectory)/build/Invoke-PesterTests.ps1
-        arguments: -version $(version) -buildTarget built
+        arguments: -version $(version) -buildTarget built -Api_Key_Public $(API_UserName) -Api_Key_Secret $(API_Password) -IncludeTag apiCalls -output Detailed
 
     - task: PublishBuildArtifacts@1
       displayName: Publish Artifact
