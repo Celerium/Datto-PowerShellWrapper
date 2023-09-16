@@ -1,66 +1,65 @@
 <#
-    .NOTES
-        Copyright 1990-2024 Celerium
+.NOTES
+    Copyright 1990-2024 Celerium
 
-        NAME: Invoke-PesterTests.ps1
-        Type: PowerShell
+    NAME: Invoke-PesterTests.ps1
+    Type: PowerShell
 
-            AUTHOR:  David Schulte
-            DATE:    2023-04-1
-            EMAIL:   celerium@Celerium.org
-            Updated:
-            Date:
+        AUTHOR:  David Schulte
+        DATE:    2023-04-1
+        EMAIL:   celerium@Celerium.org
+        Updated: 2023-09-16
 
-        TODO:
+    TODO:
 
-    .SYNOPSIS
-        Invoke Pester tests against all functions in a module
+.SYNOPSIS
+    Invoke Pester tests against all functions in a module
 
-    .DESCRIPTION
-        Invoke Pester tests against all functions in a module
+.DESCRIPTION
+    Invoke Pester tests against all functions in a module
 
-    .PARAMETER moduleName
-        The name of the local module to import
+.PARAMETER moduleName
+    The name of the local module to import
 
-        Default value: DattoAPI
+    Default value: DattoAPI
 
-    .PARAMETER Version
-        The version of the local module to import
+.PARAMETER Version
+    The version of the local module to import
 
-    .PARAMETER ExcludeTag
-        Tags associated to test to skip
+.PARAMETER ExcludeTag
+    Tags associated to test to skip
 
-    .PARAMETER buildTarget
-        Which version of the module to run tests against
+.PARAMETER buildTarget
+    Which version of the module to run tests against
 
-        Allowed values:
-            'built', 'notBuilt'
+    Allowed values:
+        'built', 'notBuilt'
 
-    .PARAMETER Output
-        How detailed should the pester output be
+.PARAMETER Output
+    How detailed should the pester output be
 
-        Default value: Normal
+    Default value: Normal
 
-        Allowed values:
-            'Detailed', 'Diagnostic', 'Minimal', 'None', 'Normal'
+    Allowed values:
+        'Detailed', 'Diagnostic', 'Minimal', 'None', 'Normal'
 
 
-    .EXAMPLE
-        .\Invoke-PesterTests -moduleName DattoAPI -Version 1.2.3
+.EXAMPLE
+    .\Invoke-PesterTests -moduleName DattoAPI -Version 1.2.3
 
-        Runs various pester tests against all functions in the module
-        and outputs the results to the console.
+    Runs various pester tests against all functions in the module
+    and outputs the results to the console.
 
-        An XML of the tests is also output to the build directory
+    An XML of the tests is also output to the build directory
 
-    .INPUTS
-        N\A
+.INPUTS
+    N\A
 
-    .OUTPUTS
-        N\A
+.OUTPUTS
+    N\A
 
-    .LINK
-        https://celerium.org
+.LINK
+    https://celerium.org
 
 #>
 
@@ -100,14 +99,19 @@ param (
 
 try {
 
-    $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\build')) )"
-
-    switch ($buildTarget){
-        'built'     { $modulePath = "$rootPath\build\$moduleName\$version" }
-        'notBuilt'  { $modulePath = "$rootPath\$moduleName" }
+    if ($IsWindows -or $PSEdition -eq 'Desktop') {
+        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\build', [System.StringComparison]::OrdinalIgnoreCase)) )"
+    }
+    else{
+        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('/build', [System.StringComparison]::OrdinalIgnoreCase)) )"
     }
 
-    $testPath = "$rootPath\Tests"
+    switch ($buildTarget){
+        'built'     { $modulePath = Join-Path -Path $rootPath -ChildPath "\build\$moduleName\$version" }
+        'notBuilt'  { $modulePath = Join-Path -Path $rootPath -ChildPath "$moduleName" }
+    }
+
+    $testPath = Join-Path -Path $rootPath -ChildPath "Tests"
 
 }
 catch {
@@ -119,7 +123,7 @@ catch {
 
 #Region     [ Pester Configuration ]
 
-$pester_Container = New-PesterContainer -Path $testPath -Data @{ 'moduleName' = $moduleName; 'Version' = $Version; 'buildTarget' = $buildTarget }
+$pester_Container = New-PesterContainer -Path $testPath -Data @{ 'moduleName' = $moduleName; 'version' = $Version; 'buildTarget' = $buildTarget }
 
 $pester_Options = @{
 
@@ -135,7 +139,7 @@ $pester_Options = @{
     TestResult = @{
         Enabled = $true
         OutputFormat = 'NUnitXml'
-        OutputPath = ".\build\$($moduleName)_Results.xml"
+        OutputPath = Join-Path -Path . -ChildPath "build\$($moduleName)_$($buildTarget)_Results.xml"
         OutputEncoding = 'UTF8'
     }
 

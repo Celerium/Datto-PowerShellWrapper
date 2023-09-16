@@ -81,14 +81,19 @@ param (
 #Can be used in [ It ] with [ -TestCases @{ VariableName = $VariableName } ]
     BeforeDiscovery{
 
-        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\tests', [System.StringComparison]::OrdinalIgnoreCase)) )"
+            if ($IsWindows -or $PSEdition -eq 'Desktop') {
+            $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\tests', [System.StringComparison]::OrdinalIgnoreCase)) )"
+        }
+        else{
+            $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('/tests', [System.StringComparison]::OrdinalIgnoreCase)) )"
+        }
         $pester_TestName = (Get-Item -Path $PSCommandPath).Name
         $commandName = $pester_TestName -replace '.Tests.ps1',''
 
-        switch ($buildTarget){
-            'built'     { $modulePath = "$rootPath\build\$moduleName\$version" }
-            'notBuilt'  { $modulePath = "$rootPath\$moduleName" }
-        }
+    switch ($buildTarget){
+        'built'     { $modulePath = Join-Path -Path $rootPath -ChildPath "\build\$moduleName\$version" }
+        'notBuilt'  { $modulePath = Join-Path -Path $rootPath -ChildPath "$moduleName" }
+    }
 
         Import-Module -Name "$modulePath\$moduleName.psd1" -ErrorAction Stop -ErrorVariable moduleError *> $null
 
@@ -103,12 +108,17 @@ param (
 #Available inside It but NOT Describe or Context
     BeforeAll {
 
-        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\tests', [System.StringComparison]::OrdinalIgnoreCase)) )"
-
-        switch ($buildTarget){
-            'built'     { $modulePath = "$rootPath\build\$moduleName\$version" }
-            'notBuilt'  { $modulePath = "$rootPath\$moduleName" }
+            if ($IsWindows -or $PSEdition -eq 'Desktop') {
+            $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\tests', [System.StringComparison]::OrdinalIgnoreCase)) )"
         }
+        else{
+            $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('/tests', [System.StringComparison]::OrdinalIgnoreCase)) )"
+        }
+
+    switch ($buildTarget){
+        'built'     { $modulePath = Join-Path -Path $rootPath -ChildPath "\build\$moduleName\$version" }
+        'notBuilt'  { $modulePath = Join-Path -Path $rootPath -ChildPath "$moduleName" }
+    }
 
         if (Get-Module -Name $moduleName){
             Remove-Module -Name $moduleName -Force

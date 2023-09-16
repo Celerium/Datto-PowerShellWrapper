@@ -8,8 +8,7 @@
         AUTHOR:  David Schulte
         DATE:    2023-04-1
         EMAIL:   celerium@Celerium.org
-        Updated:
-        Date:
+        Updated: 2023-09-16
 
     TODO:
 
@@ -62,7 +61,7 @@
     param(
         [Parameter(Mandatory=$false, ParameterSetName = 'Install', ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
-        [String[]]$Modules = @('ModuleBuilder', 'Pester', 'platyPS'),
+        [String[]]$Modules = @('ModuleBuilder', 'Pester', 'platyPS', 'PSScriptAnalyzer'),
 
         [Parameter(Mandatory=$false, ParameterSetName = 'Update')]
         [Switch]$Force_Update

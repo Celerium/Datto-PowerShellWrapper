@@ -1,6 +1,6 @@
 <#
 .NOTES
-    Copyright 2020-2024 Celerium
+    Copyright 1990-2024 Celerium
 
     NAME: Publish-CeleriumModule.ps1
     Type: PowerShell
@@ -9,7 +9,6 @@
         DATE:    2023-09-11
         EMAIL:   celerium@celerium.org
         Updated:
-        Date:
 
     TODO:
 
@@ -17,7 +16,7 @@
     Publishes a PowerShell module to the PowerShell Gallery
 
 .DESCRIPTION
-    The Update-HelpContent script publishes a PowerShell module
+    The Publish-CeleriumModule script publishes a PowerShell module
     to the PowerShell Gallery
 
 .PARAMETER moduleName
@@ -70,26 +69,43 @@ param (
 )
 
 begin {
-    $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\build')) )"
-    $modulePath = "$rootPath\build\$moduleName\$version"
+
+    if ($IsWindows -or $PSEdition -eq 'Desktop') {
+        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\build', [System.StringComparison]::OrdinalIgnoreCase)) )"
+    }
+    else{
+        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('/build', [System.StringComparison]::OrdinalIgnoreCase)) )"
+    }
+
+    $modulePath = Join-Path -Path $rootPath -ChildPath "\build\$moduleName\$version"
+    $modulePsd1 = Join-Path -Path $modulePath -ChildPath "$moduleName.psd1"
+
 }
 
 process {
 
-    if ( $($Test = Test-ModuleManifest -Path "$modulePath\$moduleName.psd1" -ErrorAction SilentlyContinue; $?) ) {
+    try {
 
-        $publish_Params = @{
-            Path        = $modulePath
-            NuGetApiKey = $NuGetApiKey
-            WhatIf      = $WhatIfPreference
+        if ( $($Test = Test-ModuleManifest -Path $modulePsd1 -ErrorAction SilentlyContinue; $?) ) {
+
+            $publish_Params = @{
+                Path        = $modulePath
+                NuGetApiKey = $NuGetApiKey
+                WhatIf      = $WhatIfPreference
+            }
+
+            Publish-Module @publish_Params
+
+        }
+        else{
+            throw "The [ $moduleName ] module failed Test-ModuleManifest"
+            Write-Error $_
         }
 
-        Publish-Module @publish_Params
-
     }
-    else{
-        throw "The [ $moduleName ] module failed Test-ModuleManifest"
+    catch {
         Write-Error $_
+        exit 1
     }
 
 }

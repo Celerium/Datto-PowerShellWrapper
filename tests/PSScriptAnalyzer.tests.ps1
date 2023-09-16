@@ -1,55 +1,54 @@
 <#
-    .NOTES
-        Copyright 1990-2024 Celerium
+.NOTES
+    Copyright 1990-2024 Celerium
 
-        NAME: PSScriptAnalyzer.tests.ps1
-        Type: PowerShell
+    NAME: PSScriptAnalyzer.tests.ps1
+    Type: PowerShell
 
-            AUTHOR:  David Schulte
-            DATE:    2023-04-1
-            EMAIL:   celerium@Celerium.org
-            Updated:
-            Date:
+        AUTHOR:  David Schulte
+        DATE:    2023-04-1
+        EMAIL:   celerium@Celerium.org
+        Updated: 2023-09-16
 
-        TODO:
+    TODO:
 
-    .SYNOPSIS
-        Pester tests for the PSScriptAnalyzer.
+.SYNOPSIS
+    Pester tests for the PSScriptAnalyzer.
 
-    .DESCRIPTION
-        The PSScriptAnalyzer.tests.ps1 script test every rule against
-        every module file.
+.DESCRIPTION
+    The PSScriptAnalyzer.tests.ps1 script test every rule against
+    every module file.
 
-    .PARAMETER moduleName
-        The name of the local module to import
+.PARAMETER moduleName
+    The name of the local module to import
 
-    .PARAMETER Version
-        The version of the local module to import
+.PARAMETER Version
+    The version of the local module to import
 
-    .PARAMETER buildTarget
-        Which version of the module to run tests against
+.PARAMETER buildTarget
+    Which version of the module to run tests against
 
-        Allowed values:
-            'built', 'notBuilt'
+    Allowed values:
+        'built', 'notBuilt'
 
-    .EXAMPLE
-        Invoke-Pester -Path .\Tests\Private\apiKeys\Get-DattoAPIKey.Tests.ps1
+.EXAMPLE
+    Invoke-Pester -Path .\Tests\Private\apiKeys\Get-DattoAPIKey.Tests.ps1
 
-        Runs a pester test and outputs simple results
+    Runs a pester test and outputs simple results
 
-    .EXAMPLE
-        Invoke-Pester -Path .\Tests\Private\apiKeys\Get-DattoAPIKey.Tests.ps1 -Output Detailed
+.EXAMPLE
+    Invoke-Pester -Path .\Tests\Private\apiKeys\Get-DattoAPIKey.Tests.ps1 -Output Detailed
 
-        Runs a pester test and outputs detailed results
+    Runs a pester test and outputs detailed results
 
-    .INPUTS
-        N\A
+.INPUTS
+    N\A
 
-    .OUTPUTS
-        N\A
+.OUTPUTS
+    N\A
 
-    .LINK
-        https://celerium.org
+.LINK
+    https://celerium.org
 
 #>
 
@@ -85,20 +84,27 @@ param (
 #Can be used in [ It ] with [ -TestCases @{ VariableName = $VariableName } ]
     BeforeDiscovery{
 
-        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\tests', [System.StringComparison]::OrdinalIgnoreCase)) )"
+        if ($IsWindows -or $PSEdition -eq 'Desktop') {
+            $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\tests', [System.StringComparison]::OrdinalIgnoreCase)) )"
+        }
+        else{
+            $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('/tests', [System.StringComparison]::OrdinalIgnoreCase)) )"
+        }
         $pester_TestName = (Get-Item -Path $PSCommandPath).Name
         #$commandName = $pester_TestName -replace '.Tests.ps1',''
 
-        switch ($buildTarget){
-            'built'     { $modulePath = "$rootPath\build\$moduleName\$version" }
-            'notBuilt'  { $modulePath = "$rootPath\$moduleName" }
-        }
+    switch ($buildTarget){
+        'built'     { $modulePath = Join-Path -Path $rootPath -ChildPath "\build\$moduleName\$version" }
+        'notBuilt'  { $modulePath = Join-Path -Path $rootPath -ChildPath "$moduleName" }
+    }
 
         if (Get-Module -Name $moduleName){
             Remove-Module -Name $moduleName -Force
         }
 
-        Import-Module -Name "$modulePath\$moduleName.psd1" -ErrorAction Stop -ErrorVariable moduleError *> $null
+        $modulePsd1 = Join-Path -Path $modulePath -ChildPath "$moduleName.psd1"
+
+        Import-Module -Name $modulePsd1 -ErrorAction Stop -ErrorVariable moduleError *> $null
 
         if ($moduleError){
             $moduleError

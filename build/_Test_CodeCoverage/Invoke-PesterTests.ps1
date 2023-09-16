@@ -75,7 +75,12 @@ param (
 
 try {
 
-    $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\build')) )"
+    if ($IsWindows -or $PSEdition -eq 'Desktop') {
+        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\build', [System.StringComparison]::OrdinalIgnoreCase)) )"
+    }
+    else{
+        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('/build', [System.StringComparison]::OrdinalIgnoreCase)) )"
+    }
     $modulePath_UnBuilt = "$rootPath\$moduleName"
     $modulePath_Built = "$rootPath\build\versions\$moduleName\$version"
     $testPath = "$rootPath\Tests"

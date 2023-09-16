@@ -1,57 +1,56 @@
 <#
-    .NOTES
-        Copyright 1990-2024 Celerium
+.NOTES
+    Copyright 1990-2024 Celerium
 
-        NAME: HelpComment.Tests.ps1
-        Type: PowerShell
+    NAME: HelpComment.Tests.ps1
+    Type: PowerShell
 
-            AUTHOR:  David Schulte
-            DATE:    2023-04-1
-            EMAIL:   celerium@Celerium.org
-            Updated:
-            Date:
+        AUTHOR:  David Schulte
+        DATE:    2023-04-1
+        EMAIL:   celerium@Celerium.org
+        Updated: 2023-09-16
 
-        TODO:
-        Build out more robust, logical, & scalable pester tests.
-        Huge thank you to LazyWinAdmin, Vexx32, & JeffBrown for their blog posts!
+    TODO:
+    Build out more robust, logical, & scalable pester tests.
+    Huge thank you to LazyWinAdmin, Vexx32, & JeffBrown for their blog posts!
 
-    .SYNOPSIS
-        Pester tests for the PowerShell help comments.
+.SYNOPSIS
+    Pester tests for the PowerShell help comments.
 
-    .DESCRIPTION
-        Pester tests for the PowerShell help comments.
+.DESCRIPTION
+    Pester tests for the PowerShell help comments.
 
-    .PARAMETER moduleName
-        The name of the local module to import
+.PARAMETER moduleName
+    The name of the local module to import
 
-    .PARAMETER Version
-        The version of the local module to import
+.PARAMETER Version
+    The version of the local module to import
 
-    .PARAMETER buildTarget
-        Which version of the module to run tests against
+.PARAMETER buildTarget
+    Which version of the module to run tests against
 
-        Allowed values:
-            'built', 'notBuilt'
+    Allowed values:
+        'built', 'notBuilt'
 
-    .EXAMPLE
-        Invoke-Pester -Path .\Tests\Private\apiKeys\Get-DattoAPIKey.Tests.ps1 -Output Detailed
+.EXAMPLE
+    Invoke-Pester -Path .\Tests\Private\apiKeys\Get-DattoAPIKey.Tests.ps1 -Output Detailed
 
-        Runs a pester test and outputs detailed results
+    Runs a pester test and outputs detailed results
 
-    .INPUTS
-        N\A
+.INPUTS
+    N\A
 
-    .OUTPUTS
-        N\A
+.OUTPUTS
+    N\A
 
-    .LINK
-        https://celerium.org
+.LINK
+    https://celerium.org
 
-    .LINK
-        https://vexx32.github.io/2020/07/08/Verify-Module-Help-Pester/
-        https://lazywinadmin.com/2016/05/using-pester-to-test-your-comment-based.html
-        https://jeffbrown.tech/getting-started-with-pester-testing-in-powershell/
-        https://github.com/Celerium/Datto-PowerShellWrapper
+.LINK
+    https://vexx32.github.io/2020/07/08/Verify-Module-Help-Pester/
+    https://lazywinadmin.com/2016/05/using-pester-to-test-your-comment-based.html
+    https://jeffbrown.tech/getting-started-with-pester-testing-in-powershell/
+    https://github.com/Celerium/Datto-PowerShellWrapper
 
 #>
 
@@ -87,19 +86,26 @@ param (
 #Can be used in [ It ] with [ -TestCases @{ VariableName = $VariableName } ]
     BeforeDiscovery{
 
-        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\tests', [System.StringComparison]::OrdinalIgnoreCase)) )"
+        if ($IsWindows -or $PSEdition -eq 'Desktop') {
+            $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\tests', [System.StringComparison]::OrdinalIgnoreCase)) )"
+        }
+        else{
+            $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('/tests', [System.StringComparison]::OrdinalIgnoreCase)) )"
+        }
         $pester_TestName = (Get-Item -Path $PSCommandPath).Name
 
-        switch ($buildTarget){
-            'built'     { $modulePath = "$rootPath\build\$moduleName\$version" }
-            'notBuilt'  { $modulePath = "$rootPath\$moduleName" }
-        }
+    switch ($buildTarget){
+        'built'     { $modulePath = Join-Path -Path $rootPath -ChildPath "\build\$moduleName\$version" }
+        'notBuilt'  { $modulePath = Join-Path -Path $rootPath -ChildPath "$moduleName" }
+    }
 
         if (Get-Module -Name $moduleName){
             Remove-Module -Name $moduleName -Force
         }
 
-        Import-Module -Name "$modulePath\$moduleName.psd1" -ErrorAction Stop -ErrorVariable moduleError *> $null
+        $modulePsd1 = Join-Path -Path $modulePath -ChildPath "$moduleName.psd1"
+
+        Import-Module -Name $modulePsd1 -ErrorAction Stop -ErrorVariable moduleError *> $null
 
         if ($moduleError){
             $moduleError

@@ -72,17 +72,25 @@ param (
 #Available inside It but NOT Describe or Context
     BeforeAll {
 
-        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\tests', [System.StringComparison]::OrdinalIgnoreCase)) )"
+        if ($IsWindows -or $PSEdition -eq 'Desktop') {
+            $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\tests', [System.StringComparison]::OrdinalIgnoreCase)) )"
+        }
+        else{
+            $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('/tests', [System.StringComparison]::OrdinalIgnoreCase)) )"
+        }
 
         switch ($buildTarget){
-            'built'     { $modulePath = "$rootPath\build\$moduleName\$version" }
-            'notBuilt'  { $modulePath = "$rootPath\$moduleName" }
+            'built'     { $modulePath = Join-Path -Path $rootPath -ChildPath "\build\$moduleName\$version" }
+            'notBuilt'  { $modulePath = Join-Path -Path $rootPath -ChildPath "$moduleName" }
         }
 
         if (Get-Module -Name $moduleName){
             Remove-Module -Name $moduleName -Force
         }
-        Import-Module -Name "$modulePath\$moduleName.psd1" -ErrorAction Stop -ErrorVariable moduleError *> $null
+
+        $modulePsd1 = Join-Path -Path $modulePath -ChildPath "$moduleName.psd1"
+
+        Import-Module -Name $modulePsd1 -ErrorAction Stop -ErrorVariable moduleError *> $null
 
         if ($moduleError){
             $moduleError
