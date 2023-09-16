@@ -93,7 +93,15 @@ param (
 
     [Parameter(Mandatory=$false)]
     [ValidateSet('Detailed', 'Diagnostic', 'Minimal', 'None', 'Normal')]
-    [string]$output = 'Normal'
+    [string]$output = 'Normal',
+
+    [Parameter(Mandatory = $false)]
+    [ValidateNotNullOrEmpty()]
+    [string]$Api_Key_Public,
+
+    [Parameter(Mandatory = $false)]
+    [ValidateNotNullOrEmpty()]
+    [string]$Api_Key_Secret
 )
 
 #EndRegion  [ Parameters ]
@@ -116,6 +124,8 @@ try {
 
     $testPath = Join-Path -Path $rootPath -ChildPath "tests"
 
+    $withoutAuth = $( [bool]$Api_Key_Public -eq $false -or [bool]$Api_Key_Secret -eq $false )
+
 }
 catch {
     Write-Error $_
@@ -126,7 +136,25 @@ catch {
 
 #Region     [ Pester Configuration ]
 
-$pester_Container = New-PesterContainer -Path $testPath -Data @{ 'moduleName' = $moduleName; 'version' = $Version; 'buildTarget' = $buildTarget }
+if ($withoutAuth){
+    $pesterContainer_params = @{
+        'moduleName'        = $moduleName;
+        'version'           = $Version;
+        'buildTarget'       = $buildTarget
+    }
+}
+else{
+    $pesterContainer_params = @{
+        'moduleName'        = $moduleName;
+        'version'           = $Version;
+        'buildTarget'       = $buildTarget;
+        'Api_Key_Public'    = $Api_Key_Public;
+        'Api_Key_Secret'    = $Api_Key_Secret
+    }
+}
+
+$pester_Container = New-PesterContainer -Path $testPath -Data $pesterContainer_params
+#$pester_Container = New-PesterContainer -Path $testPath -Data @{ 'moduleName' = $moduleName; 'version' = $Version; 'buildTarget' = $buildTarget }
 
 $pester_Options = @{
 

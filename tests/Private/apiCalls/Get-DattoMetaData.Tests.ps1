@@ -62,7 +62,15 @@ param (
 
     [Parameter(Mandatory=$true)]
     [ValidateSet('built','notBuilt')]
-    [string]$buildTarget
+    [string]$buildTarget,
+
+    [Parameter(Mandatory = $false)]
+    [ValidateNotNullOrEmpty()]
+    [string]$Api_Key_Public,
+
+    [Parameter(Mandatory = $false)]
+    [ValidateNotNullOrEmpty()]
+    [string]$Api_Key_Secret
 )
 
 #EndRegion  [ Parameters ]
@@ -107,15 +115,36 @@ param (
 
     }
 
+#Available in Describe and Context but NOT It
+#Can be used in [ It ] with [ -TestCases @{ VariableName = $VariableName } ]
+    BeforeDiscovery{
+
+        $pester_TestName = (Get-Item -Path $PSCommandPath).Name
+        $commandName = $pester_TestName -replace '.Tests.ps1',''
+        $withoutAuth = $( [bool]$Api_Key_Public -eq $false -or [bool]$Api_Key_Secret -eq $false )
+
+    }
 
 #EndRegion  [ Prerequisites ]
 
-Describe "Testing [ $commandName ] function with [ $pester_TestName ]" -Tags @('PLACEHOLDER') {
+Describe "Testing [ $commandName ] function with [ $pester_TestName ]" -Tags @('apiCalls') {
 
     Context "[ $commandName ] testing function" {
 
-        It "PLACEHOLDER" {
-            $false | Should -BeTrue
+        It "With a bad API key should fail to authenticate" {
+            Add-DattoBaseUri
+            Add-DattoAPIKey -Api_Key_Public '12345' -Api_Key_Secret "DattoApiKey"
+
+            $Value = Get-DattoMetaData 3>$null
+            $Value.Message | Should -BeLike '*Unauthorized*'
+        }
+
+        It "With a good API key should authenticate" -Skip:$withoutAuth {
+            Add-DattoBaseUri
+            Add-DattoAPIKey -Api_Key_Public $Api_Key_Public -Api_Key_Secret $Api_Key_Secret
+
+            $Value = Get-DattoMetaData 3>$null
+            $Value.StatusCode | Should -Be '200'
         }
 
     }
