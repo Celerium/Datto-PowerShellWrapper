@@ -179,7 +179,7 @@ Describe "Testing the [ $buildTarget ] version of [ $moduleName ] with [ $pester
         It "Manifest [ NestedModules ] has valid data" {
             switch ($buildTarget){
                 'built'     { ($Module.NestedModules.Name).Count | Should -Be 0 }
-                'notBuilt'  { ($Module.NestedModules.Name).Count | Should -Be 26 }
+                'notBuilt'  { ($Module.NestedModules.Name).Count | Should -Be 27 }
             }
         }
 

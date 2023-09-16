@@ -76,7 +76,7 @@
     # NestedModules = @()
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport = @('ConvertTo-DattoQueryString','Get-DattoMetaData','Invoke-DattoRequest','Add-DattoAPIKey','Get-DattoAPIKey','Remove-DattoAPIKey','Test-DattoAPIKey','Add-DattoBaseURI','Get-DattoBaseURI','Remove-DattoBaseURI','Export-DattoModuleSettings','Get-DattoModuleSettings','Import-DattoModuleSettings','Remove-DattoModuleSettings','Get-DattoAgent','Get-DattoAlert','Get-DattoAsset','Get-DattoBCDR','Get-DattoDevice','Get-DattoShare','Get-DattoVolume','Get-DattoActivityLog','Get-DattoApplication','Get-DattoDomain','Get-DattoSaaS','Get-DattoSeat')
+    FunctionsToExport = @('ConvertTo-DattoQueryString','Get-DattoMetaData','Invoke-DattoRequest','Add-DattoAPIKey','Get-DattoAPIKey','Remove-DattoAPIKey','Test-DattoAPIKey','Add-DattoBaseURI','Get-DattoBaseURI','Remove-DattoBaseURI','Export-DattoModuleSettings','Get-DattoModuleSettings','Import-DattoModuleSettings','Initialize-DattoModuleSettings','Remove-DattoModuleSettings','Get-DattoAgent','Get-DattoAlert','Get-DattoAsset','Get-DattoBCDR','Get-DattoDevice','Get-DattoShare','Get-DattoVolume','Get-DattoActivityLog','Get-DattoApplication','Get-DattoDomain','Get-DattoSaaS','Get-DattoSeat')
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
     CmdletsToExport = @()

@@ -855,19 +855,27 @@ function Export-DattoModuleSettings {
     [CmdletBinding(DefaultParameterSetName = 'set')]
     Param (
         [Parameter(ParameterSetName = 'set')]
-        [string]$DattoConfPath = "$($env:USERPROFILE)\DattoAPI",
+        [string]$dattoConfPath = $(Join-Path -Path $home -ChildPath $(if ($IsWindows -or $PSEdition -eq 'Desktop'){"DattoAPI"}else{".DattoAPI"}) ),
 
         [Parameter(ParameterSetName = 'set')]
-        [string]$DattoConfFile = 'config.psd1'
+        [string]$dattoConfFile = 'config.psd1'
     )
 
     Write-Warning "Secrets are stored using Windows Data Protection API (DPAPI)"
     Write-Warning "DPAPI provides user context encryption in Windows but NOT in other operating systems like Linux or UNIX. It is recommended to use a more secure & cross-platform storage method"
 
+    $dattoConfig = Join-Path -Path $dattoConfPath -ChildPath $dattoConfFile
+
     # Confirm variables exist and are not null before exporting
     if ($Datto_Base_URI -and $Datto_Public_Key -and $Datto_Secret_Key -and $Datto_JSON_Conversion_Depth) {
         $secureString = $Datto_Secret_Key | ConvertFrom-SecureString
-        New-Item -Path $DattoConfPath -ItemType Directory -Force | ForEach-Object { $_.Attributes = 'hidden' }
+
+        if ($IsWindows -or $PSEdition -eq 'Desktop') {
+            New-Item -Path $dattoConfPath -ItemType Directory -Force | ForEach-Object { $_.Attributes = $_.Attributes -bor "Hidden" }
+        }
+        else{
+            New-Item -Path $dattoConfPath -ItemType Directory -Force
+        }
 @"
     @{
         Datto_Base_URI = '$Datto_Base_URI'
@@ -875,15 +883,17 @@ function Export-DattoModuleSettings {
         Datto_Secret_Key = '$secureString'
         Datto_JSON_Conversion_Depth = '$Datto_JSON_Conversion_Depth'
     }
-"@ | Out-File -FilePath ($DattoConfPath + "\" + $DattoConfFile) -Force
+"@ | Out-File -FilePath $dattoConfig -Force
+#Out-File -FilePath ($dattoConfPath + "\" + $dattoConfFile) -Force
 
     }
     else {
+        Write-Error "Failed to export Datto Module settings to [ $dattoConfig ]"
         Write-Error $_
-        Write-Error "Failed to export Datto Module settings to [ $DattoConfPath\$DattoConfFile ]"
+        exit 1
     }
 }
-#EndRegion '.\Private\moduleSettings\Export-DattoModuleSettings.ps1' 77
+#EndRegion '.\Private\moduleSettings\Export-DattoModuleSettings.ps1' 87
 #Region '.\Private\moduleSettings\Get-DattoModuleSettings.ps1' 0
 function Get-DattoModuleSettings {
 <#
@@ -939,31 +949,33 @@ function Get-DattoModuleSettings {
     [CmdletBinding(DefaultParameterSetName = 'index')]
     Param (
         [Parameter(Mandatory = $false, ParameterSetName = 'index')]
-        [String]$DattoConfPath = "$($env:USERPROFILE)\DattoAPI",
+        [string]$dattoConfPath = $(Join-Path -Path $home -ChildPath $(if ($IsWindows -or $PSEdition -eq 'Desktop'){"DattoAPI"}else{".DattoAPI"}) ),
 
         [Parameter(Mandatory = $false, ParameterSetName = 'index')]
-        [String]$DattoConfFile = 'config.psd1',
+        [String]$dattoConfFile = 'config.psd1',
 
         [Parameter(Mandatory = $false, ParameterSetName = 'show')]
         [Switch]$openConfFile
     )
 
-    begin{}
+    begin{
+        $dattoConfig = Join-Path -Path $dattoConfPath -ChildPath $dattoConfFile
+    }
 
     process{
 
-        if ( Test-Path -Path $($DattoConfPath + '\' + $DattoConfFile) ){
+        if ( Test-Path -Path $dattoConfig ){
 
             if($openConfFile){
-                Invoke-Item -Path $($DattoConfPath + '\' + $DattoConfFile)
+                Invoke-Item -Path $dattoConfig
             }
             else{
-                Import-LocalizedData -BaseDirectory $DattoConfPath -FileName $DattoConfFile
+                Import-LocalizedData -BaseDirectory $dattoConfPath -FileName $dattoConfFile
             }
 
         }
         else{
-            Write-Verbose "No configuration file found at [ $DattoConfPath\$DattoConfFile ]"
+            Write-Verbose "No configuration file found at [ $dattoConfig ]"
         }
 
     }
@@ -971,7 +983,7 @@ function Get-DattoModuleSettings {
     end{}
 
 }
-#EndRegion '.\Private\moduleSettings\Get-DattoModuleSettings.ps1' 87
+#EndRegion '.\Private\moduleSettings\Get-DattoModuleSettings.ps1' 89
 #Region '.\Private\moduleSettings\Import-DattoModuleSettings.ps1' 0
 function Import-DattoModuleSettings {
 <#
@@ -1025,14 +1037,16 @@ function Import-DattoModuleSettings {
     [CmdletBinding(DefaultParameterSetName = 'set')]
     Param (
         [Parameter(ParameterSetName = 'set')]
-        [string]$DattoConfPath = "$($env:USERPROFILE)\DattoAPI",
+        [string]$dattoConfPath = $(Join-Path -Path $home -ChildPath $(if ($IsWindows -or $PSEdition -eq 'Desktop'){"DattoAPI"}else{".DattoAPI"}) ),
 
         [Parameter(ParameterSetName = 'set')]
-        [string]$DattoConfFile = 'config.psd1'
+        [string]$dattoConfFile = 'config.psd1'
     )
 
-    if ( test-path ($DattoConfPath + "\" + $DattoConfFile) ) {
-        $tmp_config = Import-LocalizedData -BaseDirectory $DattoConfPath -FileName $DattoConfFile
+    $dattoConfig = Join-Path -Path $dattoConfPath -ChildPath $dattoConfFile
+
+    if ( Test-Path $dattoConfig ) {
+        $tmp_config = Import-LocalizedData -BaseDirectory $dattoConfPath -FileName $dattoConfFile
 
         # Send to function to strip potentially superfluous slash (/)
         Add-DattoBaseURI $tmp_config.Datto_Base_URI
@@ -1045,13 +1059,13 @@ function Import-DattoModuleSettings {
 
         Set-Variable -Name "Datto_JSON_Conversion_Depth" -Value $tmp_config.Datto_JSON_Conversion_Depth -Scope global -Force
 
-        Write-Verbose "DattoAPI Module configuration loaded successfully from [ $DattoConfPath\$DattoConfFile ]"
+        Write-Verbose "DattoAPI Module configuration loaded successfully from [ $dattoConfig ]"
 
         # Clean things up
         Remove-Variable "tmp_config"
     }
     else {
-        Write-Verbose "No configuration file found at [ $DattoConfPath\$DattoConfFile ] run Add-DattoAPIKey to get started."
+        Write-Verbose "No configuration file found at [ $dattoConfig ] run Add-DattoAPIKey to get started."
 
         Add-DattoBaseURI
 
@@ -1059,7 +1073,10 @@ function Import-DattoModuleSettings {
         Set-Variable -Name "Datto_JSON_Conversion_Depth" -Value 100 -Scope global -Force
     }
 }
-#EndRegion '.\Private\moduleSettings\Import-DattoModuleSettings.ps1' 87
+#EndRegion '.\Private\moduleSettings\Import-DattoModuleSettings.ps1' 89
+#Region '.\Private\moduleSettings\Initialize-DattoModuleSettings.ps1' 0
+Import-DattoModuleSettings
+#EndRegion '.\Private\moduleSettings\Initialize-DattoModuleSettings.ps1' 2
 #Region '.\Private\moduleSettings\Remove-DattoModuleSettings.ps1' 0
 function Remove-DattoModuleSettings {
 <#
@@ -1079,7 +1096,7 @@ function Remove-DattoModuleSettings {
         By default the configuration folder is located at:
             $env:USERPROFILE\DattoAPI
 
-    .PARAMETER AndVariables
+    .PARAMETER andVariables
         Define if sensitive Datto variables should be removed as well.
 
         By default the variables are not removed.
@@ -1093,7 +1110,7 @@ function Remove-DattoModuleSettings {
             $env:USERPROFILE\DattoAPI
 
     .EXAMPLE
-        Remove-DattoModuleSettings -DattoConfPath C:\DattoAPI -AndVariables
+        Remove-DattoModuleSettings -DattoConfPath C:\DattoAPI -andVariables
 
         Checks to see if the defined configuration folder exists and removes it if it does.
         If sensitive Datto variables exist then they are removed as well.
@@ -1111,31 +1128,31 @@ function Remove-DattoModuleSettings {
     [CmdletBinding(SupportsShouldProcess, DefaultParameterSetName = 'set')]
     Param (
         [Parameter(ParameterSetName = 'set')]
-        [string]$DattoConfPath = "$($env:USERPROFILE)\DattoAPI",
+        [string]$dattoConfPath = $(Join-Path -Path $home -ChildPath $(if ($IsWindows -or $PSEdition -eq 'Desktop'){"DattoAPI"}else{".DattoAPI"}) ),
 
         [Parameter(ParameterSetName = 'set')]
-        [switch]$AndVariables
+        [switch]$andVariables
     )
 
-    if (Test-Path $DattoConfPath) {
+    if (Test-Path $dattoConfPath) {
 
-        Remove-Item -Path $DattoConfPath -Recurse -Force
+        Remove-Item -Path $dattoConfPath -Recurse -Force
 
-        If ($AndVariables) {
+        If ($andVariables) {
             Remove-DattoAPIKey
             Remove-DattoBaseURI
         }
 
-        if (!(Test-Path $DattoConfPath)) {
-            Write-Output "The DattoAPI configuration folder has been removed successfully from [ $DattoConfPath ]"
+        if (!(Test-Path $dattoConfPath)) {
+            Write-Output "The DattoAPI configuration folder has been removed successfully from [ $dattoConfPath ]"
         }
         else {
-            Write-Error "The DattoAPI configuration folder could not be removed from [ $DattoConfPath ]"
+            Write-Error "The DattoAPI configuration folder could not be removed from [ $dattoConfPath ]"
         }
 
     }
     else {
-        Write-Warning "No configuration folder found at [ $DattoConfPath ]"
+        Write-Warning "No configuration folder found at [ $dattoConfPath ]"
     }
 }
 #EndRegion '.\Private\moduleSettings\Remove-DattoModuleSettings.ps1' 78

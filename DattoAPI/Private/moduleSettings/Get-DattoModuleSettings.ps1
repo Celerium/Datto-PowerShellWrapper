@@ -52,31 +52,33 @@ function Get-DattoModuleSettings {
     [CmdletBinding(DefaultParameterSetName = 'index')]
     Param (
         [Parameter(Mandatory = $false, ParameterSetName = 'index')]
-        [String]$DattoConfPath = "$($env:USERPROFILE)\DattoAPI",
+        [string]$dattoConfPath = $(Join-Path -Path $home -ChildPath $(if ($IsWindows -or $PSEdition -eq 'Desktop'){"DattoAPI"}else{".DattoAPI"}) ),
 
         [Parameter(Mandatory = $false, ParameterSetName = 'index')]
-        [String]$DattoConfFile = 'config.psd1',
+        [String]$dattoConfFile = 'config.psd1',
 
         [Parameter(Mandatory = $false, ParameterSetName = 'show')]
         [Switch]$openConfFile
     )
 
-    begin{}
+    begin{
+        $dattoConfig = Join-Path -Path $dattoConfPath -ChildPath $dattoConfFile
+    }
 
     process{
 
-        if ( Test-Path -Path $($DattoConfPath + '\' + $DattoConfFile) ){
+        if ( Test-Path -Path $dattoConfig ){
 
             if($openConfFile){
-                Invoke-Item -Path $($DattoConfPath + '\' + $DattoConfFile)
+                Invoke-Item -Path $dattoConfig
             }
             else{
-                Import-LocalizedData -BaseDirectory $DattoConfPath -FileName $DattoConfFile
+                Import-LocalizedData -BaseDirectory $dattoConfPath -FileName $dattoConfFile
             }
 
         }
         else{
-            Write-Verbose "No configuration file found at [ $DattoConfPath\$DattoConfFile ]"
+            Write-Verbose "No configuration file found at [ $dattoConfig ]"
         }
 
     }

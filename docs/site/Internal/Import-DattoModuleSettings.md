@@ -16,7 +16,7 @@ Imports the Datto BaseURI, API, & JSON configuration information to the current 
 ## SYNTAX
 
 ```powershell
-Import-DattoModuleSettings [-DattoConfPath <String>] [-DattoConfFile <String>] [<CommonParameters>]
+Import-DattoModuleSettings [-dattoConfPath <String>] [-dattoConfFile <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -52,7 +52,7 @@ The location of the Datto configuration file in this example is:
 
 ## PARAMETERS
 
-### -DattoConfPath
+### -dattoConfPath
 Define the location to store the Datto configuration file.
 
 By default the configuration file is stored in the following location:
@@ -65,12 +65,12 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: "$($env:USERPROFILE)\DattoAPI"
+Default value: $(Join-Path -Path $home -ChildPath $(if ($IsWindows -or $PSEdition -eq 'Desktop'){"DattoAPI"}else{".DattoAPI"}) )
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -DattoConfFile
+### -dattoConfFile
 Define the name of the Datto configuration file.
 
 By default the configuration file is named:

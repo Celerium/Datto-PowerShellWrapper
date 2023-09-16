@@ -50,14 +50,16 @@ function Import-DattoModuleSettings {
     [CmdletBinding(DefaultParameterSetName = 'set')]
     Param (
         [Parameter(ParameterSetName = 'set')]
-        [string]$DattoConfPath = "$($env:USERPROFILE)\DattoAPI",
+        [string]$dattoConfPath = $(Join-Path -Path $home -ChildPath $(if ($IsWindows -or $PSEdition -eq 'Desktop'){"DattoAPI"}else{".DattoAPI"}) ),
 
         [Parameter(ParameterSetName = 'set')]
-        [string]$DattoConfFile = 'config.psd1'
+        [string]$dattoConfFile = 'config.psd1'
     )
 
-    if ( test-path ($DattoConfPath + "\" + $DattoConfFile) ) {
-        $tmp_config = Import-LocalizedData -BaseDirectory $DattoConfPath -FileName $DattoConfFile
+    $dattoConfig = Join-Path -Path $dattoConfPath -ChildPath $dattoConfFile
+
+    if ( Test-Path $dattoConfig ) {
+        $tmp_config = Import-LocalizedData -BaseDirectory $dattoConfPath -FileName $dattoConfFile
 
         # Send to function to strip potentially superfluous slash (/)
         Add-DattoBaseURI $tmp_config.Datto_Base_URI
@@ -70,13 +72,13 @@ function Import-DattoModuleSettings {
 
         Set-Variable -Name "Datto_JSON_Conversion_Depth" -Value $tmp_config.Datto_JSON_Conversion_Depth -Scope global -Force
 
-        Write-Verbose "DattoAPI Module configuration loaded successfully from [ $DattoConfPath\$DattoConfFile ]"
+        Write-Verbose "DattoAPI Module configuration loaded successfully from [ $dattoConfig ]"
 
         # Clean things up
         Remove-Variable "tmp_config"
     }
     else {
-        Write-Verbose "No configuration file found at [ $DattoConfPath\$DattoConfFile ] run Add-DattoAPIKey to get started."
+        Write-Verbose "No configuration file found at [ $dattoConfig ] run Add-DattoAPIKey to get started."
 
         Add-DattoBaseURI
 

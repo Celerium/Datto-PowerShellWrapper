@@ -16,7 +16,7 @@ Removes the stored Datto configuration folder.
 ## SYNTAX
 
 ```powershell
-Remove-DattoModuleSettings [-DattoConfPath <String>] [-AndVariables] [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-DattoModuleSettings [-dattoConfPath <String>] [-andVariables] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -40,7 +40,7 @@ The default location of the Datto configuration folder is:
 
 ### EXAMPLE 2
 ```powershell
-Remove-DattoModuleSettings -DattoConfPath C:\DattoAPI -AndVariables
+Remove-DattoModuleSettings -DattoConfPath C:\DattoAPI -andVariables
 ```
 
 Checks to see if the defined configuration folder exists and removes it if it does.
@@ -51,7 +51,7 @@ The location of the Datto configuration folder in this example is:
 
 ## PARAMETERS
 
-### -DattoConfPath
+### -dattoConfPath
 Define the location of the Datto configuration folder.
 
 By default the configuration folder is located at:
@@ -64,12 +64,12 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: "$($env:USERPROFILE)\DattoAPI"
+Default value: $(Join-Path -Path $home -ChildPath $(if ($IsWindows -or $PSEdition -eq 'Desktop'){"DattoAPI"}else{".DattoAPI"}) )
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -AndVariables
+### -andVariables
 Define if sensitive Datto variables should be removed as well.
 
 By default the variables are not removed.

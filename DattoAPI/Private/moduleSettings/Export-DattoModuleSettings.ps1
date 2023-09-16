@@ -46,19 +46,27 @@ function Export-DattoModuleSettings {
     [CmdletBinding(DefaultParameterSetName = 'set')]
     Param (
         [Parameter(ParameterSetName = 'set')]
-        [string]$DattoConfPath = "$($env:USERPROFILE)\DattoAPI",
+        [string]$dattoConfPath = $(Join-Path -Path $home -ChildPath $(if ($IsWindows -or $PSEdition -eq 'Desktop'){"DattoAPI"}else{".DattoAPI"}) ),
 
         [Parameter(ParameterSetName = 'set')]
-        [string]$DattoConfFile = 'config.psd1'
+        [string]$dattoConfFile = 'config.psd1'
     )
 
     Write-Warning "Secrets are stored using Windows Data Protection API (DPAPI)"
     Write-Warning "DPAPI provides user context encryption in Windows but NOT in other operating systems like Linux or UNIX. It is recommended to use a more secure & cross-platform storage method"
 
+    $dattoConfig = Join-Path -Path $dattoConfPath -ChildPath $dattoConfFile
+
     # Confirm variables exist and are not null before exporting
     if ($Datto_Base_URI -and $Datto_Public_Key -and $Datto_Secret_Key -and $Datto_JSON_Conversion_Depth) {
         $secureString = $Datto_Secret_Key | ConvertFrom-SecureString
-        New-Item -Path $DattoConfPath -ItemType Directory -Force | ForEach-Object { $_.Attributes = 'hidden' }
+
+        if ($IsWindows -or $PSEdition -eq 'Desktop') {
+            New-Item -Path $dattoConfPath -ItemType Directory -Force | ForEach-Object { $_.Attributes = $_.Attributes -bor "Hidden" }
+        }
+        else{
+            New-Item -Path $dattoConfPath -ItemType Directory -Force
+        }
 @"
     @{
         Datto_Base_URI = '$Datto_Base_URI'
@@ -66,11 +74,13 @@ function Export-DattoModuleSettings {
         Datto_Secret_Key = '$secureString'
         Datto_JSON_Conversion_Depth = '$Datto_JSON_Conversion_Depth'
     }
-"@ | Out-File -FilePath ($DattoConfPath + "\" + $DattoConfFile) -Force
+"@ | Out-File -FilePath $dattoConfig -Force
+#Out-File -FilePath ($dattoConfPath + "\" + $dattoConfFile) -Force
 
     }
     else {
+        Write-Error "Failed to export Datto Module settings to [ $dattoConfig ]"
         Write-Error $_
-        Write-Error "Failed to export Datto Module settings to [ $DattoConfPath\$DattoConfFile ]"
+        exit 1
     }
 }

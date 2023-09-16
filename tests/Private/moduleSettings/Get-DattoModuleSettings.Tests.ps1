@@ -1,9 +1,9 @@
 <#
     .SYNOPSIS
-        Pester tests for the DattoAPI PLACEHOLDER functions
+        Pester tests for the DattoAPI ModuleSettings functions
 
     .DESCRIPTION
-        Pester tests for the DattoAPI PLACEHOLDER functions
+        Pester tests for the DattoAPI ModuleSettings functions
 
     .PARAMETER moduleName
         The name of the local module to import
@@ -18,12 +18,12 @@
             'built', 'notBuilt'
 
     .EXAMPLE
-        Invoke-Pester -Path .\Tests\Private\PLACEHOLDER\Get-DattoPlaceholder.Tests.ps1
+        Invoke-Pester -Path .\Tests\Private\ModuleSettings\Get-DattoModuleSettings.Tests.ps1
 
         Runs a pester test and outputs simple results
 
     .EXAMPLE
-        Invoke-Pester -Path .\Tests\Private\PLACEHOLDER\Get-DattoPlaceholder.Tests.ps1 -Output Detailed
+        Invoke-Pester -Path .\Tests\Private\ModuleSettings\Get-DattoModuleSettings.Tests.ps1 -Output Detailed
 
         Runs a pester test and outputs detailed results
 
@@ -89,6 +89,12 @@ param (
         }
 
         $modulePsd1 = Join-Path -Path $modulePath -ChildPath "$moduleName.psd1"
+        if ($IsWindows -or $PSEdition -eq 'Desktop') {
+            $exportPath = $(Join-Path -Path $home -ChildPath "DattoAPI_Test")
+        }
+        else{
+            $exportPath = $(Join-Path -Path $home -ChildPath ".DattoAPI_Test")
+        }
 
         Import-Module -Name $modulePsd1 -ErrorAction Stop -ErrorVariable moduleError *> $null
 
@@ -101,21 +107,50 @@ param (
 
     AfterAll{
 
+        Remove-DattoModuleSettings -dattoConfPath $exportPath
+
         if (Get-Module -Name $moduleName){
             Remove-Module -Name $moduleName -Force
         }
 
     }
 
+#Available in Describe and Context but NOT It
+#Can be used in [ It ] with [ -TestCases @{ VariableName = $VariableName } ]
+    BeforeDiscovery{
+
+        $pester_TestName = (Get-Item -Path $PSCommandPath).Name
+        $commandName = $pester_TestName -replace '.Tests.ps1',''
+
+    }
 
 #EndRegion  [ Prerequisites ]
 
-Describe "Testing [ $commandName ] function with [ $pester_TestName ]" -Tags @('PLACEHOLDER') {
+Describe "Testing [ $commandName ] function with [ $pester_TestName ]" -Tags @('moduleSettings') {
 
     Context "[ $commandName ] testing function" {
 
-        It "PLACEHOLDER" {
-            $false | Should -BeTrue
+        It "Configuration directory should be hidden" {
+            Add-DattoBaseUri
+            Add-DattoAPIKey -Api_Key_Public '12345' -Api_Key_Secret "DattoApiKey"
+
+            Export-DattoModuleSettings -dattoConfPath $exportPath -ErrorVariable moduleSettingsError -WarningAction SilentlyContinue
+
+            (Get-Item -Path $exportPath -Force).Attributes | Should -BeLike "*Hidden*"
+        }
+
+        It "Configuration file should contain required values" {
+            Add-DattoBaseUri
+            Add-DattoAPIKey -Api_Key_Public '12345' -Api_Key_Secret "DattoApiKey"
+
+            Export-DattoModuleSettings -dattoConfPath $exportPath -ErrorVariable moduleSettingsError -WarningAction SilentlyContinue
+
+            $configFile = Get-DattoModuleSettings -dattoConfPath $exportPath
+                $configFile.Count                       | Should -BeGreaterOrEqual 4
+                $configFile.Datto_Base_URI              | Should -Not -BeNullOrEmpty
+                $configFile.Datto_JSON_Conversion_Depth | Should -Not -BeNullOrEmpty
+                $configFile.Datto_Public_Key            | Should -Not -BeNullOrEmpty
+                $configFile.Datto_Secret_Key            | Should -Not -BeNullOrEmpty
         }
 
     }

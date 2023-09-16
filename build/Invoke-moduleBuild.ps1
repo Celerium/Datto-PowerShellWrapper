@@ -51,8 +51,8 @@
                                         Code
 ############################################################################################>
 #Requires -Version 5.1
-#Requires -Modules @{ ModuleName="ModuleBuilder";   ModuleVersion="3.0.0" }
-#Requires -Modules @{ ModuleName="Pester";          ModuleVersion="5.4.0" }
+#Requires -Modules @{ ModuleName="ModuleBuilder";   ModuleVersion="3.0.1" }
+#Requires -Modules @{ ModuleName="Pester";          ModuleVersion="5.5.0" }
 #Requires -Modules @{ ModuleName="platyPS";         ModuleVersion="0.14.2" }
 
 #Region  [ Parameters ]
@@ -96,7 +96,7 @@ try {
 
     $modulePath         = Join-Path -Path $rootPath -ChildPath $moduleName
     $SourcePath         = Join-Path -Path $modulePath -ChildPath "$moduleName.psd1"
-    $OutputDirectory    = Join-Path -Path $modulePath -ChildPath "build"
+    $OutputDirectory    = Join-Path -Path $rootPath -ChildPath "build"
 
     $params = @{
         SourcePath      = $SourcePath

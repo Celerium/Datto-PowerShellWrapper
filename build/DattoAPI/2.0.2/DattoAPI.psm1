@@ -824,7 +824,7 @@ function Export-DattoModuleSettings {
     [CmdletBinding(DefaultParameterSetName = 'set')]
     Param (
         [Parameter(ParameterSetName = 'set')]
-        [string]$DattoConfPath = "$($env:USERPROFILE)\DattoAPI",
+        [string]$dattoConfPath = "$($env:USERPROFILE)\DattoAPI",
 
         [Parameter(ParameterSetName = 'set')]
         [string]$DattoConfFile = 'config.psd1'
@@ -833,7 +833,7 @@ function Export-DattoModuleSettings {
     # Confirm variables exist and are not null before exporting
     if ($Datto_Base_URI -and $Datto_Public_Key -and $Datto_Secret_Key -and $Datto_JSON_Conversion_Depth) {
         $secureString = $Datto_Secret_Key | ConvertFrom-SecureString
-        New-Item -Path $DattoConfPath -ItemType Directory -Force | ForEach-Object { $_.Attributes = 'hidden' }
+        New-Item -Path $dattoConfPath -ItemType Directory -Force | ForEach-Object { $_.Attributes = 'hidden' }
 @"
     @{
         Datto_Base_URI = '$Datto_Base_URI'
@@ -841,12 +841,12 @@ function Export-DattoModuleSettings {
         Datto_Secret_Key = '$secureString'
         Datto_JSON_Conversion_Depth = '$Datto_JSON_Conversion_Depth'
     }
-"@ | Out-File -FilePath ($DattoConfPath + "\" + $DattoConfFile) -Force
+"@ | Out-File -FilePath ($dattoConfPath + "\" + $DattoConfFile) -Force
 
     }
     else {
         Write-Error $_
-        Write-Error "Failed to export Datto Module settings to [ $DattoConfPath\$DattoConfFile ]"
+        Write-Error "Failed to export Datto Module settings to [ $dattoConfPath\$DattoConfFile ]"
     }
 }
 #EndRegion '.\Private\moduleSettings\Export-DattoModuleSettings.ps1' 74
@@ -905,7 +905,7 @@ function Get-DattoModuleSettings {
     [CmdletBinding(DefaultParameterSetName = 'index')]
     Param (
         [Parameter(Mandatory = $false, ParameterSetName = 'index')]
-        [String]$DattoConfPath = "$($env:USERPROFILE)\DattoAPI",
+        [String]$dattoConfPath = "$($env:USERPROFILE)\DattoAPI",
 
         [Parameter(Mandatory = $false, ParameterSetName = 'index')]
         [String]$DattoConfFile = 'config.psd1',
@@ -918,18 +918,18 @@ function Get-DattoModuleSettings {
 
     process{
 
-        if ( Test-Path -Path $($DattoConfPath + '\' + $DattoConfFile) ){
+        if ( Test-Path -Path $($dattoConfPath + '\' + $DattoConfFile) ){
 
             if($openConfFile){
-                Invoke-Item -Path $($DattoConfPath + '\' + $DattoConfFile)
+                Invoke-Item -Path $($dattoConfPath + '\' + $DattoConfFile)
             }
             else{
-                Import-LocalizedData -BaseDirectory $DattoConfPath -FileName $DattoConfFile
+                Import-LocalizedData -BaseDirectory $dattoConfPath -FileName $DattoConfFile
             }
 
         }
         else{
-            Write-Verbose "No configuration file found at [ $DattoConfPath\$DattoConfFile ]"
+            Write-Verbose "No configuration file found at [ $dattoConfPath\$DattoConfFile ]"
         }
 
     }
@@ -991,14 +991,14 @@ function Import-DattoModuleSettings {
     [CmdletBinding(DefaultParameterSetName = 'set')]
     Param (
         [Parameter(ParameterSetName = 'set')]
-        [string]$DattoConfPath = "$($env:USERPROFILE)\DattoAPI",
+        [string]$dattoConfPath = "$($env:USERPROFILE)\DattoAPI",
 
         [Parameter(ParameterSetName = 'set')]
         [string]$DattoConfFile = 'config.psd1'
     )
 
-    if ( test-path ($DattoConfPath + "\" + $DattoConfFile) ) {
-        $tmp_config = Import-LocalizedData -BaseDirectory $DattoConfPath -FileName $DattoConfFile
+    if ( test-path ($dattoConfPath + "\" + $DattoConfFile) ) {
+        $tmp_config = Import-LocalizedData -BaseDirectory $dattoConfPath -FileName $DattoConfFile
 
         # Send to function to strip potentially superfluous slash (/)
         Add-DattoBaseURI $tmp_config.Datto_Base_URI
@@ -1011,13 +1011,13 @@ function Import-DattoModuleSettings {
 
         Set-Variable -Name "Datto_JSON_Conversion_Depth" -Value $tmp_config.Datto_JSON_Conversion_Depth -Scope global -Force
 
-        Write-Verbose "DattoAPI Module configuration loaded successfully from [ $DattoConfPath\$DattoConfFile ]"
+        Write-Verbose "DattoAPI Module configuration loaded successfully from [ $dattoConfPath\$DattoConfFile ]"
 
         # Clean things up
         Remove-Variable "tmp_config"
     }
     else {
-        Write-Verbose "No configuration file found at [ $DattoConfPath\$DattoConfFile ] run Add-DattoAPIKey to get started."
+        Write-Verbose "No configuration file found at [ $dattoConfPath\$DattoConfFile ] run Add-DattoAPIKey to get started."
 
         Add-DattoBaseURI
 
@@ -1127,31 +1127,31 @@ function Remove-DattoModuleSettings {
     [CmdletBinding(SupportsShouldProcess, DefaultParameterSetName = 'set')]
     Param (
         [Parameter(ParameterSetName = 'set')]
-        [string]$DattoConfPath = "$($env:USERPROFILE)\DattoAPI",
+        [string]$dattoConfPath = "$($env:USERPROFILE)\DattoAPI",
 
         [Parameter(ParameterSetName = 'set')]
         [switch]$AndVariables
     )
 
-    if (Test-Path $DattoConfPath) {
+    if (Test-Path $dattoConfPath) {
 
-        Remove-Item -Path $DattoConfPath -Recurse -Force
+        Remove-Item -Path $dattoConfPath -Recurse -Force
 
         If ($AndVariables) {
             Remove-DattoAPIKey
             Remove-DattoBaseURI
         }
 
-        if (!(Test-Path $DattoConfPath)) {
-            Write-Output "The DattoAPI configuration folder has been removed successfully from [ $DattoConfPath ]"
+        if (!(Test-Path $dattoConfPath)) {
+            Write-Output "The DattoAPI configuration folder has been removed successfully from [ $dattoConfPath ]"
         }
         else {
-            Write-Error "The DattoAPI configuration folder could not be removed from [ $DattoConfPath ]"
+            Write-Error "The DattoAPI configuration folder could not be removed from [ $dattoConfPath ]"
         }
 
     }
     else {
-        Write-Warning "No configuration folder found at [ $DattoConfPath ]"
+        Write-Warning "No configuration folder found at [ $dattoConfPath ]"
     }
 }
 #EndRegion '.\Private\moduleSettings\Remove-DattoModuleSettings.ps1' 78

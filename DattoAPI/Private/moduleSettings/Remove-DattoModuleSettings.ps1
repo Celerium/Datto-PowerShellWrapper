@@ -16,7 +16,7 @@ function Remove-DattoModuleSettings {
         By default the configuration folder is located at:
             $env:USERPROFILE\DattoAPI
 
-    .PARAMETER AndVariables
+    .PARAMETER andVariables
         Define if sensitive Datto variables should be removed as well.
 
         By default the variables are not removed.
@@ -30,7 +30,7 @@ function Remove-DattoModuleSettings {
             $env:USERPROFILE\DattoAPI
 
     .EXAMPLE
-        Remove-DattoModuleSettings -DattoConfPath C:\DattoAPI -AndVariables
+        Remove-DattoModuleSettings -DattoConfPath C:\DattoAPI -andVariables
 
         Checks to see if the defined configuration folder exists and removes it if it does.
         If sensitive Datto variables exist then they are removed as well.
@@ -48,30 +48,30 @@ function Remove-DattoModuleSettings {
     [CmdletBinding(SupportsShouldProcess, DefaultParameterSetName = 'set')]
     Param (
         [Parameter(ParameterSetName = 'set')]
-        [string]$DattoConfPath = "$($env:USERPROFILE)\DattoAPI",
+        [string]$dattoConfPath = $(Join-Path -Path $home -ChildPath $(if ($IsWindows -or $PSEdition -eq 'Desktop'){"DattoAPI"}else{".DattoAPI"}) ),
 
         [Parameter(ParameterSetName = 'set')]
-        [switch]$AndVariables
+        [switch]$andVariables
     )
 
-    if (Test-Path $DattoConfPath) {
+    if (Test-Path $dattoConfPath) {
 
-        Remove-Item -Path $DattoConfPath -Recurse -Force
+        Remove-Item -Path $dattoConfPath -Recurse -Force
 
-        If ($AndVariables) {
+        If ($andVariables) {
             Remove-DattoAPIKey
             Remove-DattoBaseURI
         }
 
-        if (!(Test-Path $DattoConfPath)) {
-            Write-Output "The DattoAPI configuration folder has been removed successfully from [ $DattoConfPath ]"
+        if (!(Test-Path $dattoConfPath)) {
+            Write-Output "The DattoAPI configuration folder has been removed successfully from [ $dattoConfPath ]"
         }
         else {
-            Write-Error "The DattoAPI configuration folder could not be removed from [ $DattoConfPath ]"
+            Write-Error "The DattoAPI configuration folder could not be removed from [ $dattoConfPath ]"
         }
 
     }
     else {
-        Write-Warning "No configuration folder found at [ $DattoConfPath ]"
+        Write-Warning "No configuration folder found at [ $dattoConfPath ]"
     }
 }

@@ -1,9 +1,9 @@
 <#
     .SYNOPSIS
-        Pester tests for the DattoAPI PLACEHOLDER functions
+        Pester tests for the DattoAPI ModuleSettings functions
 
     .DESCRIPTION
-        Pester tests for the DattoAPI PLACEHOLDER functions
+        Pester tests for the DattoAPI ModuleSettings functions
 
     .PARAMETER moduleName
         The name of the local module to import
@@ -18,12 +18,12 @@
             'built', 'notBuilt'
 
     .EXAMPLE
-        Invoke-Pester -Path .\Tests\Private\PLACEHOLDER\Get-DattoPlaceholder.Tests.ps1
+        Invoke-Pester -Path .\Tests\Private\ModuleSettings\Initialize-DattoModuleSettings.Tests.ps1
 
         Runs a pester test and outputs simple results
 
     .EXAMPLE
-        Invoke-Pester -Path .\Tests\Private\PLACEHOLDER\Get-DattoPlaceholder.Tests.ps1 -Output Detailed
+        Invoke-Pester -Path .\Tests\Private\ModuleSettings\Initialize-DattoModuleSettings.Tests.ps1 -Output Detailed
 
         Runs a pester test and outputs detailed results
 
@@ -89,6 +89,13 @@ param (
         }
 
         $modulePsd1 = Join-Path -Path $modulePath -ChildPath "$moduleName.psd1"
+        $invalidPath = $(Join-Path -Path $home -ChildPath "invalidApiPath")
+        if ($IsWindows -or $PSEdition -eq 'Desktop') {
+            $exportPath = $(Join-Path -Path $home -ChildPath "DattoAPI_Test")
+        }
+        else{
+            $exportPath = $(Join-Path -Path $home -ChildPath ".DattoAPI_Test")
+        }
 
         Import-Module -Name $modulePsd1 -ErrorAction Stop -ErrorVariable moduleError *> $null
 
@@ -101,21 +108,53 @@ param (
 
     AfterAll{
 
+        Remove-DattoModuleSettings -dattoConfPath $exportPath
+
         if (Get-Module -Name $moduleName){
             Remove-Module -Name $moduleName -Force
         }
 
     }
 
+#Available in Describe and Context but NOT It
+#Can be used in [ It ] with [ -TestCases @{ VariableName = $VariableName } ]
+    BeforeDiscovery{
+
+        $pester_TestName = (Get-Item -Path $PSCommandPath).Name
+        $commandName = $pester_TestName -replace '.Tests.ps1',''
+
+    }
 
 #EndRegion  [ Prerequisites ]
 
-Describe "Testing [ $commandName ] function with [ $pester_TestName ]" -Tags @('PLACEHOLDER') {
+Describe "Testing [ $commandName ] function with [ $pester_TestName ]" -Tags @('moduleSettings') {
 
     Context "[ $commandName ] testing function" {
 
-        It "PLACEHOLDER" {
-            $false | Should -BeTrue
+        It "When imported WITHOUT a saved configuration baseline variables should exist" {
+            Remove-Module -Name $moduleName -Force
+            Import-Module -Name $modulePsd1
+
+            Import-DattoModuleSettings -dattoConfPath $invalidPath -dattoConfFile 'invalid.psd1'
+
+            (Get-Variable -Name Datto_Base_URI).Value | Should -Be $(Get-DattoBaseURI)
+            (Get-Variable -Name Datto_JSON_Conversion_Depth).Value | Should -Not -BeNullOrEmpty
+        }
+
+        It "When imported WITh a saved configuration baseline variables should exist" {
+            Remove-Module -Name $moduleName -Force
+            Import-Module -Name $modulePsd1 -Force
+
+            Add-DattoBaseUri
+            Add-DattoAPIKey -Api_Key_Public '12345' -Api_Key_Secret "DattoApiKey"
+            Export-DattoModuleSettings -dattoConfPath $exportPath -WarningAction SilentlyContinue
+
+            Import-Module -Name $modulePsd1 -Force
+
+            (Get-Variable -Name Datto_Base_URI).Value | Should -Not -BeNullOrEmpty
+            (Get-Variable -Name Datto_Public_Key).Value | Should -Not -BeNullOrEmpty
+            (Get-Variable -Name Datto_Secret_Key).Value | Should -Not -BeNullOrEmpty
+            (Get-Variable -Name Datto_JSON_Conversion_Depth).Value | Should -Not -BeNullOrEmpty
         }
 
     }

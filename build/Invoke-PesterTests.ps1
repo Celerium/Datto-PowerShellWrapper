@@ -82,6 +82,9 @@ param (
     [string]$version,
 
     [Parameter(Mandatory=$false)]
+    [string[]]$IncludeTag = @(),
+
+    [Parameter(Mandatory=$false)]
     [string[]]$ExcludeTag = 'PLACEHOLDER',
 
     [Parameter(Mandatory=$false)]
@@ -133,6 +136,7 @@ $pester_Options = @{
     }
 
     Filter = @{
+        Tag = $IncludeTag
         ExcludeTag = $ExcludeTag
     }
 

@@ -2134,7 +2134,7 @@
       <command:syntaxItem>
         <maml:name>Export-DattoModuleSettings</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>DattoConfPath</maml:name>
+          <maml:name>dattoConfPath</maml:name>
           <maml:description>
             <maml:para>Define the location to store the Datto configuration file.</maml:para>
             <maml:para>By default the configuration file is stored in the following location:     $env:USERPROFILE\DattoAPI</maml:para>
@@ -2144,10 +2144,10 @@
             <maml:name>String</maml:name>
             <maml:uri />
           </dev:type>
-          <dev:defaultValue>"$($env:USERPROFILE)\DattoAPI"</dev:defaultValue>
+          <dev:defaultValue>$(Join-Path -Path $home -ChildPath $(if ($IsWindows -or $PSEdition -eq 'Desktop'){"DattoAPI"}else{".DattoAPI"}) )</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>DattoConfFile</maml:name>
+          <maml:name>dattoConfFile</maml:name>
           <maml:description>
             <maml:para>Define the name of the Datto configuration file.</maml:para>
             <maml:para>By default the configuration file is named:     config.psd1</maml:para>
@@ -2163,7 +2163,7 @@
     </command:syntax>
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>DattoConfPath</maml:name>
+        <maml:name>dattoConfPath</maml:name>
         <maml:description>
           <maml:para>Define the location to store the Datto configuration file.</maml:para>
           <maml:para>By default the configuration file is stored in the following location:     $env:USERPROFILE\DattoAPI</maml:para>
@@ -2173,10 +2173,10 @@
           <maml:name>String</maml:name>
           <maml:uri />
         </dev:type>
-        <dev:defaultValue>"$($env:USERPROFILE)\DattoAPI"</dev:defaultValue>
+        <dev:defaultValue>$(Join-Path -Path $home -ChildPath $(if ($IsWindows -or $PSEdition -eq 'Desktop'){"DattoAPI"}else{".DattoAPI"}) )</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>DattoConfFile</maml:name>
+        <maml:name>dattoConfFile</maml:name>
         <maml:description>
           <maml:para>Define the name of the Datto configuration file.</maml:para>
           <maml:para>By default the configuration file is named:     config.psd1</maml:para>
@@ -2426,7 +2426,7 @@
       <command:syntaxItem>
         <maml:name>Get-DattoModuleSettings</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>DattoConfPath</maml:name>
+          <maml:name>dattoConfPath</maml:name>
           <maml:description>
             <maml:para>Define the location to store the Datto configuration file.</maml:para>
             <maml:para>By default the configuration file is stored in the following location:     $env:USERPROFILE\DattoAPI</maml:para>
@@ -2436,10 +2436,10 @@
             <maml:name>String</maml:name>
             <maml:uri />
           </dev:type>
-          <dev:defaultValue>"$($env:USERPROFILE)\DattoAPI"</dev:defaultValue>
+          <dev:defaultValue>$(Join-Path -Path $home -ChildPath $(if ($IsWindows -or $PSEdition -eq 'Desktop'){"DattoAPI"}else{".DattoAPI"}) )</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>DattoConfFile</maml:name>
+          <maml:name>dattoConfFile</maml:name>
           <maml:description>
             <maml:para>Define the name of the Datto configuration file.</maml:para>
             <maml:para>By default the configuration file is named:     config.psd1</maml:para>
@@ -2469,7 +2469,7 @@
     </command:syntax>
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>DattoConfPath</maml:name>
+        <maml:name>dattoConfPath</maml:name>
         <maml:description>
           <maml:para>Define the location to store the Datto configuration file.</maml:para>
           <maml:para>By default the configuration file is stored in the following location:     $env:USERPROFILE\DattoAPI</maml:para>
@@ -2479,10 +2479,10 @@
           <maml:name>String</maml:name>
           <maml:uri />
         </dev:type>
-        <dev:defaultValue>"$($env:USERPROFILE)\DattoAPI"</dev:defaultValue>
+        <dev:defaultValue>$(Join-Path -Path $home -ChildPath $(if ($IsWindows -or $PSEdition -eq 'Desktop'){"DattoAPI"}else{".DattoAPI"}) )</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>DattoConfFile</maml:name>
+        <maml:name>dattoConfFile</maml:name>
         <maml:description>
           <maml:para>Define the name of the Datto configuration file.</maml:para>
           <maml:para>By default the configuration file is named:     config.psd1</maml:para>
@@ -2556,7 +2556,7 @@
       <command:syntaxItem>
         <maml:name>Import-DattoModuleSettings</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>DattoConfPath</maml:name>
+          <maml:name>dattoConfPath</maml:name>
           <maml:description>
             <maml:para>Define the location to store the Datto configuration file.</maml:para>
             <maml:para>By default the configuration file is stored in the following location:     $env:USERPROFILE\DattoAPI</maml:para>
@@ -2566,10 +2566,10 @@
             <maml:name>String</maml:name>
             <maml:uri />
           </dev:type>
-          <dev:defaultValue>"$($env:USERPROFILE)\DattoAPI"</dev:defaultValue>
+          <dev:defaultValue>$(Join-Path -Path $home -ChildPath $(if ($IsWindows -or $PSEdition -eq 'Desktop'){"DattoAPI"}else{".DattoAPI"}) )</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>DattoConfFile</maml:name>
+          <maml:name>dattoConfFile</maml:name>
           <maml:description>
             <maml:para>Define the name of the Datto configuration file.</maml:para>
             <maml:para>By default the configuration file is named:     config.psd1</maml:para>
@@ -2585,7 +2585,7 @@
     </command:syntax>
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>DattoConfPath</maml:name>
+        <maml:name>dattoConfPath</maml:name>
         <maml:description>
           <maml:para>Define the location to store the Datto configuration file.</maml:para>
           <maml:para>By default the configuration file is stored in the following location:     $env:USERPROFILE\DattoAPI</maml:para>
@@ -2595,10 +2595,10 @@
           <maml:name>String</maml:name>
           <maml:uri />
         </dev:type>
-        <dev:defaultValue>"$($env:USERPROFILE)\DattoAPI"</dev:defaultValue>
+        <dev:defaultValue>$(Join-Path -Path $home -ChildPath $(if ($IsWindows -or $PSEdition -eq 'Desktop'){"DattoAPI"}else{".DattoAPI"}) )</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>DattoConfFile</maml:name>
+        <maml:name>dattoConfFile</maml:name>
         <maml:description>
           <maml:para>Define the name of the Datto configuration file.</maml:para>
           <maml:para>By default the configuration file is named:     config.psd1</maml:para>
@@ -3008,7 +3008,7 @@
       <command:syntaxItem>
         <maml:name>Remove-DattoModuleSettings</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>DattoConfPath</maml:name>
+          <maml:name>dattoConfPath</maml:name>
           <maml:description>
             <maml:para>Define the location of the Datto configuration folder.</maml:para>
             <maml:para>By default the configuration folder is located at:     $env:USERPROFILE\DattoAPI</maml:para>
@@ -3018,10 +3018,10 @@
             <maml:name>String</maml:name>
             <maml:uri />
           </dev:type>
-          <dev:defaultValue>"$($env:USERPROFILE)\DattoAPI"</dev:defaultValue>
+          <dev:defaultValue>$(Join-Path -Path $home -ChildPath $(if ($IsWindows -or $PSEdition -eq 'Desktop'){"DattoAPI"}else{".DattoAPI"}) )</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>AndVariables</maml:name>
+          <maml:name>andVariables</maml:name>
           <maml:description>
             <maml:para>Define if sensitive Datto variables should be removed as well.</maml:para>
             <maml:para>By default the variables are not removed.</maml:para>
@@ -3058,7 +3058,7 @@
     </command:syntax>
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>DattoConfPath</maml:name>
+        <maml:name>dattoConfPath</maml:name>
         <maml:description>
           <maml:para>Define the location of the Datto configuration folder.</maml:para>
           <maml:para>By default the configuration folder is located at:     $env:USERPROFILE\DattoAPI</maml:para>
@@ -3068,10 +3068,10 @@
           <maml:name>String</maml:name>
           <maml:uri />
         </dev:type>
-        <dev:defaultValue>"$($env:USERPROFILE)\DattoAPI"</dev:defaultValue>
+        <dev:defaultValue>$(Join-Path -Path $home -ChildPath $(if ($IsWindows -or $PSEdition -eq 'Desktop'){"DattoAPI"}else{".DattoAPI"}) )</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>AndVariables</maml:name>
+        <maml:name>andVariables</maml:name>
         <maml:description>
           <maml:para>Define if sensitive Datto variables should be removed as well.</maml:para>
           <maml:para>By default the variables are not removed.</maml:para>
@@ -3126,7 +3126,7 @@
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>Remove-DattoModuleSettings -DattoConfPath C:\DattoAPI -AndVariables</dev:code>
+        <dev:code>Remove-DattoModuleSettings -DattoConfPath C:\DattoAPI -andVariables</dev:code>
         <dev:remarks>
           <maml:para>Checks to see if the defined configuration folder exists and removes it if it does. If sensitive Datto variables exist then they are removed as well.</maml:para>
           <maml:para>The location of the Datto configuration folder in this example is:     C:\DattoAPI</maml:para>
