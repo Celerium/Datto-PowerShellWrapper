@@ -111,7 +111,7 @@ try {
         'notBuilt'  { $modulePath = Join-Path -Path $rootPath -ChildPath "$moduleName" }
     }
 
-    $testPath = Join-Path -Path $rootPath -ChildPath "Tests"
+    $testPath = Join-Path -Path $rootPath -ChildPath "tests"
 
 }
 catch {
