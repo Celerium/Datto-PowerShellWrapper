@@ -65,9 +65,9 @@
         [ValidateNotNullOrEmpty()]
         [String]$moduleName = 'DattoAPI',
 
-        [Parameter(Mandatory=$false, ValueFromPipeline = $true)]
-        [ValidateNotNullOrEmpty()]
-        [String]$SourcePath = $($PSScriptRoot | Split-Path),
+        #[Parameter(Mandatory=$false, ValueFromPipeline = $true)]
+        #[ValidateNotNullOrEmpty()]
+        #[String]$SourcePath = $($PSScriptRoot | Split-Path),
 
         [Parameter(Mandatory=$false)]
         [ValidateNotNullOrEmpty()]
@@ -89,12 +89,33 @@ $StartDate = Get-Date
 #Region  [ Update Help ]
 
 #Added because of weird Az DevOps issue
-if ( $PSVersionTable.PSVersion.Major -eq '5' ){
-    $SourcePath = "$($PSScriptRoot | Split-Path)"
-}
+#if ( $PSVersionTable.PSVersion.Major -eq '5' ){
+#    $SourcePath = "$($PSScriptRoot | Split-Path)"
+#}
 
-    Import-Module "$SourcePath\build\Update-HelpContent.ps1" -Force -Verbose:$false
+    if ($IsWindows -or $PSEdition -eq 'Desktop') {
+        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\build', [System.StringComparison]::OrdinalIgnoreCase)) )"
+    }
+    else{
+        Write-Verbose "Running on a non-Windows operating system"
+        $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('/build', [System.StringComparison]::OrdinalIgnoreCase)) )"
+    }
 
+    Set-variable -Name test_PSCommandPath -Value $PSCommandPath -Scope Global -Force
+    Set-variable -Name test_rootPath -Value $rootPath -Scope Global -Force
+
+    Import-Module $( Join-Path -Path $rootPath -ChildPath 'build\Update-HelpContent.ps1' ) -Force -Verbose:$false
+    #Import-Module "$SourcePath\build\Update-HelpContent.ps1" -Force -Verbose:$false
+
+    $parameters = @{
+        moduleName      = $moduleName
+        helpDocsPath    = Join-Path -Path $rootPath -ChildPath 'docs'
+        csvFilePath     = Join-Path -Path $rootPath -ChildPath 'docs\Endpoints.csv'
+        githubPageUri   = $githubPageUri
+        verbose         = $true
+    }
+
+    <#
     $parameters = @{
         moduleName      = $moduleName
         helpDocsPath    = "$SourcePath\docs"
@@ -102,6 +123,7 @@ if ( $PSVersionTable.PSVersion.Major -eq '5' ){
         githubPageUri   = $githubPageUri
         verbose         = $true
     }
+    #>
 
     Update-HelpContent @parameters
 
