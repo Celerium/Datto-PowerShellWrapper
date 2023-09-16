@@ -5,7 +5,6 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  group: Test_Secrets
   version: 2.1.0
   moduleName: DattoAPI
 
