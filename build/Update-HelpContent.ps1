@@ -9,12 +9,12 @@ function Update-HelpContent {
             AUTHOR:  David Schulte
             DATE:    2022-11-26
             EMAIL:   celerium@celerium.org
-            Updated:
-            Date:
+            Updated: 2023-09-16
 
         TODO:
         Find a better way to make\update the main module file, as of 2022-11 this script double generates markdown files
         When run with PowerShell 7, examples with comma separated values turn into line breaks
+        See about cross platform cab file generation
 
     .SYNOPSIS
         Updates or creates markdown help files
@@ -49,10 +49,10 @@ function Update-HelpContent {
 
         The tracking CSV should be located in "Datto-PowerShellWrapper\docs"
         Reference:
-            Yes - "Datto-PowerShellWrapper\docs\S1-Endpoints-v2.1.csv"
-            NO  - "Datto-PowerShellWrapper\DattoAPI\docs\S1-Endpoints-v2.1.csv"
+            Yes - "Datto-PowerShellWrapper\docs\Endpoints.csv"
+            NO  - "Datto-PowerShellWrapper\DattoAPI\docs\Endpoints.csv"
 
-        Example: "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\S1-Endpoints-v2.1.csv"
+        Example: "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\Endpoints.csv"
 
     .PARAMETER githubPageUri
         Base url of the modules github pages
@@ -66,7 +66,7 @@ function Update-HelpContent {
         .\Update-HelpContent.ps1
             -moduleName DattoAPI
             -helpDocsPath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs"
-            -csvFilePath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\S1-Endpoints-v2.1.csv"
+            -csvFilePath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\Endpoints.csv"
             -githubPageUri "https://celerium.github.io/Datto-PowerShellWrapper"
 
         Updates markdown docs and external help files
@@ -77,7 +77,7 @@ function Update-HelpContent {
         .\Update-HelpContent.ps1
             -moduleName DattoAPI
             -helpDocsPath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs"
-            -csvFilePath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\S1-Endpoints-v2.1.csv"
+            -csvFilePath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\Endpoints.csv"
             -githubPageUri "https://celerium.github.io/Datto-PowerShellWrapper"
             -verbose
 
@@ -86,7 +86,7 @@ function Update-HelpContent {
         Progress information is sent to the console while the script is running.
 
     .INPUTS
-        helpDocsPath
+        N\A
 
     .OUTPUTS
         N\A
@@ -146,19 +146,13 @@ $siteStructureFolder= Join-Path -Path $helpDocsPath -ChildPath "site"
 $externalHelp       = Join-Path -Path $helpDocsPath -ChildPath "en-US"
 $externalHelpCab    = Join-Path -Path $helpDocsPath -ChildPath "cab"
 
-#$modulePage         = "$helpDocsPath\$moduleName.md"
-#$tempFolder         = "$helpDocsPath\temp"
-#$siteStructureFolder= "$helpDocsPath\site"
-#$externalHelp       = "$helpDocsPath\en-US"
-#$externalHelpCab    = "$helpDocsPath\cab"
-
 $docFolders = $helpDocsPath,$tempFolder,$siteStructureFolder,$externalHelp,$externalHelpCab
 
 $TemplatePages = 'DELETE.md', 'GET.md', 'index.md', 'POST.md', 'PUT.md'
 
 Try{
 
-    if (Get-InstalledModule -Name platyPS -ErrorAction SilentlyContinue -Verbose:$false){
+    if (Get-InstalledModule -Name platyPS -ErrorAction SilentlyContinue -Verbose:$false 4>$null) {
         Import-Module -Name platyPS -Verbose:$false
     }
     else{
@@ -166,18 +160,14 @@ Try{
     }
 
     if ($IsWindows -or $PSEdition -eq 'Desktop') {
-        Write-Verbose "Running on a [ WINDOWS ]  operating system"
         $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\build', [System.StringComparison]::OrdinalIgnoreCase)) )"
     }
     else{
-        Write-Verbose "Running on a [ non-Windows ] operating system"
         $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('/build', [System.StringComparison]::OrdinalIgnoreCase)) )"
     }
 
-    #$rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('\build')) )"
     $modulePath = Join-Path -Path $rootPath -ChildPath $moduleName
     $modulePsd1 = Join-Path -Path $modulePath -ChildPath "$moduleName.psd1"
-    #$modulePath = "$rootPath\$moduleName"
 
         if (Test-Path -Path $modulePsd1 ){
             Import-Module -Name $modulePsd1 -Force -Verbose:$false
@@ -274,7 +264,6 @@ ForEach ( $Cmdlet in $Commands ) {
         }
 
     $CategoryPath = Join-Path -Path $siteStructureFolder -ChildPath $Category
-    #$CategoryPath = "$siteStructureFolder\$Category"
         if ( (Test-Path -Path $CategoryPath -PathType Container) -eq $false ){
             New-Item -Path $CategoryPath -ItemType Directory > $null
         }
@@ -294,14 +283,14 @@ ForEach ( $Cmdlet in $Commands ) {
 
     #Adjust module powershell code fence
     $content = Get-Content -Path $( Join-Path -Path $CategoryPath -ChildPath "$($Cmdlet.Name + '.md')" ) -Raw
-    #$content = Get-Content -Path "$CategoryPath\$($Cmdlet.Name + '.md')" -Raw
     $newContent = $content -replace '(?m)(?<fence>^```)(?=\r\n\w+)', "`${fence}powershell"
     $newContent | Set-Content -Path $( Join-Path -Path $CategoryPath -ChildPath "$($Cmdlet.Name + '.md')" ) -NoNewline
-    #$newContent | Set-Content -Path "$CategoryPath\$($Cmdlet.Name + '.md')" -NoNewline
 
 #Region     [ Template Code ]
 
     ForEach ($Template in $TemplatePages){
+
+        $template_Path = $(Join-Path -Path $CategoryPath -ChildPath $Template)
 
         if ($Template -ne 'index.md'){
             $fileContents = @"
@@ -335,28 +324,23 @@ Have a look around and if you would like to contribute please read over the [Con
         }
 
         if( $Template -eq 'index.md' ){
-            New-Item -Path $(Join-Path -Path $CategoryPath -ChildPath $Template) -ItemType File -Value $fileContents -Force > $null
-            #New-Item -Path "$CategoryPath\$Template" -ItemType File -Value $fileContents -Force > $null
+            New-Item -Path $template_Path -ItemType File -Value $fileContents -Force > $null
         }
         else{
             New-Item -Path $( Join-Path -Path $CategoryPath -ChildPath $(($Template -replace '.md','').ToUpper() + '.md') ) -ItemType File -Value $fileContents -Force > $null
-            #New-Item -Path "$CategoryPath\$( ($Template -replace '.md','').ToUpper() + '.md' )" -ItemType File -Value $fileContents -Force > $null
         }
 
         #Title and Parents
-        $content = Get-Content -Path $(Join-Path -Path $CategoryPath -ChildPath $Template)
-        #$content = Get-Content -Path "$CategoryPath\$Template"
+        $content = Get-Content -Path $template_Path
         $newContent = $content -replace 'xxparentxx',"$Category"
-        $newContent | Set-Content -Path $(Join-Path -Path $CategoryPath -ChildPath $Template)
-        #$newContent | Set-Content -Path "$CategoryPath\$Template"
+        $newContent | Set-Content -Path $template_Path
 
         if( $Template -eq 'index.md' ){
 
             $Counts = 'xdeleteCountx', 'xgetCountx', 'xpostCountx', 'xputCountx'
             ForEach ($Count in $Counts){
 
-                $content = Get-Content -Path $(Join-Path -Path $CategoryPath -ChildPath $Template)
-                #$content = Get-Content -Path "$CategoryPath\$Template"
+                $content = Get-Content -Path $template_Path
 
                 Switch($Count){
                     'xdeleteCountx' { $countValue = ($CSV | Where-Object {$_.Method -eq 'Delete' -and $_.Category -eq $Category} | Measure-Object).count }
@@ -366,8 +350,7 @@ Have a look around and if you would like to contribute please read over the [Con
                 }
 
                 $newContent = $content -replace $Count,$countValue
-                $newContent | Set-Content -Path $(Join-Path -Path $CategoryPath -ChildPath $Template)
-                #$newContent | Set-Content -Path "$CategoryPath\$Template"
+                $newContent | Set-Content -Path $template_Path
 
             }
         }
@@ -384,16 +367,18 @@ Write-Verbose " - (4/4) - $(Get-Date -Format MM-dd-HH:mm) - Regenerating externa
 
 #Region     [ External Help ]
 
-$helpFilePaths = [System.Collections.Generic.List[object]]::new()
-$helpFiles = (Get-ChildItem -Path $siteStructureFolder -Include "*.md" -Exclude index*,delete*,post*,put*,get.* -Recurse | Sort-Object fullName).fullName
-
-    ForEach ($File in $helpFiles){
-        $helpFilePaths.Add($File) > $null
-    }
-
-New-ExternalHelp -Path $helpFilePaths -OutputPath $externalHelp -Force > $null
-
 if ($IsWindows -or $PSEdition -eq 'Desktop') {
+
+    $helpFilePaths = [System.Collections.Generic.List[object]]::new()
+    $helpFiles = (Get-ChildItem -Path $siteStructureFolder -Include "*.md" -Exclude index*,delete*,post*,put*,get.* -Recurse | Sort-Object fullName).fullName
+
+        ForEach ($File in $helpFiles){
+            $helpFilePaths.Add($File) > $null
+        }
+
+    New-ExternalHelp -Path $helpFilePaths -OutputPath $externalHelp -Force > $null
+
+
     New-ExternalHelpCab -CabFilesFolder $externalHelp -LandingPagePath $modulePage -OutputFolder $externalHelpCab -IncrementHelpVersion > $null
 
 }
