@@ -13,10 +13,10 @@
     TODO:
 
 .SYNOPSIS
-    Calls the Update-helpContent script to update module markdown help files
+    Calls the Update-helpContent function to update module markdown help files
 
 .DESCRIPTION
-    The Update-helpContent script calls the Update-helpContent script to
+    The Invoke-helpContent script calls the Update-helpContent function to
     update module markdown help files
 
 .PARAMETER moduleName

@@ -16,7 +16,7 @@
     Installs the prerequisites needed to build and test a Celerium PowerShell project.
 
 .DESCRIPTION
-    The Install-Prerequisites script Installs the prerequisites needed to
+    The Install-Prerequisites script installs the prerequisites needed to
     build and test a Celerium PowerShell project.
 
     The various prerequisites required allow for the automation of documentation,

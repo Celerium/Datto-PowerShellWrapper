@@ -11,6 +11,7 @@
         Updated: 2023-09-16
 
     TODO:
+    Add public function testing with secrets
 
 .SYNOPSIS
     Invoke Pester tests against all functions in a module
@@ -25,6 +26,9 @@
 
 .PARAMETER Version
     The version of the local module to import
+
+.PARAMETER IncludeTag
+    Tags to run tests against
 
 .PARAMETER ExcludeTag
     Tags associated to test to skip
@@ -133,9 +137,7 @@ $pesterContainer_params = @{
     'version'           = $Version;
     'buildTarget'       = $buildTarget
 }
-
-$pester_Container = New-PesterContainer -Path $testPath -Data $pesterContainer_params
-#$pester_Container = New-PesterContainer -Path $testPath -Data @{ 'moduleName' = $moduleName; 'version' = $Version; 'buildTarget' = $buildTarget }
+    $pester_Container = New-PesterContainer -Path $testPath -Data $pesterContainer_params
 
 $pester_Options = @{
 

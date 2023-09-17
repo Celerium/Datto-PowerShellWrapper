@@ -1,98 +1,98 @@
 function Update-helpContent {
 <#
-    .NOTES
-        Copyright 1990-2024 Celerium
+.NOTES
+    Copyright 1990-2024 Celerium
 
-        NAME: Update-helpContent.ps1
-        Type: PowerShell
+    NAME: Update-helpContent.ps1
+    Type: PowerShell
 
-            AUTHOR:  David Schulte
-            DATE:    2022-11-26
-            EMAIL:   celerium@celerium.org
-            Updated: 2023-09-16
+        AUTHOR:  David Schulte
+        DATE:    2022-11-26
+        EMAIL:   celerium@celerium.org
+        Updated: 2023-09-16
 
-        TODO:
-        Find a better way to make\update the main module file, as of 2022-11 this script double generates markdown files
-        When run with PowerShell 7, examples with comma separated values turn into line breaks
-        See about cross platform cab file generation
+    TODO:
+    Find a better way to make\update the main module file, as of 2022-11 this script double generates markdown files
+    When run with PowerShell 7, examples with comma separated values turn into line breaks
+    See about cross platform cab file generation
 
-    .SYNOPSIS
-        Updates or creates markdown help files
+.SYNOPSIS
+    Updates or creates markdown help files
 
-    .DESCRIPTION
-        The Update-helpContent script updates or creates markdown help files which are
-        used by both Github pages and as external help.
+.DESCRIPTION
+    The Update-helpContent script updates or creates markdown help files which are
+    used by both Github pages and as external help.
 
-        The markdown documents created contain metadata that GitHub pages directly use
-        to build its entire documentation structure\site.
+    The markdown documents created contain metadata that GitHub pages directly use
+    to build its entire documentation structure\site.
 
-        This also generates external XML\cab help files.
-            - 2022-11: More research is needed to fully implement external help
+    This also generates external XML\cab help files.
+        - 2022-11: More research is needed to fully implement external help
 
-    .PARAMETER moduleName
-        The name of the module to generate help documents for
+.PARAMETER moduleName
+    The name of the module to generate help documents for
 
-        Example: DattoAPI
+    Example: DattoAPI
 
-    .PARAMETER helpDocsPath
-        Location to store the markdown help docs
+.PARAMETER helpDocsPath
+    Location to store the markdown help docs
 
-        All markdown help docs should be located outside the module folder.
-        Reference:
-            Yes - "Datto-PowerShellWrapper\docs"
-            NO  - "Datto-PowerShellWrapper\DattoAPI\docs"
+    All markdown help docs should be located outside the module folder.
+    Reference:
+        Yes - "Datto-PowerShellWrapper\docs"
+        NO  - "Datto-PowerShellWrapper\DattoAPI\docs"
 
-        Example: "C:\Celerium\Projects\Datto-PowerShellWrapper\docs"
+    Example: "C:\Celerium\Projects\Datto-PowerShellWrapper\docs"
 
-    .PARAMETER csvFilePath
-        Location where the tracking CSV is located including the CSV file name
+.PARAMETER csvFilePath
+    Location where the tracking CSV is located including the CSV file name
 
-        The tracking CSV should be located in "Datto-PowerShellWrapper\docs"
-        Reference:
-            Yes - "Datto-PowerShellWrapper\docs\Endpoints.csv"
-            NO  - "Datto-PowerShellWrapper\DattoAPI\docs\Endpoints.csv"
+    The tracking CSV should be located in "Datto-PowerShellWrapper\docs"
+    Reference:
+        Yes - "Datto-PowerShellWrapper\docs\Endpoints.csv"
+        NO  - "Datto-PowerShellWrapper\DattoAPI\docs\Endpoints.csv"
 
-        Example: "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\Endpoints.csv"
+    Example: "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\Endpoints.csv"
 
-    .PARAMETER githubPageUri
-        Base url of the modules github pages
+.PARAMETER githubPageUri
+    Base url of the modules github pages
 
-        Example: "https://celerium.github.io/Datto-PowerShellWrapper"
+    Example: "https://celerium.github.io/Datto-PowerShellWrapper"
 
-    .PARAMETER ShowHelpDocs
-        Opens the directory with the HelpDocs when completed
+.PARAMETER ShowHelpDocs
+    Opens the directory with the HelpDocs when completed
 
-    .EXAMPLE
-        .\Update-helpContent.ps1
-            -moduleName DattoAPI
-            -helpDocsPath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs"
-            -csvFilePath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\Endpoints.csv"
-            -githubPageUri "https://celerium.github.io/Datto-PowerShellWrapper"
+.EXAMPLE
+    .\Update-helpContent.ps1
+        -moduleName DattoAPI
+        -helpDocsPath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs"
+        -csvFilePath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\Endpoints.csv"
+        -githubPageUri "https://celerium.github.io/Datto-PowerShellWrapper"
 
-        Updates markdown docs and external help files
+    Updates markdown docs and external help files
 
-        No progress information is sent to the console while the script is running.
+    No progress information is sent to the console while the script is running.
 
-    .EXAMPLE
-        .\Update-helpContent.ps1
-            -moduleName DattoAPI
-            -helpDocsPath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs"
-            -csvFilePath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\Endpoints.csv"
-            -githubPageUri "https://celerium.github.io/Datto-PowerShellWrapper"
-            -verbose
+.EXAMPLE
+    .\Update-helpContent.ps1
+        -moduleName DattoAPI
+        -helpDocsPath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs"
+        -csvFilePath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\Endpoints.csv"
+        -githubPageUri "https://celerium.github.io/Datto-PowerShellWrapper"
+        -verbose
 
-        Updates markdown docs and external help files
+    Updates markdown docs and external help files
 
-        Progress information is sent to the console while the script is running.
+    Progress information is sent to the console while the script is running.
 
-    .INPUTS
-        N\A
+.INPUTS
+    N\A
 
-    .OUTPUTS
-        N\A
+.OUTPUTS
+    N\A
 
-    .LINK
-        https://celerium.org
+.LINK
+    https://celerium.org
 
 #>
 
