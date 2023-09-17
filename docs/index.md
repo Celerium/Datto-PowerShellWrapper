@@ -18,14 +18,12 @@ nav_order: 1
 </h1>
 
 [![Az_Pipeline][Az_Pipeline-shield]][Az_Pipeline-url]
-[![Az_Coverage][Az_Coverage-shield]][Az_Coverage-url]
 [![GitHub_Pages][GitHub_Pages-shield]][GitHub_Pages-url]
 
 [![PoshGallery_Version][PoshGallery_Version-shield]][PoshGallery_Version-url]
 [![PoshGallery_Platforms][PoshGallery_Platforms-shield]][PoshGallery_Platforms-url]
 [![PoshGallery_Downloads][PoshGallery_Downloads-shield]][PoshGallery_Downloads-url]
 [![codeSize][codeSize-shield]][codeSize-url]
-[![GitHub_License][GitHub_License-shield]][GitHub_License-url]
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -33,7 +31,7 @@ nav_order: 1
 [![Issues][issues-shield]][issues-url]
 
 [![Blog][Website-shield]][Website-url]
-
+[![GitHub_License][GitHub_License-shield]][GitHub_License-url]
 ---
 
 ## Buy me a coffee
@@ -151,9 +149,10 @@ After install this module, you will need to configure both the *base URI* & *API
 <br>
 
 3. [**optional**] Run `Export-DattoModuleSettings`
-   - This will create a config file at `%UserProfile%\DattoAPI` that securely holds the *base uri* & *API access tokens* information.
+   - This will create a config file at `%UserProfile%\DattoAPI` that holds the *base uri* & *API access tokens* information.
    - Next time you run `Import-Module -Name DattoAPI`, this configuration file will automatically be loaded.
-   - :warning: Exporting module settings encrypts your API access tokens in a format that can **only be unencrypted with your Windows account**. It makes use of PowerShell's `System.Security.SecureString` type, which uses reversible encrypted tied to your user principal. This means that you cannot copy your configuration file to another computer or user account and expect it to work.
+   - :warning: Exporting module settings encrypts your API access tokens in a format that can **only be unencrypted by the user principal** that encrypted the secret. It makes use of .NET DPAPI, which for Windows uses reversible encrypted tied to your user principal. This means that you **cannot copy** your configuration file to another computer or user account and expect it to work.
+   - :warning: However in Linux\Unix operating systems the secret keys are more obfuscated than encrypted so it is recommend to use a more secure & cross-platform storage method.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -194,9 +193,8 @@ Each `Get-Datto*` function will respond with the raw data that Datto's API provi
 ## Roadmap
 
 - [ ] Add Changelog
-- [ ] Build more robust Pester & ScriptAnalyzer tests
-- [ ] Build a better API authentication parameters to more securely handle API keys
-- [ ] Figure out how to do CI & PowerShell gallery automation
+- [x] Build more robust Pester & ScriptAnalyzer tests
+- [x] Figure out how to do CI & PowerShell gallery automation
 - [ ] Add example scripts & automation
 
 See the [open issues](https://github.com/Celerium/Datto-PowerShellWrapper/issues) for a full list of proposed features (and known issues).
@@ -255,11 +253,9 @@ Big thank you to the following people and services as they have provided me lots
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[Az_Coverage-shield]:               https://img.shields.io/azure-devops/coverage/AzCelerium/CeleriumDemo/3?style=for-the-badge
-[Az_Coverage-url]:                  https://dev.azure.com/AzCelerium/CeleriumDemo/_build?definitionId=3
 
-[Az_Pipeline-shield]:               https://img.shields.io/azure-devops/build/AzCelerium/CeleriumDemo/3?style=for-the-badge&label=DevOps_Build
-[Az_Pipeline-url]:                  https://dev.azure.com/AzCelerium/CeleriumDemo/_build?definitionId=3
+[Az_Pipeline-shield]:               https://img.shields.io/azure-devops/build/AzCelerium/DattoAPI/4?style=for-the-badge&label=DevOps_Build
+[Az_Pipeline-url]:                  https://dev.azure.com/AzCelerium/DattoAPI/_build?definitionId=4
 
 [GitHub_Pages-shield]:              https://img.shields.io/github/actions/workflow/status/celerium/Datto-PowerShellWrapper/pages%2Fpages-build-deployment?style=for-the-badge&label=GitHub%20Pages
 [GitHub_Pages-url]:                 https://github.com/Celerium/Datto-PowerShellWrapper/actions/workflows/pages/pages-build-deployment

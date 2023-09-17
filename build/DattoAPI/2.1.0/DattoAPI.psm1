@@ -153,6 +153,8 @@ function Get-DattoMetaData {
             $Api_Token = Get-DattoAPIKey -plainText
             $Api_Token_base64 = [Convert]::ToBase64String( [Text.Encoding]::ASCII.GetBytes( ("{0}:{1}" -f ($Api_Token).PublicKey,($Api_Token).SecretKey) ) )
 
+            $Datto_Headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+            $Datto_Headers.Add("Content-Type", 'application/json')
             $Datto_Headers.Add('Authorization', 'Basic {0}'-f $Api_Token_base64)
 
             $rest_output = Invoke-WebRequest -method Get -uri ($base_uri + $resource_uri) -headers $Datto_Headers -ErrorAction Stop
@@ -169,7 +171,7 @@ function Get-DattoMetaData {
 
         }
         finally {
-            [void] ( $Datto_Headers.Remove('Authorization') )
+            Remove-Variable -Name Datto_Headers -Force
         }
 
         if ($rest_output){
@@ -194,7 +196,7 @@ function Get-DattoMetaData {
 
     end {}
 }
-#EndRegion '.\Private\apiCalls\Get-DattoMetaData.ps1' 97
+#EndRegion '.\Private\apiCalls\Get-DattoMetaData.ps1' 99
 #Region '.\Private\apiCalls\Invoke-DattoRequest.ps1' 0
 function Invoke-DattoRequest {
 <#
@@ -1075,8 +1077,9 @@ function Import-DattoModuleSettings {
 }
 #EndRegion '.\Private\moduleSettings\Import-DattoModuleSettings.ps1' 89
 #Region '.\Private\moduleSettings\Initialize-DattoModuleSettings.ps1' 0
+#Used to auto load either baseline settings or saved configurations when the module is imported
 Import-DattoModuleSettings
-#EndRegion '.\Private\moduleSettings\Initialize-DattoModuleSettings.ps1' 2
+#EndRegion '.\Private\moduleSettings\Initialize-DattoModuleSettings.ps1' 3
 #Region '.\Private\moduleSettings\Remove-DattoModuleSettings.ps1' 0
 function Remove-DattoModuleSettings {
 <#

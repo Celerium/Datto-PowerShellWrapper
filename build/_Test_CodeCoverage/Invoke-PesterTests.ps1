@@ -20,7 +20,7 @@
             'built', 'notBuilt'
 
     .EXAMPLE
-        Invoke-PesterTests -moduleName DattoAPI -Version 1.2.3
+        Invoke-pesterTests -moduleName DattoAPI -Version 1.2.3
 
         Runs various pester tests against all functions in the module
         and outputs the results to the console as well as creates

@@ -62,15 +62,7 @@ param (
 
     [Parameter(Mandatory=$true)]
     [ValidateSet('built','notBuilt')]
-    [string]$buildTarget,
-
-    [Parameter(Mandatory = $false)]
-    [ValidateNotNullOrEmpty()]
-    [string]$Api_Key_Public,
-
-    [Parameter(Mandatory = $false)]
-    [ValidateNotNullOrEmpty()]
-    [string]$Api_Key_Secret
+    [string]$buildTarget
 )
 
 #EndRegion  [ Parameters ]
@@ -121,13 +113,13 @@ param (
 
         $pester_TestName = (Get-Item -Path $PSCommandPath).Name
         $commandName = $pester_TestName -replace '.Tests.ps1',''
-        $withoutAuth = $( [bool]$Api_Key_Public -eq $false -or [bool]$Api_Key_Secret -eq $false )
+        #$withoutAuth = $( [bool]$Api_Key_Public -eq $false -or [bool]$Api_Key_Secret -eq $false )
 
     }
 
 #EndRegion  [ Prerequisites ]
 
-Describe "Testing [ $commandName ] function with [ $pester_TestName ]" -Tags @('apiCalls') {
+Describe "Testing [ $commandName ] function with [ $pester_TestName ]" -Tags @('PLACEHOLDER') {
 
     Context "[ $commandName ] testing function" {
 

@@ -1,9 +1,9 @@
-function Update-HelpContent {
+function Update-helpContent {
 <#
     .NOTES
         Copyright 1990-2024 Celerium
 
-        NAME: Update-HelpContent.ps1
+        NAME: Update-helpContent.ps1
         Type: PowerShell
 
             AUTHOR:  David Schulte
@@ -20,7 +20,7 @@ function Update-HelpContent {
         Updates or creates markdown help files
 
     .DESCRIPTION
-        The Update-HelpContent script updates or creates markdown help files which are
+        The Update-helpContent script updates or creates markdown help files which are
         used by both Github pages and as external help.
 
         The markdown documents created contain metadata that GitHub pages directly use
@@ -63,7 +63,7 @@ function Update-HelpContent {
         Opens the directory with the HelpDocs when completed
 
     .EXAMPLE
-        .\Update-HelpContent.ps1
+        .\Update-helpContent.ps1
             -moduleName DattoAPI
             -helpDocsPath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs"
             -csvFilePath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\Endpoints.csv"
@@ -74,7 +74,7 @@ function Update-HelpContent {
         No progress information is sent to the console while the script is running.
 
     .EXAMPLE
-        .\Update-HelpContent.ps1
+        .\Update-helpContent.ps1
             -moduleName DattoAPI
             -helpDocsPath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs"
             -csvFilePath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\Endpoints.csv"

@@ -2,7 +2,7 @@
 .NOTES
     Copyright 1990-2024 Celerium
 
-    NAME: Publish-CeleriumModule.ps1
+    NAME: Publish-celeriumModule.ps1
     Type: PowerShell
 
         AUTHOR:  David Schulte
@@ -16,7 +16,7 @@
     Publishes a PowerShell module to the PowerShell Gallery
 
 .DESCRIPTION
-    The Publish-CeleriumModule script publishes a PowerShell module
+    The Publish-celeriumModule script publishes a PowerShell module
     to the PowerShell Gallery
 
 .PARAMETER moduleName
@@ -32,12 +32,12 @@
     publish modules
 
 .EXAMPLE
-    .\Publish-CeleriumModule.ps1 -Version 1.0.0 -NuGetApiKey 12345 -WhatIf -Verbose
+    .\Publish-celeriumModule.ps1 -Version 1.0.0 -NuGetApiKey 12345 -WhatIf -Verbose
 
     Shows what will happen if a module is pushed to the PowerShell Gallery
 
 .EXAMPLE
-    .\Publish-CeleriumModule.ps1 -Version 1.0.0 -NuGetApiKey 12345 -Verbose
+    .\Publish-celeriumModule.ps1 -Version 1.0.0 -NuGetApiKey 12345 -Verbose
 
     Publishes a PowerShell module to the PowerShell Gallery
 

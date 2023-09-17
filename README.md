@@ -139,9 +139,10 @@ After installing this module, you will need to configure both the *base URI* & *
 <br>
 
 3. [**optional**] Run `Export-DattoModuleSettings`
-   - This will create a config file at `%UserProfile%\DattoAPI` that securely holds the *base uri* & *API access tokens* information.
+   - This will create a config file at `%UserProfile%\DattoAPI` that holds the *base uri* & *API access tokens* information.
    - Next time you run `Import-Module -Name DattoAPI`, this configuration file will automatically be loaded.
-   - :warning: Exporting module settings encrypt your API access tokens in a format that can **only be unencrypted with your Windows account**. It makes use of PowerShell's `System.Security.SecureString` type, which uses reversible encrypted tied to your user principal. This means that you cannot copy your configuration file to another computer or user account and expect it to work.
+   - :warning: Exporting module settings encrypts your API access tokens in a format that can **only be unencrypted by the user principal** that encrypted the secret. It makes use of .NET DPAPI, which for Windows uses reversible encrypted tied to your user principal. This means that you **cannot copy** your configuration file to another computer or user account and expect it to work.
+   - :warning: However in Linux\Unix operating systems the secret keys are more obfuscated than encrypted so it is recommend to use a more secure & cross-platform storage method.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -182,9 +183,8 @@ Each `Get-Datto*` function will respond with the raw data that Datto's API provi
 ## Roadmap
 
 - [ ] Add Changelog
-- [ ] Build more robust Pester & ScriptAnalyzer tests
-- [ ] Build better API authentication parameters to more securely handle API keys
-- [ ] Figure out how to do CI & PowerShell gallery automation
+- [x] Build more robust Pester & ScriptAnalyzer tests
+- [x] Figure out how to do CI & PowerShell gallery automation
 - [ ] Add example scripts & automation
 
 See the [open issues](https://github.com/Celerium/Datto-PowerShellWrapper/issues) for a full list of proposed features (and known issues).
@@ -206,7 +206,7 @@ See the [CONTRIBUTING](https://github.com/Celerium/Datto-PowerShellWrapper/blob/
 
 ## License
 
-Distributed under the MIT License. See [`LICENSE.txt`](https://github.com/Celerium/Datto-PowerShellWrapper/blob/main/LICENSE) for more information.
+Distributed under the MIT License. See [`LICENSE`](https://github.com/Celerium/Datto-PowerShellWrapper/blob/main/LICENSE) for more information.
 
 [![GitHub_License][GitHub_License-shield]][GitHub_License-url]
 

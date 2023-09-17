@@ -2,7 +2,7 @@
 .NOTES
     Copyright 1990-2024 Celerium
 
-    NAME: Invoke-HelpContent.ps1
+    NAME: Invoke-helpContent.ps1
     Type: PowerShell
 
         AUTHOR:  David Schulte
@@ -13,10 +13,10 @@
     TODO:
 
 .SYNOPSIS
-    Calls the Update-HelpContent script to update module markdown help files
+    Calls the Update-helpContent script to update module markdown help files
 
 .DESCRIPTION
-    The Update-HelpContent script calls the Update-HelpContent script to
+    The Update-helpContent script calls the Update-helpContent script to
     update module markdown help files
 
 .PARAMETER moduleName
@@ -26,7 +26,7 @@
     The github project url to inject into help docs
 
 .EXAMPLE
-    .\Invoke-HelpContent.ps1
+    .\Invoke-helpContent.ps1
         -moduleName DattoAPI
         -helpDocsPath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs"
         -csvFilePath "C:\Celerium\Projects\Datto-PowerShellWrapper\docs\Endpoints.csv"
@@ -89,7 +89,7 @@ try {
         $rootPath = "$( $PSCommandPath.Substring(0, $PSCommandPath.IndexOf('/build', [System.StringComparison]::OrdinalIgnoreCase)) )"
     }
 
-    Import-Module $( Join-Path -Path $rootPath -ChildPath 'build\Update-HelpContent.ps1' ) -Force -Verbose:$false
+    Import-Module $( Join-Path -Path $rootPath -ChildPath 'build\Update-helpContent.ps1' ) -Force -Verbose:$false
 
     $parameters = @{
         moduleName      = $moduleName
@@ -99,7 +99,7 @@ try {
         verbose         = $true
     }
 
-    Update-HelpContent @parameters
+    Update-helpContent @parameters
 
 }
 catch {
