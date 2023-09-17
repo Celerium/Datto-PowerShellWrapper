@@ -37,7 +37,7 @@
     Copyright = 'https://github.com/Celerium/Datto-PowerShellWrapper/blob/main/LICENSE'
 
     # Description of the functionality provided by this module
-    Description = 'This module provides a PowerShell wrapper for the Datto BCDR API.'
+    Description = 'This module provides a PowerShell wrapper for the Datto BCDR & SaaS API.'
 
     # Minimum version of the Windows PowerShell engine required by this module
     PowerShellVersion = '5.1'
@@ -102,7 +102,7 @@
         PSData = @{
 
             # Tags applied to this module. These help with module discovery in online galleries.
-            Tags = @('Datto', 'BCDR', 'SaaS', 'API', 'PowerShell', 'PSEdition_Desktop', 'PSEdition_Core', 'Windows', 'Celerium')
+            Tags = @('Datto', 'BCDR', 'SaaS', 'API', 'PowerShell', 'PSEdition_Desktop', 'PSEdition_Core', 'Windows', 'Kaseya', 'Celerium')
 
             # A URL to the license for this module.
             LicenseUri = 'https://github.com/Celerium/Datto-PowerShellWrapper/blob/main/LICENSE'

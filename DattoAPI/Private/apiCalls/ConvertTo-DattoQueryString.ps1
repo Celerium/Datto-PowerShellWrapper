@@ -51,9 +51,9 @@ param(
     [String]$resource_Uri
 )
 
-    begin{}
+    begin {}
 
-    process{
+    process {
 
         if (-not $uri_Filter) {
             return ""
@@ -92,6 +92,6 @@ param(
 
     }
 
-    end{}
+    end {}
 
 }

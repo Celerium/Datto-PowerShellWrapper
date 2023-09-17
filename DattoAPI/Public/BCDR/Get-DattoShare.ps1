@@ -64,13 +64,13 @@ function Get-DattoShare {
         [Switch]$allPages
     )
 
-    begin{
+    begin {
 
         $resource_uri = "/bcdr/device/$serialNumber/asset/share"
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -90,6 +90,6 @@ function Get-DattoShare {
 
     }
 
-    end{}
+    end {}
 
 }

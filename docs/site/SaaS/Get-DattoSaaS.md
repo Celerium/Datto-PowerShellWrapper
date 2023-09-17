@@ -36,7 +36,7 @@ into a single command.
 
 This unique function does not contain any BCDR or Reporting endpoints.
 This function
-was added to simply testing & generating reports
+was added to simply for testing & generating reports
 
 ## EXAMPLES
 

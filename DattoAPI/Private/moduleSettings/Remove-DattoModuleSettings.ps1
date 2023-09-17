@@ -10,7 +10,7 @@ function Remove-DattoModuleSettings {
         By default configuration files are stored in the following location and will be removed:
             $env:USERPROFILE\DattoAPI
 
-    .PARAMETER DattoConfPath
+    .PARAMETER dattoConfPath
         Define the location of the Datto configuration folder.
 
         By default the configuration folder is located at:
@@ -54,24 +54,33 @@ function Remove-DattoModuleSettings {
         [switch]$andVariables
     )
 
-    if (Test-Path $dattoConfPath) {
+    begin {}
 
-        Remove-Item -Path $dattoConfPath -Recurse -Force
+    process {
 
-        If ($andVariables) {
-            Remove-DattoAPIKey
-            Remove-DattoBaseURI
-        }
+        if (Test-Path $dattoConfPath) {
 
-        if (!(Test-Path $dattoConfPath)) {
-            Write-Output "The DattoAPI configuration folder has been removed successfully from [ $dattoConfPath ]"
+            Remove-Item -Path $dattoConfPath -Recurse -Force -WhatIf:$WhatIfPreference
+
+            If ($andVariables) {
+                Remove-DattoAPIKey
+                Remove-DattoBaseURI
+            }
+
+            if (!(Test-Path $dattoConfPath)) {
+                Write-Output "The DattoAPI configuration folder has been removed successfully from [ $dattoConfPath ]"
+            }
+            else {
+                Write-Error "The DattoAPI configuration folder could not be removed from [ $dattoConfPath ]"
+            }
+
         }
         else {
-            Write-Error "The DattoAPI configuration folder could not be removed from [ $dattoConfPath ]"
+            Write-Warning "No configuration folder found at [ $dattoConfPath ]"
         }
 
     }
-    else {
-        Write-Warning "No configuration folder found at [ $dattoConfPath ]"
-    }
+
+    end {}
+
 }

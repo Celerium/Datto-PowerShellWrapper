@@ -80,9 +80,9 @@ function Invoke-DattoRequest {
 
     )
 
-    begin{}
+    begin {}
 
-    process{
+    process {
 
         # Load Web assembly when needed as PowerShell Core has the assembly preloaded
         if ( !("System.Web.HttpUtility" -as [Type]) ) {
@@ -177,6 +177,6 @@ function Invoke-DattoRequest {
 
     }
 
-    end{}
+    end {}
 
 }

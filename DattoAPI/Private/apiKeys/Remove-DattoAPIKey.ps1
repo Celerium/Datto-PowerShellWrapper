@@ -21,14 +21,22 @@ function Remove-DattoAPIKey {
     [cmdletbinding(SupportsShouldProcess)]
     Param ()
 
-    switch ([bool]$Datto_Public_Key) {
-        $true   { Remove-Variable -Name "Datto_Public_Key" -Scope global -Force }
-        $false  { Write-Warning "The Datto API [ public ] key is not set. Nothing to remove" }
+    begin {}
+
+    process {
+
+        switch ([bool]$Datto_Public_Key) {
+            $true   { Remove-Variable -Name "Datto_Public_Key" -Scope global -Force }
+            $false  { Write-Warning "The Datto API [ public ] key is not set. Nothing to remove" }
+        }
+
+        switch ([bool]$Datto_Secret_Key) {
+            $true   { Remove-Variable -Name "Datto_Secret_Key" -Scope global -Force }
+            $false  { Write-Warning "The Datto API [ secret ] key is not set. Nothing to remove" }
+        }
+
     }
 
-    switch ([bool]$Datto_Secret_Key) {
-        $true   { Remove-Variable -Name "Datto_Secret_Key" -Scope global -Force }
-        $false  { Write-Warning "The Datto API [ secret ] key is not set. Nothing to remove" }
-    }
+    end {}
 
 }

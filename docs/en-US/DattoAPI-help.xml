@@ -3643,7 +3643,7 @@
     </command:details>
     <maml:description>
       <maml:para>The Get-DattoSaaS cmdlet gets Datto SaaS protection data by combing all endpoints into a single command.</maml:para>
-      <maml:para>This unique function does not contain any BCDR or Reporting endpoints. This function was added to simply testing &amp; generating reports</maml:para>
+      <maml:para>This unique function does not contain any BCDR or Reporting endpoints. This function was added to simply for testing &amp; generating reports</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>

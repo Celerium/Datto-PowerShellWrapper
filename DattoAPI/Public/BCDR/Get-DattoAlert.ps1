@@ -64,13 +64,13 @@ function Get-DattoAlert {
         [Switch]$allPages
     )
 
-    begin{
+    begin {
 
         $resource_uri = "/bcdr/device/$serialNumber/alert"
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -90,6 +90,6 @@ function Get-DattoAlert {
 
     }
 
-    end{}
+    end {}
 
 }

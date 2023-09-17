@@ -98,7 +98,7 @@ function Get-DattoDevice {
         [Switch]$allPages
     )
 
-    begin{
+    begin {
 
         switch ( [bool]$serialNumber ) {
             $true   { $resource_uri = "/bcdr/device/$serialNumber" }
@@ -107,7 +107,7 @@ function Get-DattoDevice {
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -127,6 +127,6 @@ function Get-DattoDevice {
 
     }
 
-    end{}
+    end {}
 
 }

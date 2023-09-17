@@ -50,9 +50,9 @@ function Add-DattoBaseURI {
         [String]$data_center
     )
 
-    Begin{}
+    begin {}
 
-    Process{
+    process {
 
         # Trim superfluous forward slash from address (if applicable)
         if ($base_uri[$base_uri.Length-1] -eq "/") {
@@ -67,7 +67,7 @@ function Add-DattoBaseURI {
 
     }
 
-    end{}
+    end {}
 
 }
 

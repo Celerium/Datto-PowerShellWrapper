@@ -52,9 +52,9 @@ param(
     [String]$resource_Uri
 )
 
-    begin{}
+    begin {}
 
-    process{
+    process {
 
         if (-not $uri_Filter) {
             return ""
@@ -93,7 +93,7 @@ param(
 
     }
 
-    end{}
+    end {}
 
 }
 #EndRegion '.\Private\apiCalls\ConvertTo-DattoQueryString.ps1' 98
@@ -280,9 +280,9 @@ function Invoke-DattoRequest {
 
     )
 
-    begin{}
+    begin {}
 
-    process{
+    process {
 
         # Load Web assembly when needed as PowerShell Core has the assembly preloaded
         if ( !("System.Web.HttpUtility" -as [Type]) ) {
@@ -377,7 +377,7 @@ function Invoke-DattoRequest {
 
     }
 
-    end{}
+    end {}
 
 }
 #EndRegion '.\Private\apiCalls\Invoke-DattoRequest.ps1' 183
@@ -435,9 +435,9 @@ function Add-DattoAPIKey {
         [string]$Api_Key_Secret
     )
 
-    Begin{}
+    begin {}
 
-    Process{
+    process {
 
         if ($Api_Key_Secret) {
             $x_api_key = ConvertTo-SecureString $Api_Key_Secret -AsPlainText -Force
@@ -454,7 +454,7 @@ function Add-DattoAPIKey {
 
     }
 
-    End{}
+    end {}
 }
 
 New-Alias -Name Set-DattoAPIKey -Value Add-DattoAPIKey -Force
@@ -500,7 +500,7 @@ function Get-DattoAPIKey {
 
     begin {}
 
-    process{
+    process {
 
         try {
 
@@ -537,7 +537,7 @@ function Get-DattoAPIKey {
 
     }
 
-    end{}
+    end {}
 
 }
 #EndRegion '.\Private\apiKeys\Get-DattoAPIKey.ps1' 81
@@ -565,18 +565,26 @@ function Remove-DattoAPIKey {
     [cmdletbinding(SupportsShouldProcess)]
     Param ()
 
-    switch ([bool]$Datto_Public_Key) {
-        $true   { Remove-Variable -Name "Datto_Public_Key" -Scope global -Force }
-        $false  { Write-Warning "The Datto API [ public ] key is not set. Nothing to remove" }
+    begin {}
+
+    process {
+
+        switch ([bool]$Datto_Public_Key) {
+            $true   { Remove-Variable -Name "Datto_Public_Key" -Scope global -Force }
+            $false  { Write-Warning "The Datto API [ public ] key is not set. Nothing to remove" }
+        }
+
+        switch ([bool]$Datto_Secret_Key) {
+            $true   { Remove-Variable -Name "Datto_Secret_Key" -Scope global -Force }
+            $false  { Write-Warning "The Datto API [ secret ] key is not set. Nothing to remove" }
+        }
+
     }
 
-    switch ([bool]$Datto_Secret_Key) {
-        $true   { Remove-Variable -Name "Datto_Secret_Key" -Scope global -Force }
-        $false  { Write-Warning "The Datto API [ secret ] key is not set. Nothing to remove" }
-    }
+    end {}
 
 }
-#EndRegion '.\Private\apiKeys\Remove-DattoAPIKey.ps1' 35
+#EndRegion '.\Private\apiKeys\Remove-DattoAPIKey.ps1' 43
 #Region '.\Private\apiKeys\Test-DattoAPIKey.ps1' 0
 function Test-DattoAPIKey {
 <#
@@ -623,9 +631,9 @@ function Test-DattoAPIKey {
         [string]$base_uri = $Datto_Base_URI
     )
 
-    Begin{ $resource_uri = "/bcdr/agent" }
+    begin { $resource_uri = "/bcdr/agent" }
 
-    Process{
+    process {
 
         try {
 
@@ -666,7 +674,7 @@ function Test-DattoAPIKey {
 
     }
 
-    End{}
+    end {}
 
 }
 #EndRegion '.\Private\apiKeys\Test-DattoAPIKey.ps1' 92
@@ -723,9 +731,9 @@ function Add-DattoBaseURI {
         [String]$data_center
     )
 
-    Begin{}
+    begin {}
 
-    Process{
+    process {
 
         # Trim superfluous forward slash from address (if applicable)
         if ($base_uri[$base_uri.Length-1] -eq "/") {
@@ -740,7 +748,7 @@ function Add-DattoBaseURI {
 
     }
 
-    end{}
+    end {}
 
 }
 
@@ -770,13 +778,21 @@ function Get-DattoBaseURI {
     [cmdletbinding()]
     Param ()
 
-    switch ([bool]$Datto_Base_URI) {
-        $true   { $Datto_Base_URI }
-        $false  { Write-Warning "The Datto base URI is not set. Run Add-DattoBaseURI to set the base URI." }
+    begin {}
+
+    process {
+
+        switch ([bool]$Datto_Base_URI) {
+            $true   { $Datto_Base_URI }
+            $false  { Write-Warning "The Datto base URI is not set. Run Add-DattoBaseURI to set the base URI." }
+        }
+
     }
 
+    end {}
+
 }
-#EndRegion '.\Private\baseUri\Get-DattoBaseURI.ps1' 30
+#EndRegion '.\Private\baseUri\Get-DattoBaseURI.ps1' 38
 #Region '.\Private\baseUri\Remove-DattoBaseURI.ps1' 0
 function Remove-DattoBaseURI {
 <#
@@ -801,13 +817,21 @@ function Remove-DattoBaseURI {
     [cmdletbinding(SupportsShouldProcess)]
     Param ()
 
-    switch ([bool]$Datto_Base_URI) {
-        $true   { Remove-Variable -Name "Datto_Base_URI" -Scope global -Force }
-        $false  { Write-Warning "The Datto base URI variable is not set. Nothing to remove" }
+    begin {}
+
+    process {
+
+        switch ([bool]$Datto_Base_URI) {
+            $true   { Remove-Variable -Name "Datto_Base_URI" -Scope global -Force }
+            $false  { Write-Warning "The Datto base URI variable is not set. Nothing to remove" }
+        }
+
     }
 
+    end {}
+
 }
-#EndRegion '.\Private\baseUri\Remove-DattoBaseURI.ps1' 30
+#EndRegion '.\Private\baseUri\Remove-DattoBaseURI.ps1' 38
 #Region '.\Private\moduleSettings\Export-DattoModuleSettings.ps1' 0
 function Export-DattoModuleSettings {
 <#
@@ -821,13 +845,13 @@ function Export-DattoModuleSettings {
         that can only be unencrypted with the your Windows account as this encryption is tied to your user principal.
         This means that you cannot copy your configuration file to another computer or user account and expect it to work.
 
-    .PARAMETER DattoConfPath
+    .PARAMETER dattoConfPath
         Define the location to store the Datto configuration file.
 
         By default the configuration file is stored in the following location:
             $env:USERPROFILE\DattoAPI
 
-    .PARAMETER DattoConfFile
+    .PARAMETER dattoConfFile
         Define the name of the Datto configuration file.
 
         By default the configuration file is named:
@@ -863,21 +887,25 @@ function Export-DattoModuleSettings {
         [string]$dattoConfFile = 'config.psd1'
     )
 
-    Write-Warning "Secrets are stored using Windows Data Protection API (DPAPI)"
-    Write-Warning "DPAPI provides user context encryption in Windows but NOT in other operating systems like Linux or UNIX. It is recommended to use a more secure & cross-platform storage method"
+    begin {}
 
-    $dattoConfig = Join-Path -Path $dattoConfPath -ChildPath $dattoConfFile
+    process {
 
-    # Confirm variables exist and are not null before exporting
-    if ($Datto_Base_URI -and $Datto_Public_Key -and $Datto_Secret_Key -and $Datto_JSON_Conversion_Depth) {
-        $secureString = $Datto_Secret_Key | ConvertFrom-SecureString
+        Write-Warning "Secrets are stored using Windows Data Protection API (DPAPI)"
+        Write-Warning "DPAPI provides user context encryption in Windows but NOT in other operating systems like Linux or UNIX. It is recommended to use a more secure & cross-platform storage method"
 
-        if ($IsWindows -or $PSEdition -eq 'Desktop') {
-            New-Item -Path $dattoConfPath -ItemType Directory -Force | ForEach-Object { $_.Attributes = $_.Attributes -bor "Hidden" }
-        }
-        else{
-            New-Item -Path $dattoConfPath -ItemType Directory -Force
-        }
+        $dattoConfig = Join-Path -Path $dattoConfPath -ChildPath $dattoConfFile
+
+        # Confirm variables exist and are not null before exporting
+        if ($Datto_Base_URI -and $Datto_Public_Key -and $Datto_Secret_Key -and $Datto_JSON_Conversion_Depth) {
+            $secureString = $Datto_Secret_Key | ConvertFrom-SecureString
+
+            if ($IsWindows -or $PSEdition -eq 'Desktop') {
+                New-Item -Path $dattoConfPath -ItemType Directory -Force | ForEach-Object { $_.Attributes = $_.Attributes -bor "Hidden" }
+            }
+            else{
+                New-Item -Path $dattoConfPath -ItemType Directory -Force
+            }
 @"
     @{
         Datto_Base_URI = '$Datto_Base_URI'
@@ -886,16 +914,19 @@ function Export-DattoModuleSettings {
         Datto_JSON_Conversion_Depth = '$Datto_JSON_Conversion_Depth'
     }
 "@ | Out-File -FilePath $dattoConfig -Force
-#Out-File -FilePath ($dattoConfPath + "\" + $dattoConfFile) -Force
+        }
+        else {
+            Write-Error "Failed to export Datto Module settings to [ $dattoConfig ]"
+            Write-Error $_
+            exit 1
+        }
 
     }
-    else {
-        Write-Error "Failed to export Datto Module settings to [ $dattoConfig ]"
-        Write-Error $_
-        exit 1
-    }
+
+    end {}
+
 }
-#EndRegion '.\Private\moduleSettings\Export-DattoModuleSettings.ps1' 87
+#EndRegion '.\Private\moduleSettings\Export-DattoModuleSettings.ps1' 94
 #Region '.\Private\moduleSettings\Get-DattoModuleSettings.ps1' 0
 function Get-DattoModuleSettings {
 <#
@@ -909,13 +940,13 @@ function Get-DattoModuleSettings {
         By default the configuration file is stored in the following location:
             $env:USERPROFILE\DattoAPI
 
-    .PARAMETER DattoConfPath
+    .PARAMETER dattoConfPath
         Define the location to store the Datto configuration file.
 
         By default the configuration file is stored in the following location:
             $env:USERPROFILE\DattoAPI
 
-    .PARAMETER DattoConfFile
+    .PARAMETER dattoConfFile
         Define the name of the Datto configuration file.
 
         By default the configuration file is named:
@@ -960,11 +991,11 @@ function Get-DattoModuleSettings {
         [Switch]$openConfFile
     )
 
-    begin{
+    begin {
         $dattoConfig = Join-Path -Path $dattoConfPath -ChildPath $dattoConfFile
     }
 
-    process{
+    process {
 
         if ( Test-Path -Path $dattoConfig ){
 
@@ -982,7 +1013,7 @@ function Get-DattoModuleSettings {
 
     }
 
-    end{}
+    end {}
 
 }
 #EndRegion '.\Private\moduleSettings\Get-DattoModuleSettings.ps1' 89
@@ -999,13 +1030,13 @@ function Import-DattoModuleSettings {
         By default the configuration file is stored in the following location:
             $env:USERPROFILE\DattoAPI
 
-    .PARAMETER DattoConfPath
+    .PARAMETER dattoConfPath
         Define the location to store the Datto configuration file.
 
         By default the configuration file is stored in the following location:
             $env:USERPROFILE\DattoAPI
 
-    .PARAMETER DattoConfFile
+    .PARAMETER dattoConfFile
         Define the name of the Datto configuration file.
 
         By default the configuration file is named:
@@ -1045,40 +1076,49 @@ function Import-DattoModuleSettings {
         [string]$dattoConfFile = 'config.psd1'
     )
 
-    $dattoConfig = Join-Path -Path $dattoConfPath -ChildPath $dattoConfFile
-
-    if ( Test-Path $dattoConfig ) {
-        $tmp_config = Import-LocalizedData -BaseDirectory $dattoConfPath -FileName $dattoConfFile
-
-        # Send to function to strip potentially superfluous slash (/)
-        Add-DattoBaseURI $tmp_config.Datto_Base_URI
-
-        $tmp_config.Datto_Secret_Key = ConvertTo-SecureString $tmp_config.Datto_Secret_Key
-
-        Set-Variable -Name "Datto_Public_Key" -Value $tmp_config.Datto_Public_key -Option ReadOnly -Scope global -Force
-
-        Set-Variable -Name "Datto_Secret_Key" -Value $tmp_config.Datto_Secret_Key -Option ReadOnly -Scope global -Force
-
-        Set-Variable -Name "Datto_JSON_Conversion_Depth" -Value $tmp_config.Datto_JSON_Conversion_Depth -Scope global -Force
-
-        Write-Verbose "DattoAPI Module configuration loaded successfully from [ $dattoConfig ]"
-
-        # Clean things up
-        Remove-Variable "tmp_config"
+    begin {
+        $dattoConfig = Join-Path -Path $dattoConfPath -ChildPath $dattoConfFile
     }
-    else {
-        Write-Verbose "No configuration file found at [ $dattoConfig ] run Add-DattoAPIKey to get started."
 
-        Add-DattoBaseURI
+    process {
 
-        Set-Variable -Name "Datto_Base_URI" -Value $(Get-DattoBaseURI) -Option ReadOnly -Scope global -Force
-        Set-Variable -Name "Datto_JSON_Conversion_Depth" -Value 100 -Scope global -Force
+        if ( Test-Path $dattoConfig ) {
+            $tmp_config = Import-LocalizedData -BaseDirectory $dattoConfPath -FileName $dattoConfFile
+
+            # Send to function to strip potentially superfluous slash (/)
+            Add-DattoBaseURI $tmp_config.Datto_Base_URI
+
+            $tmp_config.Datto_Secret_Key = ConvertTo-SecureString $tmp_config.Datto_Secret_Key
+
+            Set-Variable -Name "Datto_Public_Key" -Value $tmp_config.Datto_Public_key -Option ReadOnly -Scope global -Force
+
+            Set-Variable -Name "Datto_Secret_Key" -Value $tmp_config.Datto_Secret_Key -Option ReadOnly -Scope global -Force
+
+            Set-Variable -Name "Datto_JSON_Conversion_Depth" -Value $tmp_config.Datto_JSON_Conversion_Depth -Scope global -Force
+
+            Write-Verbose "DattoAPI Module configuration loaded successfully from [ $dattoConfig ]"
+
+            # Clean things up
+            Remove-Variable "tmp_config"
+        }
+        else {
+            Write-Verbose "No configuration file found at [ $dattoConfig ] run Add-DattoAPIKey to get started."
+
+            Add-DattoBaseURI
+
+            Set-Variable -Name "Datto_Base_URI" -Value $(Get-DattoBaseURI) -Option ReadOnly -Scope global -Force
+            Set-Variable -Name "Datto_JSON_Conversion_Depth" -Value 100 -Scope global -Force
+        }
+
     }
+
+    end {}
+
 }
-#EndRegion '.\Private\moduleSettings\Import-DattoModuleSettings.ps1' 89
+#EndRegion '.\Private\moduleSettings\Import-DattoModuleSettings.ps1' 98
 #Region '.\Private\moduleSettings\Initialize-DattoModuleSettings.ps1' 0
 #Used to auto load either baseline settings or saved configurations when the module is imported
-Import-DattoModuleSettings
+Import-DattoModuleSettings -Verbose:$false
 #EndRegion '.\Private\moduleSettings\Initialize-DattoModuleSettings.ps1' 3
 #Region '.\Private\moduleSettings\Remove-DattoModuleSettings.ps1' 0
 function Remove-DattoModuleSettings {
@@ -1093,7 +1133,7 @@ function Remove-DattoModuleSettings {
         By default configuration files are stored in the following location and will be removed:
             $env:USERPROFILE\DattoAPI
 
-    .PARAMETER DattoConfPath
+    .PARAMETER dattoConfPath
         Define the location of the Datto configuration folder.
 
         By default the configuration folder is located at:
@@ -1137,28 +1177,37 @@ function Remove-DattoModuleSettings {
         [switch]$andVariables
     )
 
-    if (Test-Path $dattoConfPath) {
+    begin {}
 
-        Remove-Item -Path $dattoConfPath -Recurse -Force
+    process {
 
-        If ($andVariables) {
-            Remove-DattoAPIKey
-            Remove-DattoBaseURI
-        }
+        if (Test-Path $dattoConfPath) {
 
-        if (!(Test-Path $dattoConfPath)) {
-            Write-Output "The DattoAPI configuration folder has been removed successfully from [ $dattoConfPath ]"
+            Remove-Item -Path $dattoConfPath -Recurse -Force -WhatIf:$WhatIfPreference
+
+            If ($andVariables) {
+                Remove-DattoAPIKey
+                Remove-DattoBaseURI
+            }
+
+            if (!(Test-Path $dattoConfPath)) {
+                Write-Output "The DattoAPI configuration folder has been removed successfully from [ $dattoConfPath ]"
+            }
+            else {
+                Write-Error "The DattoAPI configuration folder could not be removed from [ $dattoConfPath ]"
+            }
+
         }
         else {
-            Write-Error "The DattoAPI configuration folder could not be removed from [ $dattoConfPath ]"
+            Write-Warning "No configuration folder found at [ $dattoConfPath ]"
         }
 
     }
-    else {
-        Write-Warning "No configuration folder found at [ $dattoConfPath ]"
-    }
+
+    end {}
+
 }
-#EndRegion '.\Private\moduleSettings\Remove-DattoModuleSettings.ps1' 78
+#EndRegion '.\Private\moduleSettings\Remove-DattoModuleSettings.ps1' 87
 #Region '.\Public\BCDR\Get-DattoAgent.ps1' 0
 function Get-DattoAgent {
 <#
@@ -1222,7 +1271,6 @@ function Get-DattoAgent {
 #>
 
     [CmdletBinding(DefaultParameterSetName = 'index')]
-    #[Alias('Get-DattoBCDRAgent')]
     Param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'indexByDevice')]
         [ValidateNotNullOrEmpty()]
@@ -1242,7 +1290,7 @@ function Get-DattoAgent {
         [Switch]$allPages
     )
 
-    begin{
+    begin {
 
         switch ( [bool]$serialNumber ) {
             $true   { $resource_uri = "/bcdr/device/$serialNumber/asset/agent" }
@@ -1251,7 +1299,7 @@ function Get-DattoAgent {
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -1271,10 +1319,10 @@ function Get-DattoAgent {
 
     }
 
-    end{}
+    end {}
 
 }
-#EndRegion '.\Public\BCDR\Get-DattoAgent.ps1' 115
+#EndRegion '.\Public\BCDR\Get-DattoAgent.ps1' 114
 #Region '.\Public\BCDR\Get-DattoAlert.ps1' 0
 function Get-DattoAlert {
 <#
@@ -1342,13 +1390,13 @@ function Get-DattoAlert {
         [Switch]$allPages
     )
 
-    begin{
+    begin {
 
         $resource_uri = "/bcdr/device/$serialNumber/alert"
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -1368,7 +1416,7 @@ function Get-DattoAlert {
 
     }
 
-    end{}
+    end {}
 
 }
 #EndRegion '.\Public\BCDR\Get-DattoAlert.ps1' 96
@@ -1439,13 +1487,13 @@ function Get-DattoAsset {
         [Switch]$allPages
     )
 
-    begin{
+    begin {
 
         $resource_uri = "/bcdr/device/$serialNumber/asset"
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -1465,7 +1513,7 @@ function Get-DattoAsset {
 
     }
 
-    end{}
+    end {}
 
 }
 #EndRegion '.\Public\BCDR\Get-DattoAsset.ps1' 96
@@ -1689,7 +1737,7 @@ function Get-DattoBCDR {
         [Switch]$allPages
     )
 
-    begin{
+    begin {
 
         switch ($PSCmdlet.ParameterSetName) {
             'index_Agents'          { $resource_uri = "/bcdr/agent" }
@@ -1704,7 +1752,7 @@ function Get-DattoBCDR {
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -1733,7 +1781,7 @@ function Get-DattoBCDR {
 
     }
 
-    end{}
+    end {}
 
 }
 #EndRegion '.\Public\BCDR\Get-DattoBCDR.ps1' 267
@@ -1838,7 +1886,7 @@ function Get-DattoDevice {
         [Switch]$allPages
     )
 
-    begin{
+    begin {
 
         switch ( [bool]$serialNumber ) {
             $true   { $resource_uri = "/bcdr/device/$serialNumber" }
@@ -1847,7 +1895,7 @@ function Get-DattoDevice {
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -1867,7 +1915,7 @@ function Get-DattoDevice {
 
     }
 
-    end{}
+    end {}
 
 }
 #EndRegion '.\Public\BCDR\Get-DattoDevice.ps1' 133
@@ -1938,13 +1986,13 @@ function Get-DattoShare {
         [Switch]$allPages
     )
 
-    begin{
+    begin {
 
         $resource_uri = "/bcdr/device/$serialNumber/asset/share"
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -1964,7 +2012,7 @@ function Get-DattoShare {
 
     }
 
-    end{}
+    end {}
 
 }
 #EndRegion '.\Public\BCDR\Get-DattoShare.ps1' 96
@@ -2014,13 +2062,13 @@ function Get-DattoVolume {
         [string]$volumeName
     )
 
-    begin{
+    begin {
 
         $resource_uri = "/bcdr/device/$serialNumber/asset/$volumeName"
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -2030,7 +2078,7 @@ function Get-DattoVolume {
 
     }
 
-    end{}
+    end {}
 
 }
 #EndRegion '.\Public\BCDR\Get-DattoVolume.ps1' 65
@@ -2164,13 +2212,13 @@ function Get-DattoActivityLog {
         [switch]$allPages
     )
 
-    begin{
+    begin {
 
         $resource_uri = "/report/activity-log"
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -2190,7 +2238,7 @@ function Get-DattoActivityLog {
 
     }
 
-    end{}
+    end {}
 
 }
 #EndRegion '.\Public\Reporting\Get-DattoActivityLog.ps1' 159
@@ -2228,13 +2276,13 @@ function Get-DattoApplication {
         [string]$saasCustomerId
     )
 
-    begin{
+    begin {
 
         $resource_uri = "/saas/$saasCustomerId/applications"
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -2244,7 +2292,7 @@ function Get-DattoApplication {
 
     }
 
-    end{}
+    end {}
 }
 #EndRegion '.\Public\SaaS\Get-DattoApplication.ps1' 52
 #Region '.\Public\SaaS\Get-DattoDomain.ps1' 0
@@ -2272,13 +2320,13 @@ function Get-DattoDomain {
     [CmdletBinding()]
     Param ()
 
-    begin{
+    begin {
 
         $resource_uri = "/saas/domains"
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -2288,7 +2336,7 @@ function Get-DattoDomain {
 
     }
 
-    end{}
+    end {}
 
 }
 #EndRegion '.\Public\SaaS\Get-DattoDomain.ps1' 44
@@ -2303,7 +2351,7 @@ function Get-DattoSaaS {
         into a single command.
 
         This unique function does not contain any BCDR or Reporting endpoints. This function
-        was added to simply testing & generating reports
+        was added to simply for testing & generating reports
 
     .PARAMETER endpoint_Domains
         Returns SaaS protection data about what domains are being protected
@@ -2366,7 +2414,7 @@ function Get-DattoSaaS {
         [string]$saasCustomerId
     )
 
-    begin{
+    begin {
 
         switch ($PSCmdlet.ParameterSetName) {
             'index_Domains'         { $resource_uri = "/saas/domains" }
@@ -2376,7 +2424,7 @@ function Get-DattoSaaS {
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -2386,7 +2434,7 @@ function Get-DattoSaaS {
 
     }
 
-    end{}
+    end {}
 
 }
 #EndRegion '.\Public\SaaS\Get-DattoSaaS.ps1' 97
@@ -2424,13 +2472,13 @@ function Get-DattoSeat {
         [string]$saasCustomerId
     )
 
-    begin{
+    begin {
 
         $resource_uri = "/saas/$saasCustomerId/seats"
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -2440,6 +2488,6 @@ function Get-DattoSeat {
 
     }
 
-    end{}
+    end {}
 }
 #EndRegion '.\Public\SaaS\Get-DattoSeat.ps1' 52

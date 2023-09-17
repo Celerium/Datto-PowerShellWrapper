@@ -22,13 +22,13 @@ function Get-DattoDomain {
     [CmdletBinding()]
     Param ()
 
-    begin{
+    begin {
 
         $resource_uri = "/saas/domains"
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -38,6 +38,6 @@ function Get-DattoDomain {
 
     }
 
-    end{}
+    end {}
 
 }

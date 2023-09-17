@@ -21,9 +21,17 @@ function Get-DattoBaseURI {
     [cmdletbinding()]
     Param ()
 
-    switch ([bool]$Datto_Base_URI) {
-        $true   { $Datto_Base_URI }
-        $false  { Write-Warning "The Datto base URI is not set. Run Add-DattoBaseURI to set the base URI." }
+    begin {}
+
+    process {
+
+        switch ([bool]$Datto_Base_URI) {
+            $true   { $Datto_Base_URI }
+            $false  { Write-Warning "The Datto base URI is not set. Run Add-DattoBaseURI to set the base URI." }
+        }
+
     }
+
+    end {}
 
 }

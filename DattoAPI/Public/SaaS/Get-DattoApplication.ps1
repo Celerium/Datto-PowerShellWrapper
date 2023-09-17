@@ -31,13 +31,13 @@ function Get-DattoApplication {
         [string]$saasCustomerId
     )
 
-    begin{
+    begin {
 
         $resource_uri = "/saas/$saasCustomerId/applications"
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -47,5 +47,5 @@ function Get-DattoApplication {
 
     }
 
-    end{}
+    end {}
 }

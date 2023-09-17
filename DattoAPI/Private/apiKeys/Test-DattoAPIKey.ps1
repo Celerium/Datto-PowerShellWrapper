@@ -43,9 +43,9 @@ function Test-DattoAPIKey {
         [string]$base_uri = $Datto_Base_URI
     )
 
-    Begin{ $resource_uri = "/bcdr/agent" }
+    begin { $resource_uri = "/bcdr/agent" }
 
-    Process{
+    process {
 
         try {
 
@@ -86,6 +86,6 @@ function Test-DattoAPIKey {
 
     }
 
-    End{}
+    end {}
 
 }

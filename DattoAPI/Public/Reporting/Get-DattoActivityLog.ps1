@@ -127,13 +127,13 @@ function Get-DattoActivityLog {
         [switch]$allPages
     )
 
-    begin{
+    begin {
 
         $resource_uri = "/report/activity-log"
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -153,6 +153,6 @@ function Get-DattoActivityLog {
 
     }
 
-    end{}
+    end {}
 
 }

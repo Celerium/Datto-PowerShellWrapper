@@ -8,7 +8,7 @@ function Get-DattoSaaS {
         into a single command.
 
         This unique function does not contain any BCDR or Reporting endpoints. This function
-        was added to simply testing & generating reports
+        was added to simply for testing & generating reports
 
     .PARAMETER endpoint_Domains
         Returns SaaS protection data about what domains are being protected
@@ -71,7 +71,7 @@ function Get-DattoSaaS {
         [string]$saasCustomerId
     )
 
-    begin{
+    begin {
 
         switch ($PSCmdlet.ParameterSetName) {
             'index_Domains'         { $resource_uri = "/saas/domains" }
@@ -81,7 +81,7 @@ function Get-DattoSaaS {
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -91,6 +91,6 @@ function Get-DattoSaaS {
 
     }
 
-    end{}
+    end {}
 
 }

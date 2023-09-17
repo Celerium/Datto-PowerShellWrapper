@@ -51,9 +51,9 @@ function Add-DattoAPIKey {
         [string]$Api_Key_Secret
     )
 
-    Begin{}
+    begin {}
 
-    Process{
+    process {
 
         if ($Api_Key_Secret) {
             $x_api_key = ConvertTo-SecureString $Api_Key_Secret -AsPlainText -Force
@@ -70,7 +70,7 @@ function Add-DattoAPIKey {
 
     }
 
-    End{}
+    end {}
 }
 
 New-Alias -Name Set-DattoAPIKey -Value Add-DattoAPIKey -Force

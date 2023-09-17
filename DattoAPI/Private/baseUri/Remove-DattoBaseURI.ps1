@@ -21,9 +21,17 @@ function Remove-DattoBaseURI {
     [cmdletbinding(SupportsShouldProcess)]
     Param ()
 
-    switch ([bool]$Datto_Base_URI) {
-        $true   { Remove-Variable -Name "Datto_Base_URI" -Scope global -Force }
-        $false  { Write-Warning "The Datto base URI variable is not set. Nothing to remove" }
+    begin {}
+
+    process {
+
+        switch ([bool]$Datto_Base_URI) {
+            $true   { Remove-Variable -Name "Datto_Base_URI" -Scope global -Force }
+            $false  { Write-Warning "The Datto base URI variable is not set. Nothing to remove" }
+        }
+
     }
+
+    end {}
 
 }

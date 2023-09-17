@@ -43,13 +43,13 @@ function Get-DattoVolume {
         [string]$volumeName
     )
 
-    begin{
+    begin {
 
         $resource_uri = "/bcdr/device/$serialNumber/asset/$volumeName"
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -59,6 +59,6 @@ function Get-DattoVolume {
 
     }
 
-    end{}
+    end {}
 
 }

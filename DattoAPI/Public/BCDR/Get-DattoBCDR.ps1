@@ -217,7 +217,7 @@ function Get-DattoBCDR {
         [Switch]$allPages
     )
 
-    begin{
+    begin {
 
         switch ($PSCmdlet.ParameterSetName) {
             'index_Agents'          { $resource_uri = "/bcdr/agent" }
@@ -232,7 +232,7 @@ function Get-DattoBCDR {
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -261,6 +261,6 @@ function Get-DattoBCDR {
 
     }
 
-    end{}
+    end {}
 
 }

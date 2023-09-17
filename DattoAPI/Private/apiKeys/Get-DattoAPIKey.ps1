@@ -38,7 +38,7 @@ function Get-DattoAPIKey {
 
     begin {}
 
-    process{
+    process {
 
         try {
 
@@ -75,6 +75,6 @@ function Get-DattoAPIKey {
 
     }
 
-    end{}
+    end {}
 
 }

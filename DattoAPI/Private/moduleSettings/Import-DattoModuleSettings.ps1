@@ -10,13 +10,13 @@ function Import-DattoModuleSettings {
         By default the configuration file is stored in the following location:
             $env:USERPROFILE\DattoAPI
 
-    .PARAMETER DattoConfPath
+    .PARAMETER dattoConfPath
         Define the location to store the Datto configuration file.
 
         By default the configuration file is stored in the following location:
             $env:USERPROFILE\DattoAPI
 
-    .PARAMETER DattoConfFile
+    .PARAMETER dattoConfFile
         Define the name of the Datto configuration file.
 
         By default the configuration file is named:
@@ -56,33 +56,42 @@ function Import-DattoModuleSettings {
         [string]$dattoConfFile = 'config.psd1'
     )
 
-    $dattoConfig = Join-Path -Path $dattoConfPath -ChildPath $dattoConfFile
-
-    if ( Test-Path $dattoConfig ) {
-        $tmp_config = Import-LocalizedData -BaseDirectory $dattoConfPath -FileName $dattoConfFile
-
-        # Send to function to strip potentially superfluous slash (/)
-        Add-DattoBaseURI $tmp_config.Datto_Base_URI
-
-        $tmp_config.Datto_Secret_Key = ConvertTo-SecureString $tmp_config.Datto_Secret_Key
-
-        Set-Variable -Name "Datto_Public_Key" -Value $tmp_config.Datto_Public_key -Option ReadOnly -Scope global -Force
-
-        Set-Variable -Name "Datto_Secret_Key" -Value $tmp_config.Datto_Secret_Key -Option ReadOnly -Scope global -Force
-
-        Set-Variable -Name "Datto_JSON_Conversion_Depth" -Value $tmp_config.Datto_JSON_Conversion_Depth -Scope global -Force
-
-        Write-Verbose "DattoAPI Module configuration loaded successfully from [ $dattoConfig ]"
-
-        # Clean things up
-        Remove-Variable "tmp_config"
+    begin {
+        $dattoConfig = Join-Path -Path $dattoConfPath -ChildPath $dattoConfFile
     }
-    else {
-        Write-Verbose "No configuration file found at [ $dattoConfig ] run Add-DattoAPIKey to get started."
 
-        Add-DattoBaseURI
+    process {
 
-        Set-Variable -Name "Datto_Base_URI" -Value $(Get-DattoBaseURI) -Option ReadOnly -Scope global -Force
-        Set-Variable -Name "Datto_JSON_Conversion_Depth" -Value 100 -Scope global -Force
+        if ( Test-Path $dattoConfig ) {
+            $tmp_config = Import-LocalizedData -BaseDirectory $dattoConfPath -FileName $dattoConfFile
+
+            # Send to function to strip potentially superfluous slash (/)
+            Add-DattoBaseURI $tmp_config.Datto_Base_URI
+
+            $tmp_config.Datto_Secret_Key = ConvertTo-SecureString $tmp_config.Datto_Secret_Key
+
+            Set-Variable -Name "Datto_Public_Key" -Value $tmp_config.Datto_Public_key -Option ReadOnly -Scope global -Force
+
+            Set-Variable -Name "Datto_Secret_Key" -Value $tmp_config.Datto_Secret_Key -Option ReadOnly -Scope global -Force
+
+            Set-Variable -Name "Datto_JSON_Conversion_Depth" -Value $tmp_config.Datto_JSON_Conversion_Depth -Scope global -Force
+
+            Write-Verbose "DattoAPI Module configuration loaded successfully from [ $dattoConfig ]"
+
+            # Clean things up
+            Remove-Variable "tmp_config"
+        }
+        else {
+            Write-Verbose "No configuration file found at [ $dattoConfig ] run Add-DattoAPIKey to get started."
+
+            Add-DattoBaseURI
+
+            Set-Variable -Name "Datto_Base_URI" -Value $(Get-DattoBaseURI) -Option ReadOnly -Scope global -Force
+            Set-Variable -Name "Datto_JSON_Conversion_Depth" -Value 100 -Scope global -Force
+        }
+
     }
+
+    end {}
+
 }

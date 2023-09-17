@@ -60,7 +60,6 @@ function Get-DattoAgent {
 #>
 
     [CmdletBinding(DefaultParameterSetName = 'index')]
-    #[Alias('Get-DattoBCDRAgent')]
     Param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'indexByDevice')]
         [ValidateNotNullOrEmpty()]
@@ -80,7 +79,7 @@ function Get-DattoAgent {
         [Switch]$allPages
     )
 
-    begin{
+    begin {
 
         switch ( [bool]$serialNumber ) {
             $true   { $resource_uri = "/bcdr/device/$serialNumber/asset/agent" }
@@ -89,7 +88,7 @@ function Get-DattoAgent {
 
     }
 
-    process{
+    process {
 
         Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
 
@@ -109,6 +108,6 @@ function Get-DattoAgent {
 
     }
 
-    end{}
+    end {}
 
 }

@@ -10,13 +10,13 @@ function Get-DattoModuleSettings {
         By default the configuration file is stored in the following location:
             $env:USERPROFILE\DattoAPI
 
-    .PARAMETER DattoConfPath
+    .PARAMETER dattoConfPath
         Define the location to store the Datto configuration file.
 
         By default the configuration file is stored in the following location:
             $env:USERPROFILE\DattoAPI
 
-    .PARAMETER DattoConfFile
+    .PARAMETER dattoConfFile
         Define the name of the Datto configuration file.
 
         By default the configuration file is named:
@@ -61,11 +61,11 @@ function Get-DattoModuleSettings {
         [Switch]$openConfFile
     )
 
-    begin{
+    begin {
         $dattoConfig = Join-Path -Path $dattoConfPath -ChildPath $dattoConfFile
     }
 
-    process{
+    process {
 
         if ( Test-Path -Path $dattoConfig ){
 
@@ -83,6 +83,6 @@ function Get-DattoModuleSettings {
 
     }
 
-    end{}
+    end {}
 
 }
