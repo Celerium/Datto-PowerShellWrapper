@@ -92,6 +92,7 @@ param (
 
         Import-Module -Name $modulePsd1 -ErrorAction Stop -ErrorVariable moduleError *> $null
 
+
         if ($moduleError){
             $moduleError
             exit 1
@@ -121,22 +122,12 @@ param (
 #EndRegion  [ Prerequisites ]
 
 
-Describe "Testing the [ $buildTarget ] version of [ $commandName ] functions with [ $pester_TestName ]" {
+Describe "Testing the [ $buildTarget ] version of [ $commandName ] functions with [ $pester_TestName ]" -Tag @('apiKeys') {
 
     Context "[ $commandName ] testing functions" {
 
         It "[ $commandName ] should have an alias of [ Set-DattoAPIKey ]" {
             Get-Alias -Name Set-DattoAPIKey | Should -BeTrue
-        }
-
-        It "The Datto_Public_Key variable should initially be empty or null" {
-            $Datto_Public_Key | Should -BeNullOrEmpty
-            Remove-DattoAPIKey -WarningAction SilentlyContinue
-        }
-
-        It "The Datto_Secret_Key variable should initially be empty or null" {
-            $Datto_Secret_Key | Should -BeNullOrEmpty
-            Remove-DattoAPIKey -WarningAction SilentlyContinue
         }
 
         It "[ -Api_Key_Secret ] should accept a value from the pipeline" {

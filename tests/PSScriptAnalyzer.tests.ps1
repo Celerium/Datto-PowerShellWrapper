@@ -93,10 +93,10 @@ param (
         $pester_TestName = (Get-Item -Path $PSCommandPath).Name
         #$commandName = $pester_TestName -replace '.Tests.ps1',''
 
-    switch ($buildTarget){
-        'built'     { $modulePath = Join-Path -Path $rootPath -ChildPath "\build\$moduleName\$version" }
-        'notBuilt'  { $modulePath = Join-Path -Path $rootPath -ChildPath "$moduleName" }
-    }
+        switch ($buildTarget){
+            'built'     { $modulePath = Join-Path -Path $rootPath -ChildPath "\build\$moduleName\$version" }
+            'notBuilt'  { $modulePath = Join-Path -Path $rootPath -ChildPath "$moduleName" }
+        }
 
         if (Get-Module -Name $moduleName){
             Remove-Module -Name $moduleName -Force

@@ -11,7 +11,6 @@
         Updated: 2023-09-16
 
     TODO:
-    Build out more robust, logical, & scalable pester tests.
     Huge thank you to LazyWinAdmin, Vexx32, & JeffBrown for their blog posts!
 
 .SYNOPSIS

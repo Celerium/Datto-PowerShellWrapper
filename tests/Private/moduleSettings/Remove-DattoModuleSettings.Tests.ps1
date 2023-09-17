@@ -127,7 +127,7 @@ param (
 
 #EndRegion  [ Prerequisites ]
 
-Describe "Testing [ $commandName ] function with [ $pester_TestName ]" -Tags @('moduleSettings') {
+Describe "Testing [ $commandName ] function with [ $pester_TestName ]" -Tag @('moduleSettings') {
 
     Context "[ $commandName ] testing function" {
 

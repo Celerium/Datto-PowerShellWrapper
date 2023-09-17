@@ -128,7 +128,7 @@ param (
 
 #EndRegion  [ Prerequisites ]
 
-Describe "Testing [ $commandName ] function with [ $pester_TestName ]" {
+Describe "Testing [ $commandName ] function with [ $pester_TestName ]" -Tag @('apiKeys') {
 
     Context "[ $commandName ] testing function" {
 

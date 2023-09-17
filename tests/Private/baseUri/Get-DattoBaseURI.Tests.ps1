@@ -120,7 +120,7 @@ param (
 
 #EndRegion  [ Prerequisites ]
 
-Describe "Testing [ $commandName ] function with [ $pester_TestName ]" {
+Describe "Testing [ $commandName ] function with [ $pester_TestName ]" -Tag @('baseUri') {
 
     Context "[ $commandName ] testing function" {
 
