@@ -24,3 +24,11 @@ Whether you use this project, have learned something from it, or just like it, p
 <a href="https://www.buymeacoffee.com/Celerium" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/guidelines/download-assets-sm-2.svg" alt="Buy Me A Coffee" style="width:150px;height:50px;"></a>
 
 ---
+
+## Agent Reports
+
+![Agent Reports](https://raw.githubusercontent.com/Celerium/Datto-PowerShellWrapper/main/.github/images/Celerium_DattoAgentsReport.png)
+
+## Device Reports
+
+![Device Reports](https://raw.githubusercontent.com/Celerium/Datto-PowerShellWrapper/main/.github/images/Celerium_DattoDevicesReport.png)
