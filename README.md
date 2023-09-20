@@ -153,20 +153,22 @@ Calling an API resource is as simple as running `Get-Datto<resourceName>`
 - The following is a table of supported functions and their corresponding API resources:
 - Table entries with [ `-` ] indicate that the functionality is **NOT** supported by the Datto API at this time.
 
-| Section   | API Resource    | Create    | Read                      | Update    | Delete    |
-|---------  | --------------  | --------- | ------------------------- | --------- | --------- |
-| Reporting | ActivityLog     | -         | `Get-DattoActivityLog`    | -         | -         |
-| BCDR      | Agent           | -         | `Get-DattoAgent`          | -         | -         |
-| BCDR      | Alert           | -         | `Get-DattoAlert`          | -         | -         |
-| BCDR      | Asset           | -         | `Get-DattoAsset`          | -         | -         |
-| BCDR      | **BCDR** *      | -         | `Get-DattoBCDR`           | -         | -         |
-| BCDR      | Device          | -         | `Get-DattoDevice`         | -         | -         |
-| BCDR      | Share           | -         | `Get-DattoShare`          | -         | -         |
-| BCDR      | Volume          | -         | `Get-DattoVolume`         | -         | -         |
-| SaaS      | **SaaS** *      | -         | `Get-DattoSaaS`           | -         | -         |
-| SaaS      | Domains         | -         | `Get-DattoDomain`         | -         | -         |
-| SaaS      | Seats           | -         | `Get-DattoSeat`           | -         | -         |
-| SaaS      | Applications    | -         | `Get-DattoApplication`    | -         | -         |
+| Section   | API Resource       | Create    | Read                           | Update    | Delete    |
+|---------  | --------------     | --------- | -------------------------      | --------- | --------- |
+| Reporting | ActivityLog        | -         | `Get-DattoActivityLog`         | -         | -         |
+| BCDR      | Agent              | -         | `Get-DattoAgent`               | -         | -         |
+| BCDR      | Alert              | -         | `Get-DattoAlert`               | -         | -         |
+| BCDR      | Asset              | -         | `Get-DattoAsset`               | -         | -         |
+| BCDR      | **BCDR** *         | -         | `Get-DattoBCDR`                | -         | -         |
+| BCDR      | Device             | -         | `Get-DattoDevice`              | -         | -         |
+| BCDR      | Share              | -         | `Get-DattoShare`               | -         | -         |
+| BCDR      | VMRestore          | -         | `Get-DattoGet-DattoVMRestore`  | -         | -         |
+| BCDR      | Volume             | -         | `Get-DattoVolume`              | -         | -         |
+| SaaS      | **SaaS** *         | -         | `Get-DattoSaaS`                | -         | -         |
+| SaaS      | Domains            | -         | `Get-DattoDomain`              | -         | -         |
+| SaaS      | Seats              | -         | `Get-DattoSeat`                | -         | -         |
+| SaaS      | Applications       | -         | `Get-DattoApplication`         | -         | -         |
+| SaaS      | BulkSeatAssignment | -         | `Get-DattoBulkSeatAssignment`  | -         | -         |
 
 - :warning: `Get-DattoBCDR` & `Get-DattoSaaS` are special functions.
 - These are **NOT** endpoints in Datto's REST API and are a single set of commands that can run endpoints in their associate sections.
