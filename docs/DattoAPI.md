@@ -48,6 +48,9 @@ Shows the Datto base URI global variable.
 ### [Get-DattoBCDR](site/BCDR/Get-DattoBCDR.md)
 Gets Datto BCDR devices and assets
 
+### [Get-DattoBulkSeatAssignment](site/SaaS/Get-DattoBulkSeatAssignment.md)
+Get SaaS Protection bulk seats assignment
+
 ### [Get-DattoDevice](site/BCDR/Get-DattoDevice.md)
 Gets Datto BCDR devices from the the Datto API.
 
@@ -68,6 +71,9 @@ Get Datto SaaS protection seats for a given customer
 
 ### [Get-DattoShare](site/BCDR/Get-DattoShare.md)
 Gets Datto BCDR shares for a given device
+
+### [Get-DattoVMRestore](site/BCDR/Get-DattoVMRestore.md)
+Gets Datto BCDR VM restores by serial number
 
 ### [Get-DattoVolume](site/BCDR/Get-DattoVolume.md)
 Gets an asset(s)(agent or share) for a specific volume on a device

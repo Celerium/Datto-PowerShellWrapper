@@ -64,7 +64,7 @@ param(
                                 'allPages', 'page', 'perPage',
                                 'endpoint_Agents', 'endpoint_Devices', 'endpoint_byDevice', 'endpoint_byDeviceAgent',
                                 'endpoint_byDeviceAlert', 'endpoint_byDeviceAsset', 'endpoint_byDeviceShare', 'endpoint_byDeviceVolume',
-                                'endpoint_Domains', 'endpoint_CustomerSeats', 'endpoint_CustomerApps', 'saasCustomerId'
+                                'endpoint_Domains', 'endpoint_CustomerSeats', 'endpoint_CustomerApps', 'saasCustomerId','externalSubscriptionId'
 
         $query_Parameters = [System.Web.HttpUtility]::ParseQueryString([String]::Empty)
 
