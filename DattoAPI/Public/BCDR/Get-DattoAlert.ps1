@@ -83,10 +83,7 @@ function Get-DattoAlert {
 
         Set-Variable -Name 'Datto_alertParameters' -Value $PSBoundParameters -Scope Global -Force
 
-        switch ($allPages) {
-            $true   { Invoke-DattoRequest -method GET -resource_Uri $resource_Uri -uri_Filter $PSBoundParameters -allPages }
-            $false  { Invoke-DattoRequest -method GET -resource_Uri $resource_Uri -uri_Filter $PSBoundParameters }
-        }
+        Invoke-DattoRequest -method GET -resource_Uri $resource_Uri -uri_Filter $PSBoundParameters -allPages:$allPages
 
     }
 

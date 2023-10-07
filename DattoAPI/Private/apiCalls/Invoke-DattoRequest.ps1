@@ -154,7 +154,10 @@ function Invoke-DattoRequest {
 
         }
         finally {
-            [void] ( $Datto_invokeParameters.Remove('Authorization') )
+
+            $Auth = $Datto_invokeParameters['headers']['Authorization']
+            $Datto_invokeParameters['headers']['Authorization'] = $Auth.Substring( 0, [Math]::Min($Auth.Length, 9) ) + '*******'
+
         }
 
 
@@ -166,7 +169,8 @@ function Invoke-DattoRequest {
             }
             else{
                 $api_response = [PSCustomObject]@{
-                    data = $all_responseData
+                    pagination  = $null
+                    items       = $all_responseData
                 }
             }
 
