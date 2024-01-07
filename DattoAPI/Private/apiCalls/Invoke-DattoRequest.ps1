@@ -63,7 +63,7 @@ function Invoke-DattoRequest {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $false)]
-        [ValidateSet('GET')]
+        [ValidateSet('GET','PUT')]
         [String]$method = 'GET',
 
         [Parameter(Mandatory = $true)]

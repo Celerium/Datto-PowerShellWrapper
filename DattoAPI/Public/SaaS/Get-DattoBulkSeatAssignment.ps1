@@ -1,29 +1,29 @@
-function Get-DattoBulkSeatAssignment {
+function Set-DattoBulkSeatAssignment {
 <#
     .SYNOPSIS
-        Get SaaS Protection bulk seats assignment
+        Set SaaS Protection bulk seats assignment
 
     .DESCRIPTION
-        The Get-DattoBulkSeatAssignment cmdlet get SaaS Protection
+        The Set-DattoBulkSeatAssignment cmdlet sets SaaS Protection
         bulk seats assignment
 
     .PARAMETER saasCustomerId
-        Defines the id of the customer to get SaaS information from
+        Defines the id of the customer to set SaaS information from
 
     .PARAMETER externalSubscriptionId
         Defines the external Subscription Id of the customer to
-        get SaaS bulk seat information from
+        set SaaS bulk seat information from
 
     .EXAMPLE
-        Get-DattoBulkSeatAssignment -saasCustomerId "12345678" -externalSubscriptionId 'ab23-bdf234-1234-asdf'
+        Set-DattoBulkSeatAssignment -saasCustomerId "12345678" -externalSubscriptionId 'Classic:Office365:123456'
 
-        Gets the Datto SaaS protection seats from the define customer id
+        Sets the Datto SaaS protection seats from the define customer id
 
     .NOTES
         N\A
 
     .LINK
-        https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Get-DattoBulkSeatAssignment.html
+        https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Set-DattoBulkSeatAssignment.html
 #>
 
     [CmdletBinding(DefaultParameterSetName = 'index')]
@@ -49,7 +49,7 @@ function Get-DattoBulkSeatAssignment {
 
         Set-Variable -Name 'Datto_bulkSeatParameters' -Value $PSBoundParameters -Scope Global -Force
 
-        Invoke-DattoRequest -method GET -resource_Uri $resource_Uri -uri_Filter $PSBoundParameters
+        Invoke-DattoRequest -method PUT -resource_Uri $resource_Uri -uri_Filter $PSBoundParameters
 
     }
 
