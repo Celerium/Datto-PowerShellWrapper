@@ -14,7 +14,7 @@ function Invoke-DattoRequest {
         Defines the type of API method to use
 
         Allowed values:
-        'GET'
+        'GET', 'PUT'
 
     .PARAMETER resource_Uri
         Defines the resource uri (url) to use when creating the API call
@@ -96,7 +96,7 @@ function Invoke-DattoRequest {
         if ($null -eq $data) {
             $body = $null
         } else {
-            $body = @{'data'= $data} | ConvertTo-Json -Depth $Datto_JSON_Conversion_Depth
+            $body = $data | ConvertTo-Json -Depth $Datto_JSON_Conversion_Depth
         }
 
         try {

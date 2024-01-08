@@ -15,9 +15,14 @@ function Set-DattoBulkSeatAssignment {
         set SaaS bulk seat information from
 
     .EXAMPLE
-        Set-DattoBulkSeatAssignment -saasCustomerId "12345678" -externalSubscriptionId 'Classic:Office365:123456'
+        Set-DattoBulkSeatAssignment -saasCustomerId "12345678" -externalSubscriptionId 'Classic:Office365:123456' -seatType "User" -remoteId "ab23-bdf234-1234-asdf" -actionType "License"
 
-        Sets the Datto SaaS protection seats from the define customer id
+        Sets the Datto SaaS protection seats from the defined Office365 customer id
+
+    .EXAMPLE
+        Set-DattoBulkSeatAssignment -saasCustomerId "12345678" -externalSubscriptionId 'Classic:GoogleApps:123456' -seatType "SharedDrive" -remoteId "ab23-bdf234-1234-asdf" -actionType "Pause"
+
+        Sets the Datto SaaS protection seats from the defined Google customer id
 
     .NOTES
         N\A
@@ -34,12 +39,50 @@ function Set-DattoBulkSeatAssignment {
 
         [Parameter(Mandatory = $true, ParameterSetName = 'index')]
         [ValidateNotNullOrEmpty()]
-        [string]$externalSubscriptionId
+        [string]$externalSubscriptionId,
+
+        # Parameter help description
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'index'
+            )]
+        [ValidateNotNullOrEmpty()]
+        [string]$seatType,
+        
+        # Valid methods are 'License' to "Protect", 'Pause' to "Pause", and 'Unlicense' to "Unprotect"
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'index'
+            )]
+        [ValidateSet('License','Pause','Unlicense')]
+        [ValidateNotNullOrEmpty()]
+        [string]$actionType,
+
+        # Either like 'Classic:Office365:123456', or 'Classic:GoogleApps:123456'
+        [Parameter(
+            Mandatory = $true,
+            ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true,
+            ParameterSetName = 'index'
+            )]
+        [ValidateNotNullOrEmpty()]
+        [string]$remoteId
     )
 
     begin {
 
-        $resource_uri = "/saas/$saasCustomerId/$externalSubscriptionId/bulkSeatAssignment"
+        $resource_uri = "/saas/$saasCustomerId/$externalSubscriptionId/bulkSeatChange"
+
+        #the ids array can only be a max of 199, can I add some code to check that this is not more than this?
+        $requestBody = @{
+            "seat_type" = "$seatType"
+            "action_type" = "$actionType"
+            "ids" = "$remoteId"
+            }
 
     }
 
@@ -49,7 +92,7 @@ function Set-DattoBulkSeatAssignment {
 
         Set-Variable -Name 'Datto_bulkSeatParameters' -Value $PSBoundParameters -Scope Global -Force
 
-        Invoke-DattoRequest -method PUT -resource_Uri $resource_Uri -uri_Filter $PSBoundParameters
+        Invoke-DattoRequest -method PUT -resource_Uri $resource_Uri -uri_Filter $PSBoundParameters -data $requestBody
 
     }
 
