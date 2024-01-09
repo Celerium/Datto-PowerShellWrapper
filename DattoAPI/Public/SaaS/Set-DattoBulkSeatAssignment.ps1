@@ -70,7 +70,7 @@ function Set-DattoBulkSeatAssignment {
             ParameterSetName = 'index'
             )]
         [ValidateNotNullOrEmpty()]
-        [string]$remoteId
+        [string[]]$remoteId
     )
 
     begin {
@@ -79,9 +79,9 @@ function Set-DattoBulkSeatAssignment {
 
         #the ids array can only be a max of 199, can I add some code to check that this is not more than this?
         $requestBody = @{
-            "seat_type" = "$seatType"
-            "action_type" = "$actionType"
-            "ids" = "$remoteId"
+            seat_type = $seatType
+            action_type = $actionType
+            ids = $remoteId
             }
 
     }
