@@ -77,7 +77,6 @@ function Set-DattoBulkSeatAssignment {
 
         $resource_uri = "/saas/$saasCustomerId/$externalSubscriptionId/bulkSeatChange"
 
-        #the ids array can only be a max of 199, can I add some code to check that this is not more than this?
         $requestBody = @{
             seat_type = $seatType
             action_type = $actionType
