@@ -36,9 +36,6 @@ Gets Datto BCDR alerts for a given device.
 ### [Get-DattoAPIKey](site/Internal/Get-DattoAPIKey.md)
 Gets the Datto API public & secret key global variables.
 
-### [Get-DattoApplication](site/SaaS/Get-DattoApplication.md)
-Get Datto SaaS protection backup data for a given customer
-
 ### [Get-DattoAsset](site/BCDR/Get-DattoAsset.md)
 Get Datto BCDR assets (agents and shares) for a given device
 
@@ -48,14 +45,8 @@ Shows the Datto base URI global variable.
 ### [Get-DattoBCDR](site/BCDR/Get-DattoBCDR.md)
 Gets Datto BCDR devices and assets
 
-### [Get-DattoBulkSeatAssignment](site/SaaS/Get-DattoBulkSeatAssignment.md)
-Get SaaS Protection bulk seats assignment
-
 ### [Get-DattoDevice](site/BCDR/Get-DattoDevice.md)
 Gets Datto BCDR devices from the the Datto API.
-
-### [Get-DattoDomain](site/SaaS/Get-DattoDomain.md)
-Get Datto SaaS protection data about what domains are being protected
 
 ### [Get-DattoMetaData](site/Internal/Get-DattoMetaData.md)
 Gets various Api metadata values
@@ -66,8 +57,17 @@ Gets the saved Datto configuration settings
 ### [Get-DattoSaaS](site/SaaS/Get-DattoSaaS.md)
 Gets Datto SaaS protection data
 
+### [Get-DattoApplication](site/SaaS/Get-DattoApplication.md)
+Get Datto SaaS protection backup data for a given customer
+
+### [Get-DattoDomain](site/SaaS/Get-DattoDomain.md)
+Get Datto SaaS protection data about what domains are being protected
+
 ### [Get-DattoSeat](site/SaaS/Get-DattoSeat.md)
 Get Datto SaaS protection seats for a given customer
+
+### [Set-DattoBulkSeatChange](site/SaaS/Set-DattoBulkSeatChange.md)
+Sets Datto SaaS Protection bulk seat changes
 
 ### [Get-DattoShare](site/BCDR/Get-DattoShare.md)
 Gets Datto BCDR shares for a given device

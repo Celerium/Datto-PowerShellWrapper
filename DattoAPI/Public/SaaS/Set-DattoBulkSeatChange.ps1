@@ -1,26 +1,24 @@
-function Set-DattoBulkSeatAssignment {
+function Set-DattoBulkSeatChange {
 <#
     .SYNOPSIS
-        Set SaaS Protection bulk seats assignment
+        Sets Datto SaaS Protection bulk seat changes
 
     .DESCRIPTION
-        The Set-DattoBulkSeatAssignment cmdlet sets SaaS Protection
-        bulk seats assignment
+        The Set-DattoBulkSeatChange cmdlet is used to set SaaS Protection bulk seat changes
 
     .PARAMETER saasCustomerId
-        Defines the id of the customer to set SaaS information from
+        Defines the id of the Organization to set SaaS information from
 
     .PARAMETER externalSubscriptionId
-        Defines the external Subscription Id of the customer to
-        set SaaS bulk seat information from
+        Defines the external Subscription ID of the SaaS Protection Organization used to set SaaS bulk seat changes
 
     .EXAMPLE
-        Set-DattoBulkSeatAssignment -saasCustomerId "12345678" -externalSubscriptionId 'Classic:Office365:123456' -seatType "User" -remoteId "ab23-bdf234-1234-asdf" -actionType "License"
+        Set-DattoBulkSeatChange -saasCustomerId "12345678" -externalSubscriptionId 'Classic:Office365:123456' -seatType "User" -remoteId "ab23-bdf234-1234-asdf" -actionType "License"
 
         Sets the Datto SaaS protection seats from the defined Office365 customer id
 
     .EXAMPLE
-        Set-DattoBulkSeatAssignment -saasCustomerId "12345678" -externalSubscriptionId 'Classic:GoogleApps:123456' -seatType "SharedDrive" -remoteId "ab23-bdf234-1234-asdf" -actionType "Pause"
+        Set-DattoBulkSeatChange -saasCustomerId "12345678" -externalSubscriptionId 'Classic:GoogleApps:123456' -seatType "SharedDrive" -remoteId "ab23-bdf234-1234-asdf","cd45-cfe567-5678-qwer" -actionType "Pause"
 
         Sets the Datto SaaS protection seats from the defined Google customer id
 
@@ -28,7 +26,7 @@ function Set-DattoBulkSeatAssignment {
         N\A
 
     .LINK
-        https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Set-DattoBulkSeatAssignment.html
+        https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Set-DattoBulkSeatChange.html
 #>
 
     [CmdletBinding(DefaultParameterSetName = 'index')]

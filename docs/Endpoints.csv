@@ -25,7 +25,7 @@ Internal,,DELETE,Remove-DattoModuleSettings,YES,
 Internal,,GET,Test-DattoAPIKey,YES,
 Reporting,/report/activity-log,GET,Get-DattoActivityLog,YES,
 SaaS,/sass/{sassCustomerId}/applications,GET,Get-DattoApplication,YES,
-SaaS,/saas/{saasCustomerId}/{externalSubscriptionId}/bulkSeatAssignment,GET,Get-DattoBulkSeatAssignment,YES,Cannot fully validate at this time
+SaaS,/saas/{saasCustomerId}/{externalSubscriptionId}/bulkSeatAssignment,SET,Set-DattoBulkSeatChange,YES,
 SaaS,/sass/domains,GET,Get-DattoDomain,YES,
 SaaS,/sass/,GET,Get-DattoSaaS,YES,Special command that combines all SaaS endpoints
 SaaS,/sass/{sassCustomerId}/seats,GET,Get-DattoSeat,YES,
