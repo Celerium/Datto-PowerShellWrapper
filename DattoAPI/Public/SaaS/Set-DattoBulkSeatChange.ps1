@@ -29,7 +29,7 @@ function Set-DattoBulkSeatChange {
         https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Set-DattoBulkSeatChange.html
 #>
 
-    [CmdletBinding(DefaultParameterSetName = 'index')]
+    [CmdletBinding(DefaultParameterSetName = 'index', SupportsShouldProcess = $true)]
     Param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'index')]
         [ValidateNotNullOrEmpty()]
@@ -48,7 +48,7 @@ function Set-DattoBulkSeatChange {
             )]
         [ValidateNotNullOrEmpty()]
         [string]$seatType,
-        
+
         # Valid methods are 'License' to "Protect", 'Pause' to "Pause", and 'Unlicense' to "Unprotect"
         [Parameter(
             Mandatory = $true,
@@ -85,11 +85,12 @@ function Set-DattoBulkSeatChange {
 
     process {
 
-        Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
+        if ($PSCmdlet.ShouldProcess("saasCustomerId: $saasCustomerId, externalSubscriptionId: $externalSubscriptionId, $remoteId", "$actionType $seatType")) {
+            Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
+            Set-Variable -Name 'Datto_bulkSeatParameters' -Value $PSBoundParameters -Scope Global -Force
 
-        Set-Variable -Name 'Datto_bulkSeatParameters' -Value $PSBoundParameters -Scope Global -Force
-
-        Invoke-DattoRequest -method PUT -resource_Uri $resource_Uri -uri_Filter $PSBoundParameters -data $requestBody
+            Invoke-DattoRequest -method PUT -resource_Uri $resource_Uri -uri_Filter $PSBoundParameters -data $requestBody
+        }
 
     }
 
