@@ -3659,19 +3659,19 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Get-DattoBulkSeatAssignment</command:name>
-      <command:verb>Get</command:verb>
-      <command:noun>DattoBulkSeatAssignment</command:noun>
+      <command:name>Set-DattoBulkSeatChange</command:name>
+      <command:verb>Set</command:verb>
+      <command:noun>DattoBulkSeatChange</command:noun>
       <maml:description>
-        <maml:para>Get SaaS Protection bulk seats assignment</maml:para>
+        <maml:para>Set SaaS Protection bulk seats assignment</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Get-DattoBulkSeatAssignment cmdlet get SaaS Protection bulk seats assignment</maml:para>
+      <maml:para>The Set-DattoBulkSeatChange cmdlet sets SaaS Protection bulk seats assignment</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Get-DattoBulkSeatAssignment</maml:name>
+        <maml:name>Set-DattoBulkSeatChange</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
           <maml:name>saasCustomerId</maml:name>
           <maml:description>
@@ -3734,7 +3734,7 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Get-DattoBulkSeatAssignment -saasCustomerId "12345678" -externalSubscriptionId 'ab23-bdf234-1234-asdf'</dev:code>
+        <dev:code>Set-DattoBulkSeatChange -saasCustomerId "12345678" -externalSubscriptionId 'ab23-bdf234-1234-asdf'</dev:code>
         <dev:remarks>
           <maml:para>Gets the Datto SaaS protection seats from the define customer id</maml:para>
         </dev:remarks>
@@ -3742,8 +3742,8 @@
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Get-DattoBulkSeatAssignment.html</maml:linkText>
-        <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Get-DattoBulkSeatAssignment.html</maml:uri>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Set-DattoBulkSeatChange.html</maml:linkText>
+        <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Set-DattoBulkSeatChange.html</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
