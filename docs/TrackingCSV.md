@@ -45,7 +45,7 @@ I recommend downloading the CSV from the link provided rather then viewing the t
 | Internal  |                                                              | GET    | Test-DattoAPIKey           | YES      |                                                       |
 | Reporting | /report/activity-log                                         | GET    | Get-DattoActivityLog       | YES      |                                                       |
 | SaaS      | /sass/{sassCustomerId}/applications                          | GET    | Get-DattoApplication       | YES      |                                                       |
-| SaaS      | /saas/{saasCustomerId}/{externalSubscriptionId}/bulkSeatAssignment | SET    | Set-DattoBulkSeatChange    | YES      |                                                       |
+| SaaS      | /saas/{saasCustomerId}/{externalSubscriptionId}/bulkSeatAssignment | PUT    | Set-DattoBulkSeatChange    | YES      |                                                       |
 | SaaS      | /sass/domains                                                | GET    | Get-DattoDomain            | YES      |                                                       |
 | SaaS      | /sass/                                                       | GET    | Get-DattoSaaS              | YES      | Special command that combines all SaaS endpoints      |
 | SaaS      | /sass/{sassCustomerId}/seats                                 | GET    | Get-DattoSeat              | YES      |                                                       |

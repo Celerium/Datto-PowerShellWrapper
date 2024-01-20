@@ -10,8 +10,6 @@ function Get-DattoShare {
     .PARAMETER serialNumber
         Defines the BCDR serial number to get
 
-        The parameter is mandatory
-
     .PARAMETER page
         Defines the page number to return
 

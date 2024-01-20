@@ -16,7 +16,8 @@ Get Datto SaaS protection backup data for a given customer
 ## SYNTAX
 
 ```powershell
-Get-DattoApplication -saasCustomerId <String> [<CommonParameters>]
+Get-DattoApplication -saasCustomerId <String> [-daysUntil <Int32>] [-includeRemoteID <Int32>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,14 +31,21 @@ backup data for a given customer
 Get-DattoApplication -saasCustomerId "12345678"
 ```
 
-Gets the Datto SaaS protection backup data from the define customer id
+Gets the Datto SaaS protection backup data from the define customer id and
+does not include remote ids
+
+### EXAMPLE 2
+```powershell
+Get-DattoApplication -saasCustomerId "12345678" -includeRemoteID 1
+```
+
+Gets the Datto SaaS protection backup data from the define customer id and
+includes remote ids
 
 ## PARAMETERS
 
 ### -saasCustomerId
-Defines the id of the customer to get SaaS information from
-
-The parameter is mandatory
+Defines the id of the Datto SaaS organization
 
 ```yaml
 Type: String
@@ -48,6 +56,43 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -daysUntil
+Defines the number of days until the report should be generated
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -includeRemoteID
+Defines if remote ids are included in the return
+
+Note:
+    0 = No
+    1 = Yes
+
+Allowed Values:
+    0, 1
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: 0
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

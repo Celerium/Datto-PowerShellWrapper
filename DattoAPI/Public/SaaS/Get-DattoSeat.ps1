@@ -8,9 +8,7 @@ function Get-DattoSeat {
         for a given customer
 
     .PARAMETER saasCustomerId
-        Defines the id of the customer to get SaaS information from
-
-        The parameter is mandatory
+        Defines the id of the Datto SaaS organization
 
     .EXAMPLE
         Get-DattoSeat -saasCustomerId "12345678"

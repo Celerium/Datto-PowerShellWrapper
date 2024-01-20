@@ -44,8 +44,6 @@ with the first 10 alerts from the 2nd page of results.
 ### -serialNumber
 Defines the BCDR serial number to get
 
-The parameter is mandatory
-
 ```yaml
 Type: String
 Parameter Sets: (All)

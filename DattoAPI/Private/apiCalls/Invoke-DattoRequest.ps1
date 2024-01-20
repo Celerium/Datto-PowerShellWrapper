@@ -106,9 +106,14 @@ function Invoke-DattoRequest {
             $parameters = [ordered] @{
                 "Method"    = $method
                 "Uri"       = $query_string.Uri
-                "Headers"   = @{ 'Authorization' = 'Basic {0}'-f $Api_Token_base64; 'Content-Type' = 'application/json' }
+                "Headers"   = @{ 'Authorization' = 'Basic {0}'-f $Api_Token_base64 }
                 "Body"      = $body
             }
+
+                if ( $method -ne 'GET' ) {
+                    $parameters['ContentType'] = 'application/json; charset=utf-8'
+                }
+
             Set-Variable -Name 'Datto_invokeParameters' -Value $parameters -Scope Global -Force
 
             if ($allPages){

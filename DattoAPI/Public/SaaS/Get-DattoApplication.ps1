@@ -8,14 +8,32 @@ function Get-DattoApplication {
         backup data for a given customer
 
     .PARAMETER saasCustomerId
-        Defines the id of the customer to get SaaS information from
+        Defines the id of the Datto SaaS organization
 
-        The parameter is mandatory
+    .PARAMETER daysUntil
+        Defines the number of days until the report should be generated
+
+    .PARAMETER includeRemoteID
+        Defines if remote ids are included in the return
+
+        Note:
+            0 = No
+            1 = Yes
+
+        Allowed Values:
+            0, 1
 
     .EXAMPLE
         Get-DattoApplication -saasCustomerId "12345678"
 
-        Gets the Datto SaaS protection backup data from the define customer id
+        Gets the Datto SaaS protection backup data from the define customer id and
+        does not include remote ids
+
+    .EXAMPLE
+        Get-DattoApplication -saasCustomerId "12345678" -includeRemoteID 1
+
+        Gets the Datto SaaS protection backup data from the define customer id and
+        includes remote ids
 
     .NOTES
         N\A
@@ -28,7 +46,15 @@ function Get-DattoApplication {
     Param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'index')]
         [ValidateNotNullOrEmpty()]
-        [string]$saasCustomerId
+        [string]$saasCustomerId,
+
+        [Parameter(Mandatory = $false, ParameterSetName = 'index')]
+        [ValidateRange(1, [int]::MaxValue)]
+        [int]$daysUntil,
+
+        [Parameter(Mandatory = $false, ParameterSetName = 'index')]
+        [ValidateSet( 0, 1 )]
+        [int]$includeRemoteID
     )
 
     begin {

@@ -35,9 +35,7 @@ Gets the Datto SaaS protection seats from the define customer id
 ## PARAMETERS
 
 ### -saasCustomerId
-Defines the id of the customer to get SaaS information from
-
-The parameter is mandatory
+Defines the id of the Datto SaaS organization
 
 ```yaml
 Type: String

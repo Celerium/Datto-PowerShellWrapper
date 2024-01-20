@@ -27,7 +27,8 @@ Get-DattoSaaS [-endpoint_CustomerSeats] -saasCustomerId <String> [<CommonParamet
 
 ### index_byCustomerApps
 ```powershell
-Get-DattoSaaS [-endpoint_CustomerApps] -saasCustomerId <String> [<CommonParameters>]
+Get-DattoSaaS [-endpoint_CustomerApps] -saasCustomerId <String> [-daysUntil <Int32>] [-includeRemoteID <Int32>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -119,8 +120,6 @@ Accept wildcard characters: False
 ### -saasCustomerId
 Defines the id of the customer to get SaaS information from
 
-The parameter is mandatory
-
 ```yaml
 Type: String
 Parameter Sets: index_byCustomerSeats, index_byCustomerApps
@@ -130,6 +129,49 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -daysUntil
+Defines the number of days until the report should be generated
+
+Parameter Set:
+    endpoint_CustomerApps
+
+```yaml
+Type: Int32
+Parameter Sets: index_byCustomerApps
+Aliases:
+
+Required: False
+Position: Named
+Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -includeRemoteID
+Defines if remote ids are included in the return
+
+Note:
+    0 = No
+    1 = Yes
+
+Allowed Values:
+    0, 1
+
+Parameter Set:
+    endpoint_CustomerApps
+
+```yaml
+Type: Int32
+Parameter Sets: index_byCustomerApps
+Aliases:
+
+Required: False
+Position: Named
+Default value: 0
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

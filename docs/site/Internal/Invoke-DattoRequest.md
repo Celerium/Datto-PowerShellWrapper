@@ -50,7 +50,7 @@ Example:
 Defines the type of API method to use
 
 Allowed values:
-'GET'
+'GET', 'PUT'
 
 ```yaml
 Type: String

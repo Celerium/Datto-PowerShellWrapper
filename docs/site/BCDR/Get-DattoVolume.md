@@ -38,8 +38,6 @@ agents or shares for the defined volume.
 ### -serialNumber
 Defines the BCDR serial number to get
 
-The parameter is mandatory
-
 ```yaml
 Type: String
 Parameter Sets: (All)
@@ -56,8 +54,6 @@ Accept wildcard characters: False
 Defines the name (id) of the protected volume
 
 The content of the 'volume' field when calling /v1/bcdr/device/{serialNumber}/asset
-
-The parameter is mandatory
 
 ```yaml
 Type: String

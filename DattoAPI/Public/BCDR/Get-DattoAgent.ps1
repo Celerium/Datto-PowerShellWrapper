@@ -15,8 +15,6 @@ function Get-DattoAgent {
     .PARAMETER serialNumber
         Defines the BCDR serial number to get agents from
 
-        The parameter is mandatory
-
     .PARAMETER page
         Defines the page number to return
 

@@ -4,21 +4,51 @@ function Set-DattoBulkSeatChange {
         Sets Datto SaaS Protection bulk seat changes
 
     .DESCRIPTION
-        The Set-DattoBulkSeatChange cmdlet is used to set SaaS Protection bulk seat changes
+        The Set-DattoBulkSeatChange cmdlet is used to bulk set SaaS Protection seat changes
 
     .PARAMETER saasCustomerId
-        Defines the id of the Organization to set SaaS information from
+        Defines the id of the Datto SaaS organization
 
     .PARAMETER externalSubscriptionId
-        Defines the external Subscription ID of the SaaS Protection Organization used to set SaaS bulk seat changes
+        Defines the external Subscription ID used to set SaaS bulk seat changes
+
+        The externalSubscriptionId can be found by referencing the data returned form Get-DattoApplication
+
+        Example:
+            'Classic:Office365:123456'
+            'Classic:GoogleApps:123456'
+
+    .PARAMETER seatType
+        Defines the seat type to backup
+
+        Example:
+            SharedMailbox, Site, TeamSite, User
+
+    .PARAMETER actionType
+        Defines what active to take against the seat
+
+        Active:         The seat exists in the organization and is actively backed up, meaning the seat is protected.
+        Paused:         The seat exists in the organization; backups were enabled but are currently paused.
+        Unprotected:    The seat exists in the organization but backups are not enabled.
+
+        Allowed values:
+            License, Pause, Unlicense
+
+    .PARAMETER remoteId
+        Defines the target ids to change
+
+        Remote ids can be found by referencing the data returned form Get-DattoApplication
+
+        Example:
+            ab23-bdf234-1234-asdf
 
     .EXAMPLE
-        Set-DattoBulkSeatChange -saasCustomerId "12345678" -externalSubscriptionId 'Classic:Office365:123456' -seatType "User" -remoteId "ab23-bdf234-1234-asdf" -actionType "License"
+        Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:Office365:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"
 
         Sets the Datto SaaS protection seats from the defined Office365 customer id
 
     .EXAMPLE
-        Set-DattoBulkSeatChange -saasCustomerId "12345678" -externalSubscriptionId 'Classic:GoogleApps:123456' -seatType "SharedDrive" -remoteId "ab23-bdf234-1234-asdf","cd45-cfe567-5678-qwer" -actionType "Pause"
+        Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:GoogleApps:654321' -seatType "SharedDrive" -actionType Pause -remoteId "ab23-bdf234-1234-asdf","cd45-cfe567-5678-1234"
 
         Sets the Datto SaaS protection seats from the defined Google customer id
 
@@ -29,44 +59,25 @@ function Set-DattoBulkSeatChange {
         https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Set-DattoBulkSeatChange.html
 #>
 
-    [CmdletBinding(DefaultParameterSetName = 'index', SupportsShouldProcess = $true)]
+    [CmdletBinding(DefaultParameterSetName = 'set', SupportsShouldProcess)]
     Param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'index')]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'set')]
         [ValidateNotNullOrEmpty()]
         [string]$saasCustomerId,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'index')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'set')]
         [ValidateNotNullOrEmpty()]
         [string]$externalSubscriptionId,
 
-        # Parameter help description
-        [Parameter(
-            Mandatory = $true,
-            ValueFromPipeline = $true,
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'index'
-            )]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
         [ValidateNotNullOrEmpty()]
         [string]$seatType,
 
-        # Valid methods are 'License' to "Protect", 'Pause' to "Pause", and 'Unlicense' to "Unprotect"
-        [Parameter(
-            Mandatory = $true,
-            ValueFromPipeline = $true,
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'index'
-            )]
-        [ValidateSet('License','Pause','Unlicense')]
-        [ValidateNotNullOrEmpty()]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
+        [ValidateSet('License', 'Pause', 'Unlicense')]
         [string]$actionType,
 
-        # Either like 'Classic:Office365:123456', or 'Classic:GoogleApps:123456'
-        [Parameter(
-            Mandatory = $true,
-            ValueFromPipeline = $true,
-            ValueFromPipelineByPropertyName = $true,
-            ParameterSetName = 'index'
-            )]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
         [ValidateNotNullOrEmpty()]
         [string[]]$remoteId
     )
@@ -75,21 +86,23 @@ function Set-DattoBulkSeatChange {
 
         $resource_uri = "/saas/$saasCustomerId/$externalSubscriptionId/bulkSeatChange"
 
-        $requestBody = @{
-            seat_type = $seatType
-            action_type = $actionType
-            ids = $remoteId
-            }
-
     }
 
     process {
 
-        if ($PSCmdlet.ShouldProcess("saasCustomerId: $saasCustomerId, externalSubscriptionId: $externalSubscriptionId, $remoteId", "$actionType $seatType")) {
+        $request_Body = @{
+            seat_type   = $seatType
+            action_type = $actionType
+            ids         = $remoteId
+        }
+
+        if ($PSCmdlet.ShouldProcess("saasCustomerId: [ $saasCustomerId ], externalSubscriptionId: [ $externalSubscriptionId, $remoteId ]", "actionType: [ $actionType $seatType ]")) {
+
             Write-Verbose "Running the [ $($PSCmdlet.ParameterSetName) ] parameterSet"
             Set-Variable -Name 'Datto_bulkSeatParameters' -Value $PSBoundParameters -Scope Global -Force
 
-            Invoke-DattoRequest -method PUT -resource_Uri $resource_Uri -uri_Filter $PSBoundParameters -data $requestBody
+            Invoke-DattoRequest -method PUT -resource_Uri $resource_Uri -uri_Filter $PSBoundParameters -data $request_Body
+
         }
 
     }

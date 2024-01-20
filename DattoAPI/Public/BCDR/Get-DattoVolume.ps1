@@ -10,14 +10,10 @@ function Get-DattoVolume {
     .PARAMETER serialNumber
         Defines the BCDR serial number to get
 
-        The parameter is mandatory
-
     .PARAMETER volumeName
         Defines the name (id) of the protected volume
 
         The content of the 'volume' field when calling /v1/bcdr/device/{serialNumber}/asset
-
-        The parameter is mandatory
 
     .EXAMPLE
         Get-DattoVolume -serialNumber "12345678" -volumeName "0987654321"

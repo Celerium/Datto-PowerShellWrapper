@@ -163,13 +163,13 @@ Calling an API resource is as simple as running `Get-Datto<resourceName>`
 | BCDR      | **BCDR** *         | -      | `Get-DattoBCDR`               | -                         | -      |
 | BCDR      | Device             | -      | `Get-DattoDevice`             | -                         | -      |
 | BCDR      | Share              | -      | `Get-DattoShare`              | -                         | -      |
-| BCDR      | VMRestore          | -      | `Get-DattoGet-DattoVMRestore` | -                         | -      |
+| BCDR      | VMRestore          | -      | `Get-DattoVMRestore`          | -                         | -      |
 | BCDR      | Volume             | -      | `Get-DattoVolume`             | -                         | -      |
 | SaaS      | **SaaS** *         | -      | `Get-DattoSaaS`               | -                         | -      |
 | SaaS      | Domains            | -      | `Get-DattoDomain`             | -                         | -      |
 | SaaS      | Seats              | -      | `Get-DattoSeat`               | -                         | -      |
 | SaaS      | Applications       | -      | `Get-DattoApplication`        | -                         | -      |
-| SaaS      | BulkSeatChange | -      | -                             | `Set-DattoBulkSeatChange` | -      |
+| SaaS      | BulkSeatChange     | -      | -                             | `Set-DattoBulkSeatChange` | -      |
 
 - :warning: `Get-DattoBCDR` & `Get-DattoSaaS` are special functions.
 - These are **NOT** endpoints in Datto's REST API and are a single set of commands that can run endpoints in their associate sections.

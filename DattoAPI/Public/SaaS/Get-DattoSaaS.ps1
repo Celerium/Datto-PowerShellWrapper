@@ -28,7 +28,24 @@ function Get-DattoSaaS {
     .PARAMETER saasCustomerId
         Defines the id of the customer to get SaaS information from
 
-        The parameter is mandatory
+    .PARAMETER daysUntil
+        Defines the number of days until the report should be generated
+
+        Parameter Set:
+            endpoint_CustomerApps
+
+    .PARAMETER includeRemoteID
+        Defines if remote ids are included in the return
+
+        Note:
+            0 = No
+            1 = Yes
+
+        Allowed Values:
+            0, 1
+
+        Parameter Set:
+            endpoint_CustomerApps
 
     .EXAMPLE
         Get-DattoSaaS
@@ -68,7 +85,15 @@ function Get-DattoSaaS {
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'index_byCustomerSeats' )]
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'index_byCustomerApps'  )]
         [ValidateNotNullOrEmpty()]
-        [string]$saasCustomerId
+        [string]$saasCustomerId,
+
+        [Parameter(Mandatory = $false, ParameterSetName = 'index_byCustomerApps')]
+        [ValidateRange(1, [int]::MaxValue)]
+        [int]$daysUntil,
+
+        [Parameter(Mandatory = $false, ParameterSetName = 'index_byCustomerApps')]
+        [ValidateSet( 0, 1 )]
+        [int]$includeRemoteID
     )
 
     begin {

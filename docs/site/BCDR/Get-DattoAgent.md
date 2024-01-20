@@ -65,8 +65,6 @@ Returns the first 10 agents from page 2 from the defined Datto BCDR
 ### -serialNumber
 Defines the BCDR serial number to get agents from
 
-The parameter is mandatory
-
 ```yaml
 Type: String
 Parameter Sets: indexByDevice
