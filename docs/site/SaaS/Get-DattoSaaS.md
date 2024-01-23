@@ -52,14 +52,14 @@ This function uses the -endpoint_Domains switch by default
 
 ### EXAMPLE 2
 ```powershell
-Get-DattoSaaS -endpoint_CustomerSeats -saasCustomerId 12345678
+Get-DattoSaaS -endpoint_CustomerSeats -saasCustomerId 123456
 ```
 
 Returns SaaS protection seats for a given customer
 
 ### EXAMPLE 3
 ```powershell
-Get-DattoSaaS -endpoint_CustomerApps -saasCustomerId 12345678
+Get-DattoSaaS -endpoint_CustomerApps -saasCustomerId 123456
 ```
 
 Returns SaaS protection backup data for a given customer
@@ -118,7 +118,7 @@ Accept wildcard characters: False
 ```
 
 ### -saasCustomerId
-Defines the id of the customer to get SaaS information from
+Defines the ID of the customer to get SaaS information from
 
 ```yaml
 Type: String
@@ -134,6 +134,8 @@ Accept wildcard characters: False
 
 ### -daysUntil
 Defines the number of days until the report should be generated
+
+By default '10' days is returned by the API.
 
 Parameter Set:
     endpoint_CustomerApps
@@ -151,7 +153,7 @@ Accept wildcard characters: False
 ```
 
 ### -includeRemoteID
-Defines if remote ids are included in the return
+Defines if remote IDs are included in the return
 
 Note:
     0 = No

@@ -30,22 +30,22 @@ Both "seatType" & "actionType" parameters are case-sensitive
 
 ### EXAMPLE 1
 ```powershell
-Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:Office365:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"
+Set-DattoBulkSeatChange -saasCustomerId "123456" -externalSubscriptionId 'Classic:Office365:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"
 ```
 
-Sets the Datto SaaS protection seats from the defined Office365 customer id
+Sets the Datto SaaS protection seats from the defined Office365 customer ID.
 
 ### EXAMPLE 2
 ```powershell
-Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:GoogleApps:654321' -seatType "SharedDrive" -actionType Pause -remoteId "ab23-bdf234-1234-asdf","cd45-cfe567-5678-1234"
+Set-DattoBulkSeatChange -saasCustomerId "123456" -externalSubscriptionId 'Classic:GoogleApps:654321' -seatType "SharedDrive" -actionType Pause -remoteId "ab23-bdf234-1234-asdf","cd45-cfe567-5678-1234"
 ```
 
-Sets the Datto SaaS protection seats from the defined Google customer id
+Sets the Datto SaaS protection seats from the defined Google customer ID.
 
 ## PARAMETERS
 
 ### -saasCustomerId
-Defines the id of the Datto SaaS organization
+Defines the ID of the Datto SaaS organization
 
 ```yaml
 Type: String
@@ -88,7 +88,8 @@ This is a case-sensitive value
 Seat Types can be found by referencing the data returned from Get-DattoSeat
 
 Example:
-    SharedMailbox, Site, TeamSite, User
+- Office365: `SharedMailbox`, `Site`, `TeamSite`, `User`
+- Google: `User`, `SharedDrive`
 
 ```yaml
 Type: String
@@ -185,7 +186,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
-N\A
+N/A
 
 ## RELATED LINKS
 

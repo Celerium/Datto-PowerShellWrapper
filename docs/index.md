@@ -96,9 +96,10 @@ The [DattoAPI](https://www.datto.com/) offers users the ability to extract data 
 - :book: Project documentation can be found on [Github Pages](https://celerium.github.io/Datto-PowerShellWrapper/)
 - :book: Datto's REST API documentation on their management portal [here](https://portal.dattobackup.com/integrations/api) *[ Requires a login ]*.
 
-Datto features a REST API that makes use of common HTTPs GET actions. In order to maintain PowerShell best practices, only approved verbs are used.
+Datto features a REST API that makes use of common HTTP request methods. In order to maintain PowerShell best practices, only approved verbs are used.
 
-- GET -> Get-
+- GET -> `Get-`
+- PUT -> `Set-`
 
 Additionally, PowerShell's `verb-noun` nomenclature is respected. Each noun is prefixed with `Datto` in an attempt to prevent naming problems.
 
@@ -178,7 +179,7 @@ Calling an API resource is as simple as running `Get-Datto<resourceName>`
 | SaaS      | Domains            | -      | `Get-DattoDomain`             | -                         | -      |
 | SaaS      | Seats              | -      | `Get-DattoSeat`               | -                         | -      |
 | SaaS      | Applications       | -      | `Get-DattoApplication`        | -                         | -      |
-| SaaS      | BulkSeatAssignment | -      | -                             | `Set-DattoBulkSeatChange` | -      |
+| SaaS      | BulkSeatChange     | -      | -                             | `Set-DattoBulkSeatChange` | -      |
 
 - :warning: `Get-DattoBCDR` & `Get-DattoSaaS` are special functions.
 - They are **NOT** endpoints in Datto's REST API and are a single set of commands the can run endpoints in their associate sections.

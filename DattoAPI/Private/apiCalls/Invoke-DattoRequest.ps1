@@ -8,7 +8,7 @@ function Invoke-DattoRequest {
 
         This is an internal function that is used by all public functions
 
-        As of 2023-08 the Datto v1 API only supports GET requests
+        As of 2023-09 the Datto v1 API only supports GET and PUT requests
 
     .PARAMETER method
         Defines the type of API method to use

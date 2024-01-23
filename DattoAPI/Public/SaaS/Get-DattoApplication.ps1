@@ -8,13 +8,15 @@ function Get-DattoApplication {
         backup data for a given customer
 
     .PARAMETER saasCustomerId
-        Defines the id of the Datto SaaS organization
+        Defines the ID of the Datto SaaS organization
 
     .PARAMETER daysUntil
         Defines the number of days until the report should be generated
+        
+        By default '10' days is returned by the API.
 
     .PARAMETER includeRemoteID
-        Defines if remote ids are included in the return
+        Defines if remote IDs are included in the return
 
         Note:
             0 = No
@@ -24,16 +26,16 @@ function Get-DattoApplication {
             0, 1
 
     .EXAMPLE
-        Get-DattoApplication -saasCustomerId "12345678"
+        Get-DattoApplication -saasCustomerId "123456"
 
-        Gets the Datto SaaS protection backup data from the define customer id and
-        does not include remote ids
+        Gets the Datto SaaS protection backup data from the define customer ID and
+        does not include remote IDs
 
     .EXAMPLE
-        Get-DattoApplication -saasCustomerId "12345678" -includeRemoteID 1
+        Get-DattoApplication -saasCustomerId "123456" -includeRemoteID 1
 
-        Gets the Datto SaaS protection backup data from the define customer id and
-        includes remote ids
+        Gets the Datto SaaS protection backup data from the define customer ID and
+        includes remote IDs
 
     .NOTES
         N\A

@@ -18,8 +18,8 @@ function Set-DattoBulkSeatChange {
         The externalSubscriptionId can be found by referencing the data returned from Get-DattoApplication
 
         Example:
-            'Classic:Office365:123456'
-            'Classic:GoogleApps:123456'
+            'Classic:Office365:654321'
+            'Classic:GoogleApps:654321'
 
     .PARAMETER seatType
         Defines the seat type to backup
@@ -29,7 +29,8 @@ function Set-DattoBulkSeatChange {
         Seat Types can be found by referencing the data returned from Get-DattoSeat
 
         Example:
-            SharedMailbox, Site, TeamSite, User
+            Office365: SharedMailbox, Site, TeamSite, User
+            Google: User, SharedDrive
 
     .PARAMETER actionType
         Defines what active to take against the seat
@@ -46,18 +47,18 @@ function Set-DattoBulkSeatChange {
     .PARAMETER remoteId
         Defines the target ids to change
 
-        Remote ids can be found by referencing the data returned from Get-DattoApplication
+        Remote IDs can be found by referencing the data returned from Get-DattoApplication
 
         Example:
             ab23-bdf234-1234-asdf
 
     .EXAMPLE
-        Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:Office365:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"
+        Set-DattoBulkSeatChange -saasCustomerId "123456" -externalSubscriptionId 'Classic:Office365:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"
 
         Sets the Datto SaaS protection seats from the defined Office365 customer id
 
     .EXAMPLE
-        Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:GoogleApps:654321' -seatType "SharedDrive" -actionType Pause -remoteId "ab23-bdf234-1234-asdf","cd45-cfe567-5678-1234"
+        Set-DattoBulkSeatChange -saasCustomerId "123456" -externalSubscriptionId 'Classic:GoogleApps:654321' -seatType "SharedDrive" -actionType Pause -remoteId "ab23-bdf234-1234-asdf","cd45-cfe567-5678-1234"
 
         Sets the Datto SaaS protection seats from the defined Google customer id
 
