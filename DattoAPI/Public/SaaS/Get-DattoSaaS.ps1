@@ -89,7 +89,7 @@ function Get-DattoSaaS {
         [string]$saasCustomerId,
 
         [Parameter(Mandatory = $false, ParameterSetName = 'index_byCustomerApps')]
-        [ValidateRange(1, [int]::MaxValue)]
+        [ValidateRange(0, [int]::MaxValue)]
         [int]$daysUntil,
 
         [Parameter(Mandatory = $false, ParameterSetName = 'index_byCustomerApps')]

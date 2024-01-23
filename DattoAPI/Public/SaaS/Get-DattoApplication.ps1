@@ -51,7 +51,7 @@ function Get-DattoApplication {
         [string]$saasCustomerId,
 
         [Parameter(Mandatory = $false, ParameterSetName = 'index')]
-        [ValidateRange(1, [int]::MaxValue)]
+        [ValidateRange(0, [int]::MaxValue)]
         [int]$daysUntil,
 
         [Parameter(Mandatory = $false, ParameterSetName = 'index')]
