@@ -71,11 +71,11 @@ function Set-DattoBulkSeatChange {
 
     [CmdletBinding(DefaultParameterSetName = 'set', SupportsShouldProcess)]
     Param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'set')]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
         [ValidateNotNullOrEmpty()]
         [string]$saasCustomerId,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'set')]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
         [ValidateNotNullOrEmpty()]
         [string]$externalSubscriptionId,
 
