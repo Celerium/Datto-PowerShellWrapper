@@ -4051,6 +4051,7 @@
     </command:details>
     <maml:description>
       <maml:para>The Set-DattoBulkSeatChange cmdlet is used to bulk set SaaS Protection seat changes</maml:para>
+      <maml:para>Both "seatType" &amp; "actionType" parameters are case-sensitive</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -4071,7 +4072,7 @@
           <maml:name>externalSubscriptionId</maml:name>
           <maml:description>
             <maml:para>Defines the external Subscription ID used to set SaaS bulk seat changes</maml:para>
-            <maml:para>The externalSubscriptionId can be found by referencing the data returned form Get-DattoApplication</maml:para>
+            <maml:para>The externalSubscriptionId can be found by referencing the data returned from Get-DattoApplication</maml:para>
             <maml:para>Example:     'Classic:Office365:123456'     'Classic:GoogleApps:123456'</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -4085,6 +4086,8 @@
           <maml:name>seatType</maml:name>
           <maml:description>
             <maml:para>Defines the seat type to backup</maml:para>
+            <maml:para>This is a case-sensitive value</maml:para>
+            <maml:para>Seat Types can be found by referencing the data returned from Get-DattoSeat</maml:para>
             <maml:para>Example:     SharedMailbox, Site, TeamSite, User</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -4098,6 +4101,7 @@
           <maml:name>actionType</maml:name>
           <maml:description>
             <maml:para>Defines what active to take against the seat</maml:para>
+            <maml:para>This is a case-sensitive value</maml:para>
             <maml:para>Active:         The seat exists in the organization and is actively backed up, meaning the seat is protected. Paused:         The seat exists in the organization; backups were enabled but are currently paused. Unprotected:    The seat exists in the organization but backups are not enabled.</maml:para>
             <maml:para>Allowed values:     License, Pause, Unlicense</maml:para>
           </maml:description>
@@ -4112,7 +4116,7 @@
           <maml:name>remoteId</maml:name>
           <maml:description>
             <maml:para>Defines the target ids to change</maml:para>
-            <maml:para>Remote ids can be found by referencing the data returned form Get-DattoApplication</maml:para>
+            <maml:para>Remote ids can be found by referencing the data returned from Get-DattoApplication</maml:para>
             <maml:para>Example:     ab23-bdf234-1234-asdf</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
@@ -4163,7 +4167,7 @@
         <maml:name>externalSubscriptionId</maml:name>
         <maml:description>
           <maml:para>Defines the external Subscription ID used to set SaaS bulk seat changes</maml:para>
-          <maml:para>The externalSubscriptionId can be found by referencing the data returned form Get-DattoApplication</maml:para>
+          <maml:para>The externalSubscriptionId can be found by referencing the data returned from Get-DattoApplication</maml:para>
           <maml:para>Example:     'Classic:Office365:123456'     'Classic:GoogleApps:123456'</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -4177,6 +4181,8 @@
         <maml:name>seatType</maml:name>
         <maml:description>
           <maml:para>Defines the seat type to backup</maml:para>
+          <maml:para>This is a case-sensitive value</maml:para>
+          <maml:para>Seat Types can be found by referencing the data returned from Get-DattoSeat</maml:para>
           <maml:para>Example:     SharedMailbox, Site, TeamSite, User</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -4190,6 +4196,7 @@
         <maml:name>actionType</maml:name>
         <maml:description>
           <maml:para>Defines what active to take against the seat</maml:para>
+          <maml:para>This is a case-sensitive value</maml:para>
           <maml:para>Active:         The seat exists in the organization and is actively backed up, meaning the seat is protected. Paused:         The seat exists in the organization; backups were enabled but are currently paused. Unprotected:    The seat exists in the organization but backups are not enabled.</maml:para>
           <maml:para>Allowed values:     License, Pause, Unlicense</maml:para>
         </maml:description>
@@ -4204,7 +4211,7 @@
         <maml:name>remoteId</maml:name>
         <maml:description>
           <maml:para>Defines the target ids to change</maml:para>
-          <maml:para>Remote ids can be found by referencing the data returned form Get-DattoApplication</maml:para>
+          <maml:para>Remote ids can be found by referencing the data returned from Get-DattoApplication</maml:para>
           <maml:para>Example:     ab23-bdf234-1234-asdf</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>

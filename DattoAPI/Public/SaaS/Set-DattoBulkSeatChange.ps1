@@ -4,7 +4,10 @@ function Set-DattoBulkSeatChange {
         Sets Datto SaaS Protection bulk seat changes
 
     .DESCRIPTION
-        The Set-DattoBulkSeatChange cmdlet is used to bulk set SaaS Protection seat changes
+        The Set-DattoBulkSeatChange cmdlet is used to bulk set SaaS
+        Protection seat changes
+
+        Both "seatType" & "actionType" parameters are case-sensitive
 
     .PARAMETER saasCustomerId
         Defines the id of the Datto SaaS organization
@@ -12,7 +15,7 @@ function Set-DattoBulkSeatChange {
     .PARAMETER externalSubscriptionId
         Defines the external Subscription ID used to set SaaS bulk seat changes
 
-        The externalSubscriptionId can be found by referencing the data returned form Get-DattoApplication
+        The externalSubscriptionId can be found by referencing the data returned from Get-DattoApplication
 
         Example:
             'Classic:Office365:123456'
@@ -21,11 +24,17 @@ function Set-DattoBulkSeatChange {
     .PARAMETER seatType
         Defines the seat type to backup
 
+        This is a case-sensitive value
+
+        Seat Types can be found by referencing the data returned from Get-DattoSeat
+
         Example:
             SharedMailbox, Site, TeamSite, User
 
     .PARAMETER actionType
         Defines what active to take against the seat
+
+        This is a case-sensitive value
 
         Active:         The seat exists in the organization and is actively backed up, meaning the seat is protected.
         Paused:         The seat exists in the organization; backups were enabled but are currently paused.
@@ -37,7 +46,7 @@ function Set-DattoBulkSeatChange {
     .PARAMETER remoteId
         Defines the target ids to change
 
-        Remote ids can be found by referencing the data returned form Get-DattoApplication
+        Remote ids can be found by referencing the data returned from Get-DattoApplication
 
         Example:
             ab23-bdf234-1234-asdf
