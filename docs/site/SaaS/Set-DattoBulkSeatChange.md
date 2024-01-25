@@ -26,6 +26,8 @@ Protection seat changes
 
 Both "seatType" & "actionType" parameters are case-sensitive
 
+As of 2024-01: This endpoint is NOT compatible with Google tenants
+
 ## EXAMPLES
 
 ### EXAMPLE 1
@@ -34,13 +36,6 @@ Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:Of
 ```
 
 Sets the Datto SaaS protection seats from the defined Office365 customer id
-
-### EXAMPLE 2
-```powershell
-Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:GoogleApps:654321' -seatType "SharedDrive" -actionType Pause -remoteId "ab23-bdf234-1234-asdf","cd45-cfe567-5678-1234"
-```
-
-Sets the Datto SaaS protection seats from the defined Google customer id
 
 ## PARAMETERS
 
@@ -66,7 +61,6 @@ The externalSubscriptionId can be found by referencing the data returned from Ge
 
 Example:
     'Classic:Office365:123456'
-    'Classic:GoogleApps:123456'
 
 ```yaml
 Type: String

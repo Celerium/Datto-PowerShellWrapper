@@ -4052,6 +4052,7 @@
     <maml:description>
       <maml:para>The Set-DattoBulkSeatChange cmdlet is used to bulk set SaaS Protection seat changes</maml:para>
       <maml:para>Both "seatType" &amp; "actionType" parameters are case-sensitive</maml:para>
+      <maml:para>As of 2024-01: This endpoint is NOT compatible with Google tenants</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -4073,7 +4074,7 @@
           <maml:description>
             <maml:para>Defines the external Subscription ID used to set SaaS bulk seat changes</maml:para>
             <maml:para>The externalSubscriptionId can be found by referencing the data returned from Get-DattoApplication</maml:para>
-            <maml:para>Example:     'Classic:Office365:123456'     'Classic:GoogleApps:123456'</maml:para>
+            <maml:para>Example:     'Classic:Office365:123456'</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -4168,7 +4169,7 @@
         <maml:description>
           <maml:para>Defines the external Subscription ID used to set SaaS bulk seat changes</maml:para>
           <maml:para>The externalSubscriptionId can be found by referencing the data returned from Get-DattoApplication</maml:para>
-          <maml:para>Example:     'Classic:Office365:123456'     'Classic:GoogleApps:123456'</maml:para>
+          <maml:para>Example:     'Classic:Office365:123456'</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -4259,13 +4260,6 @@
         <dev:code>Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:Office365:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"</dev:code>
         <dev:remarks>
           <maml:para>Sets the Datto SaaS protection seats from the defined Office365 customer id</maml:para>
-        </dev:remarks>
-      </command:example>
-      <command:example>
-        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:GoogleApps:654321' -seatType "SharedDrive" -actionType Pause -remoteId "ab23-bdf234-1234-asdf","cd45-cfe567-5678-1234"</dev:code>
-        <dev:remarks>
-          <maml:para>Sets the Datto SaaS protection seats from the defined Google customer id</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
