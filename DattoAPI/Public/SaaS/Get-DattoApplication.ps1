@@ -12,7 +12,6 @@ function Get-DattoApplication {
 
     .PARAMETER daysUntil
         Defines the number of days until the report should be generated
-        
         By default '10' days is returned by the API.
 
     .PARAMETER includeRemoteID

@@ -27,7 +27,7 @@ for a given customer
 
 ### EXAMPLE 1
 ```powershell
-Get-DattoSeat -saasCustomerId "12345678"
+Get-DattoSeat -saasCustomerId "123456"
 ```
 
 Gets the Datto SaaS protection seats from the define customer id

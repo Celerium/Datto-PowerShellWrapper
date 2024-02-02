@@ -10,7 +10,7 @@ function Set-DattoBulkSeatChange {
         Both "seatType" & "actionType" parameters are case-sensitive
 
     .PARAMETER saasCustomerId
-        Defines the id of the Datto SaaS organization
+        Defines the ID of the Datto SaaS organization
 
     .PARAMETER externalSubscriptionId
         Defines the external Subscription ID used to set SaaS bulk seat changes
@@ -45,7 +45,7 @@ function Set-DattoBulkSeatChange {
             License, Pause, Unlicense
 
     .PARAMETER remoteId
-        Defines the target ids to change
+        Defines the target IDs to change
 
         Remote IDs can be found by referencing the data returned from Get-DattoApplication
 
@@ -55,12 +55,12 @@ function Set-DattoBulkSeatChange {
     .EXAMPLE
         Set-DattoBulkSeatChange -saasCustomerId "123456" -externalSubscriptionId 'Classic:Office365:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"
 
-        Sets the Datto SaaS protection seats from the defined Office365 customer id
+        Sets the Datto SaaS protection seats from the defined Office365 customer ID
 
     .EXAMPLE
         Set-DattoBulkSeatChange -saasCustomerId "123456" -externalSubscriptionId 'Classic:GoogleApps:654321' -seatType "SharedDrive" -actionType Pause -remoteId "ab23-bdf234-1234-asdf","cd45-cfe567-5678-1234"
 
-        Sets the Datto SaaS protection seats from the defined Google customer id
+        Sets the Datto SaaS protection seats from the defined Google customer ID
 
     .NOTES
         N\A
