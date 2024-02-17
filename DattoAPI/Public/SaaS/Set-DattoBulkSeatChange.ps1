@@ -80,12 +80,10 @@ function Set-DattoBulkSeatChange {
         [string]$externalSubscriptionId,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
-        [ValidateNotNullOrEmpty()]
-        [string]$seatType,
+        [SEAT_TYPES]$seatType,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
-        [ValidateSet('License', 'Pause', 'Unlicense')]
-        [string]$actionType,
+        [ACTION_TYPES]$actionType,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
         [ValidateNotNullOrEmpty()]
@@ -94,6 +92,20 @@ function Set-DattoBulkSeatChange {
 
     begin {
 
+        enum ACTION_TYPES {
+            Unlicense = 0;
+            License = 1;
+            Pause;
+        }
+        enum SEAT_TYPES {
+            User;
+            SharedMailbox;
+            Site;
+            TeamSite;
+            Team;
+            SharedDrive;
+        }
+
         $resource_uri = "/saas/$saasCustomerId/$externalSubscriptionId/bulkSeatChange"
 
     }
@@ -101,8 +113,8 @@ function Set-DattoBulkSeatChange {
     process {
 
         $request_Body = @{
-            seat_type   = $seatType
-            action_type = $actionType
+            seat_type   = $seatType.ToString()
+            action_type = $actionType.ToString()
             ids         = $remoteId
         }
 
