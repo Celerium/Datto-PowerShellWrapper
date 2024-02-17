@@ -7,7 +7,7 @@ function Set-DattoBulkSeatChange {
         The Set-DattoBulkSeatChange cmdlet is used to bulk set SaaS
         Protection seat changes
 
-        Both "seatType" & "actionType" parameters are case-sensitive
+        Both `seatType` & `actionType` parameters are case-sensitive
 
     .PARAMETER saasCustomerId
         Defines the ID of the Datto SaaS organization
@@ -29,7 +29,7 @@ function Set-DattoBulkSeatChange {
         Seat Types can be found by referencing the data returned from Get-DattoSeat
 
         Example:
-            Office365: SharedMailbox, Site, TeamSite, User
+            Office365: User, SharedMailbox, Site, TeamSite, Team
             Google: User, SharedDrive
 
     .PARAMETER actionType
@@ -63,7 +63,8 @@ function Set-DattoBulkSeatChange {
         Sets the Datto SaaS protection seats from the defined Google customer ID
 
     .NOTES
-        N\A
+        This function does not work for legacy Google Seat Management 1.0 system.
+        Seat Management details can be found by referencing Datto's [documentation](https://saasprotection.datto.com/help/Google/Content/Managing_service_seats/01_Exploring_seat_management_features.htm).
 
     .LINK
         https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Set-DattoBulkSeatChange.html
