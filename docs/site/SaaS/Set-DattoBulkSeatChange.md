@@ -26,8 +26,6 @@ Protection seat changes
 
 Both "seatType" & "actionType" parameters are case-sensitive
 
-As of 2024-01: This endpoint is NOT compatible with Google tenants
-
 ## EXAMPLES
 
 ### EXAMPLE 1
@@ -36,6 +34,13 @@ Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:Of
 ```
 
 Sets the Datto SaaS protection seats from the defined Office365 customer id
+
+### EXAMPLE 2
+```powershell
+Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:GoogleApps:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"
+```
+
+Sets the Datto SaaS protection seats from the defined Google customer id
 
 ## PARAMETERS
 
@@ -61,6 +66,7 @@ The externalSubscriptionId can be found by referencing the data returned from Ge
 
 Example:
     'Classic:Office365:123456'
+    'Classic:GoogleApps:123456'
 
 ```yaml
 Type: String
@@ -82,7 +88,7 @@ This is a case-sensitive value
 Seat Types can be found by referencing the data returned from Get-DattoSeat
 
 Example:
-    SharedMailbox, Site, TeamSite, User
+    'User', 'SharedMailbox', 'Site', 'TeamSite', 'Team'
 
 ```yaml
 Type: String
@@ -97,16 +103,16 @@ Accept wildcard characters: False
 ```
 
 ### -actionType
-Defines what active to take against the seat
+Defines what action to take against the seat
 
 This is a case-sensitive value
 
-Active:         The seat exists in the organization and is actively backed up, meaning the seat is protected.
-Paused:         The seat exists in the organization; backups were enabled but are currently paused.
-Unprotected:    The seat exists in the organization but backups are not enabled.
+Active (License):           The seat exists in the organization and is actively backed up, meaning the seat is protected.
+Paused (Pause):             The seat exists in the organization; backups were enabled but are currently paused.
+Unprotected (Unlicense):    The seat exists in the organization but backups are not enabled.
 
 Allowed values:
-    License, Pause, Unlicense
+    'License', 'Pause', 'Unlicense'
 
 ```yaml
 Type: String

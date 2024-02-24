@@ -130,9 +130,10 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Get-DattoAgent cmdlet get agents from a given BCDR device</maml:para>
-      <maml:para>/bcdr/Agent - Does not return data /bcdr/device/serialNumber/Asset/Agent</maml:para>
-      <maml:para>Can also gets a list of your clients and the agents under those clients. As of 2022-04 this endpoint does not return any data.</maml:para>
+      <maml:para>The Get-DattoAgent cmdlet get agents from a given BCDR device or for Endpoint Backup for PC agents (EB4PC)</maml:para>
+      <maml:para>To get agents from the Datto BCDR the serialNumber of the BCDR needs to be defined.</maml:para>
+      <maml:para>Endpoints: /bcdr/Agent     Used for Endpoint Backup for PC agents (EB4PC)</maml:para>
+      <maml:para>/bcdr/device/serialNumber/Asset/Agent     Used for BCDR agents</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -246,7 +247,7 @@
     <command:returnValues />
     <maml:alertSet>
       <maml:alert>
-        <maml:para>The /agent uri does NOT return any data as this appears to be a deprecated endpoint in the Datto API.     The /asset/agent DOES return data.</maml:para>
+        <maml:para>N/A</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -254,8 +255,7 @@
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
         <dev:code>Get-DattoAgent</dev:code>
         <dev:remarks>
-          <maml:para>Gets a list of clients and the agents under those clients.</maml:para>
-          <maml:para>As of 2022-04 this endpoint does not return any data. Leaving this here in the event Datto corrects this endpoint.</maml:para>
+          <maml:para>Gets a list of Endpoint Backup for PC (EB4PC) clients and the agents under those clients.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -4052,7 +4052,6 @@
     <maml:description>
       <maml:para>The Set-DattoBulkSeatChange cmdlet is used to bulk set SaaS Protection seat changes</maml:para>
       <maml:para>Both "seatType" &amp; "actionType" parameters are case-sensitive</maml:para>
-      <maml:para>As of 2024-01: This endpoint is NOT compatible with Google tenants</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -4074,7 +4073,7 @@
           <maml:description>
             <maml:para>Defines the external Subscription ID used to set SaaS bulk seat changes</maml:para>
             <maml:para>The externalSubscriptionId can be found by referencing the data returned from Get-DattoApplication</maml:para>
-            <maml:para>Example:     'Classic:Office365:123456'</maml:para>
+            <maml:para>Example:     'Classic:Office365:123456'     'Classic:GoogleApps:123456'</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -4089,7 +4088,7 @@
             <maml:para>Defines the seat type to backup</maml:para>
             <maml:para>This is a case-sensitive value</maml:para>
             <maml:para>Seat Types can be found by referencing the data returned from Get-DattoSeat</maml:para>
-            <maml:para>Example:     SharedMailbox, Site, TeamSite, User</maml:para>
+            <maml:para>Example:     'User', 'SharedMailbox', 'Site', 'TeamSite', 'Team'</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -4101,10 +4100,10 @@
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none">
           <maml:name>actionType</maml:name>
           <maml:description>
-            <maml:para>Defines what active to take against the seat</maml:para>
+            <maml:para>Defines what action to take against the seat</maml:para>
             <maml:para>This is a case-sensitive value</maml:para>
-            <maml:para>Active:         The seat exists in the organization and is actively backed up, meaning the seat is protected. Paused:         The seat exists in the organization; backups were enabled but are currently paused. Unprotected:    The seat exists in the organization but backups are not enabled.</maml:para>
-            <maml:para>Allowed values:     License, Pause, Unlicense</maml:para>
+            <maml:para>Active (License):           The seat exists in the organization and is actively backed up, meaning the seat is protected. Paused (Pause):             The seat exists in the organization; backups were enabled but are currently paused. Unprotected (Unlicense):    The seat exists in the organization but backups are not enabled.</maml:para>
+            <maml:para>Allowed values:     'License', 'Pause', 'Unlicense'</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -4169,7 +4168,7 @@
         <maml:description>
           <maml:para>Defines the external Subscription ID used to set SaaS bulk seat changes</maml:para>
           <maml:para>The externalSubscriptionId can be found by referencing the data returned from Get-DattoApplication</maml:para>
-          <maml:para>Example:     'Classic:Office365:123456'</maml:para>
+          <maml:para>Example:     'Classic:Office365:123456'     'Classic:GoogleApps:123456'</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -4184,7 +4183,7 @@
           <maml:para>Defines the seat type to backup</maml:para>
           <maml:para>This is a case-sensitive value</maml:para>
           <maml:para>Seat Types can be found by referencing the data returned from Get-DattoSeat</maml:para>
-          <maml:para>Example:     SharedMailbox, Site, TeamSite, User</maml:para>
+          <maml:para>Example:     'User', 'SharedMailbox', 'Site', 'TeamSite', 'Team'</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -4196,10 +4195,10 @@
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none">
         <maml:name>actionType</maml:name>
         <maml:description>
-          <maml:para>Defines what active to take against the seat</maml:para>
+          <maml:para>Defines what action to take against the seat</maml:para>
           <maml:para>This is a case-sensitive value</maml:para>
-          <maml:para>Active:         The seat exists in the organization and is actively backed up, meaning the seat is protected. Paused:         The seat exists in the organization; backups were enabled but are currently paused. Unprotected:    The seat exists in the organization but backups are not enabled.</maml:para>
-          <maml:para>Allowed values:     License, Pause, Unlicense</maml:para>
+          <maml:para>Active (License):           The seat exists in the organization and is actively backed up, meaning the seat is protected. Paused (Pause):             The seat exists in the organization; backups were enabled but are currently paused. Unprotected (Unlicense):    The seat exists in the organization but backups are not enabled.</maml:para>
+          <maml:para>Allowed values:     'License', 'Pause', 'Unlicense'</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -4260,6 +4259,13 @@
         <dev:code>Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:Office365:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"</dev:code>
         <dev:remarks>
           <maml:para>Sets the Datto SaaS protection seats from the defined Office365 customer id</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:GoogleApps:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"</dev:code>
+        <dev:remarks>
+          <maml:para>Sets the Datto SaaS protection seats from the defined Google customer id</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

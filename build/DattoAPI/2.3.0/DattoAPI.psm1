@@ -1226,12 +1226,17 @@ function Get-DattoAgent {
 
     .DESCRIPTION
         The Get-DattoAgent cmdlet get agents from a given BCDR device
+        or for Endpoint Backup for PC agents (EB4PC)
 
-        /bcdr/Agent - Does not return data
+        To get agents from the Datto BCDR the serialNumber of the BCDR
+        needs to be defined.
+
+        Endpoints:
+        /bcdr/Agent
+            Used for Endpoint Backup for PC agents (EB4PC)
+
         /bcdr/device/serialNumber/Asset/Agent
-
-        Can also gets a list of your clients and the agents under those clients.
-        As of 2022-04 this endpoint does not return any data.
+            Used for BCDR agents
 
     .PARAMETER serialNumber
         Defines the BCDR serial number to get agents from
@@ -1255,10 +1260,8 @@ function Get-DattoAgent {
     .EXAMPLE
         Get-DattoAgent
 
-        Gets a list of clients and the agents under those clients.
-
-        As of 2022-04 this endpoint does not return any data.
-        Leaving this here in the event Datto corrects this endpoint.
+        Gets a list of Endpoint Backup for PC (EB4PC) clients and the agents
+        under those clients.
 
     .EXAMPLE
         Get-DattoAgent -serialNumber "12345678"
@@ -1271,8 +1274,7 @@ function Get-DattoAgent {
         Returns the first 10 agents from page 2 from the defined Datto BCDR
 
     .NOTES
-        The /agent uri does NOT return any data as this appears to be a deprecated endpoint in the Datto API.
-            The /asset/agent DOES return data.
+        N/A
 
     .LINK
         https://celerium.github.io/Datto-PowerShellWrapper/site/BCDR/Get-DattoAgent.html
@@ -1327,7 +1329,7 @@ function Get-DattoAgent {
     end {}
 
 }
-#EndRegion '.\Public\BCDR\Get-DattoAgent.ps1' 109
+#EndRegion '.\Public\BCDR\Get-DattoAgent.ps1' 111
 #Region '.\Public\BCDR\Get-DattoAlert.ps1' 0
 function Get-DattoAlert {
 <#
@@ -2581,8 +2583,6 @@ function Set-DattoBulkSeatChange {
 
         Both "seatType" & "actionType" parameters are case-sensitive
 
-        As of 2024-01: This endpoint is NOT compatible with Google tenants
-
     .PARAMETER saasCustomerId
         Defines the id of the Datto SaaS organization
 
@@ -2593,6 +2593,7 @@ function Set-DattoBulkSeatChange {
 
         Example:
             'Classic:Office365:123456'
+            'Classic:GoogleApps:123456'
 
     .PARAMETER seatType
         Defines the seat type to backup
@@ -2602,19 +2603,19 @@ function Set-DattoBulkSeatChange {
         Seat Types can be found by referencing the data returned from Get-DattoSeat
 
         Example:
-            SharedMailbox, Site, TeamSite, User
+            'User', 'SharedMailbox', 'Site', 'TeamSite', 'Team'
 
     .PARAMETER actionType
-        Defines what active to take against the seat
+        Defines what action to take against the seat
 
         This is a case-sensitive value
 
-        Active:         The seat exists in the organization and is actively backed up, meaning the seat is protected.
-        Paused:         The seat exists in the organization; backups were enabled but are currently paused.
-        Unprotected:    The seat exists in the organization but backups are not enabled.
+        Active (License):           The seat exists in the organization and is actively backed up, meaning the seat is protected.
+        Paused (Pause):             The seat exists in the organization; backups were enabled but are currently paused.
+        Unprotected (Unlicense):    The seat exists in the organization but backups are not enabled.
 
         Allowed values:
-            License, Pause, Unlicense
+            'License', 'Pause', 'Unlicense'
 
     .PARAMETER remoteId
         Defines the target ids to change
@@ -2629,11 +2630,17 @@ function Set-DattoBulkSeatChange {
 
         Sets the Datto SaaS protection seats from the defined Office365 customer id
 
+    .EXAMPLE
+        Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:GoogleApps:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"
+
+        Sets the Datto SaaS protection seats from the defined Google customer id
+
     .NOTES
         N\A
 
     .LINK
         https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Set-DattoBulkSeatChange.html
+
 #>
 
     [CmdletBinding(DefaultParameterSetName = 'set', SupportsShouldProcess)]
@@ -2647,11 +2654,11 @@ function Set-DattoBulkSeatChange {
         [string]$externalSubscriptionId,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
-        [ValidateNotNullOrEmpty()]
+        [ValidateSet( 'User', 'SharedMailbox', 'Site', 'TeamSite', 'Team', IgnoreCase = $false)]
         [string]$seatType,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
-        [ValidateSet('License', 'Pause', 'Unlicense')]
+        [ValidateSet('License', 'Pause', 'Unlicense', IgnoreCase = $false)]
         [string]$actionType,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
@@ -2686,4 +2693,4 @@ function Set-DattoBulkSeatChange {
 
     end {}
 }
-#EndRegion '.\Public\SaaS\Set-DattoBulkSeatChange.ps1' 117
+#EndRegion '.\Public\SaaS\Set-DattoBulkSeatChange.ps1' 122
