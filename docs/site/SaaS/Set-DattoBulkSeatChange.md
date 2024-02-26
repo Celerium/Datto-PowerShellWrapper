@@ -104,16 +104,16 @@ Accept wildcard characters: False
 ```
 
 ### -actionType
-Defines what active to take against the seat
+Defines what action to take against the seat
 
 This is a case-sensitive value
 
-Active:         The seat exists in the organization and is actively backed up, meaning the seat is protected.
-Paused:         The seat exists in the organization; backups were enabled but are currently paused.
-Unprotected:    The seat exists in the organization but backups are not enabled.
+Active (License):           The seat exists in the organization and is actively backed up, meaning the seat is protected.
+Paused (Pause):             The seat exists in the organization; backups were enabled but are currently paused.
+Unprotected (Unlicense):    The seat exists in the organization but backups are not enabled.
 
 Allowed values:
-    License, Pause, Unlicense
+    'License', 'Pause', 'Unlicense'
 
 ```yaml
 Type: String

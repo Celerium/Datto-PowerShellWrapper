@@ -27,12 +27,17 @@ Get-DattoAgent -serialNumber <String> [-page <Int64>] [-perPage <Int64>] [-allPa
 
 ## DESCRIPTION
 The Get-DattoAgent cmdlet get agents from a given BCDR device
+or for Endpoint Backup for PC agents (EB4PC)
 
-/bcdr/Agent - Does not return data
+To get agents from the Datto BCDR the serialNumber of the BCDR
+needs to be defined.
+
+Endpoints:
+/bcdr/Agent
+    Used for Endpoint Backup for PC agents (EB4PC)
+
 /bcdr/device/serialNumber/Asset/Agent
-
-Can also gets a list of your clients and the agents under those clients.
-As of 2022-04 this endpoint does not return any data.
+    Used for BCDR agents
 
 ## EXAMPLES
 
@@ -41,10 +46,8 @@ As of 2022-04 this endpoint does not return any data.
 Get-DattoAgent
 ```
 
-Gets a list of clients and the agents under those clients.
-
-As of 2022-04 this endpoint does not return any data.
-Leaving this here in the event Datto corrects this endpoint.
+Gets a list of Endpoint Backup for PC (EB4PC) clients and the agents
+under those clients.
 
 ### EXAMPLE 2
 ```powershell
@@ -137,8 +140,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
-The /agent uri does NOT return any data as this appears to be a deprecated endpoint in the Datto API.
-    The /asset/agent DOES return data.
+N/A
 
 ## RELATED LINKS
 
