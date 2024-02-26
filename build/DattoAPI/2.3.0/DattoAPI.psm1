@@ -2603,7 +2603,7 @@ function Set-DattoBulkSeatChange {
         Seat Types can be found by referencing the data returned from Get-DattoSeat
 
         Example:
-            'User', 'SharedMailbox', 'Site', 'TeamSite', 'Team'
+            'User', 'SharedMailbox', 'SharedDrive', 'Site', 'TeamSite', 'Team'
 
     .PARAMETER actionType
         Defines what action to take against the seat
@@ -2654,7 +2654,7 @@ function Set-DattoBulkSeatChange {
         [string]$externalSubscriptionId,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
-        [ValidateSet( 'User', 'SharedMailbox', 'Site', 'TeamSite', 'Team', IgnoreCase = $false)]
+        [ValidateSet( 'User', 'SharedMailbox', 'SharedDrive', 'Site', 'TeamSite', 'Team', IgnoreCase = $false)]
         [string]$seatType,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]

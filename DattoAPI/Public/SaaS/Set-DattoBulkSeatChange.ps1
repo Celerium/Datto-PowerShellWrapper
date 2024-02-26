@@ -73,40 +73,28 @@ function Set-DattoBulkSeatChange {
 
     [CmdletBinding(DefaultParameterSetName = 'set', SupportsShouldProcess)]
     Param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
+        [Parameter(Mandatory = $True, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True, ParameterSetName = 'set')]
         [ValidateNotNullOrEmpty()]
         [string]$saasCustomerId,
 
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
+        [Parameter(Mandatory = $True, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True, ParameterSetName = 'set')]
         [ValidateNotNullOrEmpty()]
         [string]$externalSubscriptionId,
 
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
-        [SEAT_TYPES]$seatType,
+        [Parameter(Mandatory = $True, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True, ParameterSetName = 'set')]
+        [ValidateSet( 'User', 'SharedMailbox', 'SharedDrive', 'Site', 'TeamSite', 'Team', IgnoreCase = $False)]
+        [string]$seatType,
 
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
-        [ACTION_TYPES]$actionType,
+        [Parameter(Mandatory = $True, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True, ParameterSetName = 'set')]
+        [ValidateSet('License', 'Pause', 'Unlicense', IgnoreCase = $False)]
+        [string]$actionType,
 
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
+        [Parameter(Mandatory = $True, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True, ParameterSetName = 'set')]
         [ValidateNotNullOrEmpty()]
         [string[]]$remoteId
     )
 
     begin {
-
-        enum ACTION_TYPES {
-            Unlicense = 0;
-            License = 1;
-            Pause;
-        }
-        enum SEAT_TYPES {
-            User;
-            SharedMailbox;
-            Site;
-            TeamSite;
-            Team;
-            SharedDrive;
-        }
 
         $resource_uri = "/saas/$saasCustomerId/$externalSubscriptionId/bulkSeatChange"
 
@@ -115,8 +103,8 @@ function Set-DattoBulkSeatChange {
     process {
 
         $request_Body = @{
-            seat_type   = $seatType.ToString()
-            action_type = $actionType.ToString()
+            seat_type   = $seatType
+            action_type = $actionType
             ids         = $remoteId
         }
 
