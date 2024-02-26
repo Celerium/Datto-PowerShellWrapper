@@ -88,7 +88,7 @@ This is a case-sensitive value
 Seat Types can be found by referencing the data returned from Get-DattoSeat
 
 Example:
-    'User', 'SharedMailbox', 'Site', 'TeamSite', 'Team'
+    'User', 'SharedMailbox', 'SharedDrive', 'Site', 'TeamSite', 'Team'
 
 ```yaml
 Type: String

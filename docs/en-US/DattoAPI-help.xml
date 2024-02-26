@@ -4088,7 +4088,7 @@
             <maml:para>Defines the seat type to backup</maml:para>
             <maml:para>This is a case-sensitive value</maml:para>
             <maml:para>Seat Types can be found by referencing the data returned from Get-DattoSeat</maml:para>
-            <maml:para>Example:     'User', 'SharedMailbox', 'Site', 'TeamSite', 'Team'</maml:para>
+            <maml:para>Example:     'User', 'SharedMailbox', 'SharedDrive', 'Site', 'TeamSite', 'Team'</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -4183,7 +4183,7 @@
           <maml:para>Defines the seat type to backup</maml:para>
           <maml:para>This is a case-sensitive value</maml:para>
           <maml:para>Seat Types can be found by referencing the data returned from Get-DattoSeat</maml:para>
-          <maml:para>Example:     'User', 'SharedMailbox', 'Site', 'TeamSite', 'Team'</maml:para>
+          <maml:para>Example:     'User', 'SharedMailbox', 'SharedDrive', 'Site', 'TeamSite', 'Team'</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
