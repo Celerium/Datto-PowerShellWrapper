@@ -187,7 +187,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 This function does not work for legacy Google Seat Management 1.0 system.
-Seat Management details can be found by referencing Datto's \[documentation\](https://saasprotection.datto.com/help/Google/Content/Managing_service_seats/01_Exploring_seat_management_features.htm).
+Seat Management details can be found by referencing Datto's \[documentation\](https://saasprotection.datto.com/help/Google/Content/Managing_service_seats/01_Exploring_seat_management_features.htm)
 
 ## RELATED LINKS
 
