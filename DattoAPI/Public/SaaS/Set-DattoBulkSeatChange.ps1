@@ -29,8 +29,8 @@ function Set-DattoBulkSeatChange {
         Seat Types can be found by referencing the data returned from Get-DattoSeat
 
         Example:
-            Office365: User, SharedMailbox, Site, TeamSite, Team
-            Google: User, SharedDrive
+            Office365: 'User', 'SharedMailbox', 'Site', 'TeamSite', 'Team'
+            Google:    'User', 'SharedDrive'
 
     .PARAMETER actionType
         Defines what action to take against the seat

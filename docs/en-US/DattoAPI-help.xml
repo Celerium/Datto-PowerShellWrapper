@@ -4051,7 +4051,7 @@
     </command:details>
     <maml:description>
       <maml:para>The Set-DattoBulkSeatChange cmdlet is used to bulk set SaaS Protection seat changes</maml:para>
-      <maml:para>Both "seatType" &amp; "actionType" parameters are case-sensitive</maml:para>
+      <maml:para>Both 'seatType' &amp; 'actionType' parameters are case-sensitive</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -4088,7 +4088,7 @@
             <maml:para>Defines the seat type to backup</maml:para>
             <maml:para>This is a case-sensitive value</maml:para>
             <maml:para>Seat Types can be found by referencing the data returned from Get-DattoSeat</maml:para>
-            <maml:para>Example:     'User', 'SharedMailbox', 'SharedDrive', 'Site', 'TeamSite', 'Team'</maml:para>
+            <maml:para>Example:     Office365: 'User', 'SharedMailbox', 'Site', 'TeamSite', 'Team'     Google:    'User', 'SharedDrive'</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -4183,7 +4183,7 @@
           <maml:para>Defines the seat type to backup</maml:para>
           <maml:para>This is a case-sensitive value</maml:para>
           <maml:para>Seat Types can be found by referencing the data returned from Get-DattoSeat</maml:para>
-          <maml:para>Example:     'User', 'SharedMailbox', 'SharedDrive', 'Site', 'TeamSite', 'Team'</maml:para>
+          <maml:para>Example:     Office365: 'User', 'SharedMailbox', 'Site', 'TeamSite', 'Team'     Google:    'User', 'SharedDrive'</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -4250,7 +4250,7 @@
     <command:returnValues />
     <maml:alertSet>
       <maml:alert>
-        <maml:para>N\A</maml:para>
+        <maml:para>This function does not work for legacy Google Seat Management 1.0 system. Seat Management details can be found by referencing Datto's \ documentation\ (https://saasprotection.datto.com/help/Google/Content/Managing_service_seats/01_Exploring_seat_management_features.htm)</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
