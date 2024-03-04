@@ -75,7 +75,7 @@ function Set-DattoBulkSeatChange {
     Param (
         [Parameter(Mandatory = $True, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True, ParameterSetName = 'set')]
         [ValidateNotNullOrEmpty()]
-        [string]$saasCustomerId,
+        [int]$saasCustomerId,
 
         [Parameter(Mandatory = $True, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True, ParameterSetName = 'set')]
         [ValidateNotNullOrEmpty()]

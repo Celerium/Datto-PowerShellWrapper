@@ -48,7 +48,7 @@ function Get-DattoApplication {
     Param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'index')]
         [ValidateNotNullOrEmpty()]
-        [string]$saasCustomerId,
+        [int]$saasCustomerId,
 
         [Parameter(Mandatory = $false, ParameterSetName = 'index')]
         [ValidateRange(0, [int]::MaxValue)]

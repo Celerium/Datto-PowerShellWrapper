@@ -87,7 +87,7 @@ function Get-DattoSaaS {
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'index_byCustomerSeats' )]
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'index_byCustomerApps'  )]
         [ValidateNotNullOrEmpty()]
-        [string]$saasCustomerId,
+        [int]$saasCustomerId,
 
         [Parameter(Mandatory = $false, ParameterSetName = 'index_byCustomerApps')]
         [ValidateRange(0, [int]::MaxValue)]
