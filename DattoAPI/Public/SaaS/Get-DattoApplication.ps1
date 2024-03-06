@@ -11,9 +11,8 @@ function Get-DattoApplication {
         Defines the ID of the Datto SaaS organization
 
     .PARAMETER daysUntil
-        Defines the number of days until the report should be generated
-        Default value of '10' days is returned by the API.
-        As of 2024-02, max value of '30' days returns data from the API.
+        Defines the number of days until the report should be generated, if not set default value of '10' days is returned by the API.
+        As of 2024-02, maximum value of '30' days returns data from the endpoint.
 
     .PARAMETER includeRemoteID
         Defines if remote IDs are included in the return
