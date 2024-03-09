@@ -209,7 +209,7 @@ function Invoke-DattoRequest {
 
         This is an internal function that is used by all public functions
 
-        As of 2023-08 the Datto v1 API only supports GET requests
+        As of 2023-09 the Datto v1 API only supports GET and PUT requests
 
     .PARAMETER method
         Defines the type of API method to use
@@ -2284,13 +2284,17 @@ function Get-DattoApplication {
         backup data for a given customer
 
     .PARAMETER saasCustomerId
-        Defines the id of the Datto SaaS organization
+        Defines the ID of the Datto SaaS organization
 
     .PARAMETER daysUntil
         Defines the number of days until the report should be generated
 
+        If not set default value of '10' days is returned by the API.
+
+        As of 2024-02, maximum value of '30' days returns data from the endpoint.
+
     .PARAMETER includeRemoteID
-        Defines if remote ids are included in the return
+        Defines if remote IDs are included in the return
 
         Note:
             0 = No
@@ -2300,16 +2304,16 @@ function Get-DattoApplication {
             0, 1
 
     .EXAMPLE
-        Get-DattoApplication -saasCustomerId "12345678"
+        Get-DattoApplication -saasCustomerId "123456"
 
-        Gets the Datto SaaS protection backup data from the define customer id and
-        does not include remote ids
+        Gets the Datto SaaS protection backup data from the define customer ID and
+        does not include remote IDs
 
     .EXAMPLE
-        Get-DattoApplication -saasCustomerId "12345678" -includeRemoteID 1
+        Get-DattoApplication -saasCustomerId "123456" -includeRemoteID 1
 
-        Gets the Datto SaaS protection backup data from the define customer id and
-        includes remote ids
+        Gets the Datto SaaS protection backup data from the define customer ID and
+        includes remote IDs
 
     .NOTES
         N\A
@@ -2322,10 +2326,10 @@ function Get-DattoApplication {
     Param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'index')]
         [ValidateNotNullOrEmpty()]
-        [string]$saasCustomerId,
+        [int]$saasCustomerId,
 
         [Parameter(Mandatory = $false, ParameterSetName = 'index')]
-        [ValidateRange(1, [int]::MaxValue)]
+        [ValidateRange(0, [int]::MaxValue)]
         [int]$daysUntil,
 
         [Parameter(Mandatory = $false, ParameterSetName = 'index')]
@@ -2351,7 +2355,7 @@ function Get-DattoApplication {
 
     end {}
 }
-#EndRegion '.\Public\SaaS\Get-DattoApplication.ps1' 78
+#EndRegion '.\Public\SaaS\Get-DattoApplication.ps1' 82
 #Region '.\Public\SaaS\Get-DattoDomain.ps1' 0
 function Get-DattoDomain {
 <#
@@ -2426,16 +2430,20 @@ function Get-DattoSaaS {
         Endpoint = /SaaS/domains/{sassCustomerId}/applications
 
     .PARAMETER saasCustomerId
-        Defines the id of the customer to get SaaS information from
+        Defines the ID of the customer to get SaaS information from
 
     .PARAMETER daysUntil
         Defines the number of days until the report should be generated
+
+        If not set default value of '10' days is returned by the API.
+
+        As of 2024-02, maximum value of '30' days returns data from the endpoint.
 
         Parameter Set:
             endpoint_CustomerApps
 
     .PARAMETER includeRemoteID
-        Defines if remote ids are included in the return
+        Defines if remote IDs are included in the return
 
         Note:
             0 = No
@@ -2455,12 +2463,12 @@ function Get-DattoSaaS {
         This function uses the -endpoint_Domains switch by default
 
     .EXAMPLE
-        Get-DattoSaaS -endpoint_CustomerSeats -saasCustomerId 12345678
+        Get-DattoSaaS -endpoint_CustomerSeats -saasCustomerId 123456
 
         Returns SaaS protection seats for a given customer
 
     .EXAMPLE
-        Get-DattoSaaS -endpoint_CustomerApps -saasCustomerId 12345678
+        Get-DattoSaaS -endpoint_CustomerApps -saasCustomerId 123456
 
         Returns SaaS protection backup data for a given customer
 
@@ -2485,10 +2493,10 @@ function Get-DattoSaaS {
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'index_byCustomerSeats' )]
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'index_byCustomerApps'  )]
         [ValidateNotNullOrEmpty()]
-        [string]$saasCustomerId,
+        [int]$saasCustomerId,
 
         [Parameter(Mandatory = $false, ParameterSetName = 'index_byCustomerApps')]
-        [ValidateRange(1, [int]::MaxValue)]
+        [ValidateRange(0, [int]::MaxValue)]
         [int]$daysUntil,
 
         [Parameter(Mandatory = $false, ParameterSetName = 'index_byCustomerApps')]
@@ -2519,7 +2527,7 @@ function Get-DattoSaaS {
     end {}
 
 }
-#EndRegion '.\Public\SaaS\Get-DattoSaaS.ps1' 122
+#EndRegion '.\Public\SaaS\Get-DattoSaaS.ps1' 126
 #Region '.\Public\SaaS\Get-DattoSeat.ps1' 0
 function Get-DattoSeat {
 <#
@@ -2534,7 +2542,7 @@ function Get-DattoSeat {
         Defines the id of the Datto SaaS organization
 
     .EXAMPLE
-        Get-DattoSeat -saasCustomerId "12345678"
+        Get-DattoSeat -saasCustomerId "123456"
 
         Gets the Datto SaaS protection seats from the define customer id
 
@@ -2549,7 +2557,7 @@ function Get-DattoSeat {
     Param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'index')]
         [ValidateNotNullOrEmpty()]
-        [string]$saasCustomerId
+        [int]$saasCustomerId
     )
 
     begin {
@@ -2584,16 +2592,17 @@ function Set-DattoBulkSeatChange {
         Both 'seatType' & 'actionType' parameters are case-sensitive
 
     .PARAMETER saasCustomerId
-        Defines the id of the Datto SaaS organization
+        Defines the ID of the Datto SaaS organization
 
     .PARAMETER externalSubscriptionId
         Defines the external Subscription ID used to set SaaS bulk seat changes
 
-        The externalSubscriptionId can be found by referencing the data returned from Get-DattoApplication
+        The externalSubscriptionId can be found by referencing
+        the data returned from Get-DattoApplication
 
         Example:
-            'Classic:Office365:123456'
-            'Classic:GoogleApps:123456'
+            'Classic:Office365:654321'
+            'Classic:GoogleApps:654321'
 
     .PARAMETER seatType
         Defines the seat type to backup
@@ -2619,26 +2628,28 @@ function Set-DattoBulkSeatChange {
             'License', 'Pause', 'Unlicense'
 
     .PARAMETER remoteId
-        Defines the target ids to change
+        Defines the target IDs to change
 
-        Remote ids can be found by referencing the data returned from Get-DattoApplication
+        Remote IDs can be found by referencing the data returned from Get-DattoApplication
 
         Example:
             ab23-bdf234-1234-asdf
 
     .EXAMPLE
-        Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:Office365:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"
+        Set-DattoBulkSeatChange -saasCustomerId "123456" -externalSubscriptionId 'Classic:Office365:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"
 
-        Sets the Datto SaaS protection seats from the defined Office365 customer id
+        Sets the Datto SaaS protection seats from the defined Office365 customer ID
 
     .EXAMPLE
-        Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:GoogleApps:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"
+        Set-DattoBulkSeatChange -saasCustomerId "123456" -externalSubscriptionId 'Classic:GoogleApps:654321' -seatType "SharedDrive" -actionType Pause -remoteId "ab23-bdf234-1234-asdf","cd45-cfe567-5678-1234"
 
-        Sets the Datto SaaS protection seats from the defined Google customer id
+        Sets the Datto SaaS protection seats from the defined Google customer ID
 
     .NOTES
-        This function does not work for legacy Google Seat Management 1.0 system.
-        Seat Management details can be found by referencing Datto's [documentation](https://saasprotection.datto.com/help/Google/Content/Managing_service_seats/01_Exploring_seat_management_features.htm)
+        This function does not work for legacy Google Seat Management 1.0 system
+        Seat Management details can be found by referencing Datto's documentation
+
+        https://saasprotection.datto.com/help/Google/Content/Managing_service_seats/01_Exploring_seat_management_features.htm
 
     .LINK
         https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Set-DattoBulkSeatChange.html
@@ -2647,23 +2658,23 @@ function Set-DattoBulkSeatChange {
 
     [CmdletBinding(DefaultParameterSetName = 'set', SupportsShouldProcess)]
     Param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'set')]
+        [Parameter(Mandatory = $True, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True, ParameterSetName = 'set')]
         [ValidateNotNullOrEmpty()]
-        [string]$saasCustomerId,
+        [int]$saasCustomerId,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'set')]
+        [Parameter(Mandatory = $True, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True, ParameterSetName = 'set')]
         [ValidateNotNullOrEmpty()]
         [string]$externalSubscriptionId,
 
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
-        [ValidateSet( 'User', 'SharedMailbox', 'SharedDrive', 'Site', 'TeamSite', 'Team', IgnoreCase = $false)]
+        [Parameter(Mandatory = $True, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True, ParameterSetName = 'set')]
+        [ValidateSet( 'User', 'SharedMailbox', 'SharedDrive', 'Site', 'TeamSite', 'Team', IgnoreCase = $False)]
         [string]$seatType,
 
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
-        [ValidateSet('License', 'Pause', 'Unlicense', IgnoreCase = $false)]
+        [Parameter(Mandatory = $True, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True, ParameterSetName = 'set')]
+        [ValidateSet('License', 'Pause', 'Unlicense', IgnoreCase = $False)]
         [string]$actionType,
 
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
+        [Parameter(Mandatory = $True, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True, ParameterSetName = 'set')]
         [ValidateNotNullOrEmpty()]
         [string[]]$remoteId
     )
@@ -2695,4 +2706,4 @@ function Set-DattoBulkSeatChange {
 
     end {}
 }
-#EndRegion '.\Public\SaaS\Set-DattoBulkSeatChange.ps1' 124
+#EndRegion '.\Public\SaaS\Set-DattoBulkSeatChange.ps1' 127

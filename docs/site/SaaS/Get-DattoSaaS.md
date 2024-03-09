@@ -22,12 +22,12 @@ Get-DattoSaaS [-endpoint_Domains] [<CommonParameters>]
 
 ### index_byCustomerSeats
 ```powershell
-Get-DattoSaaS [-endpoint_CustomerSeats] -saasCustomerId <String> [<CommonParameters>]
+Get-DattoSaaS [-endpoint_CustomerSeats] -saasCustomerId <Int32> [<CommonParameters>]
 ```
 
 ### index_byCustomerApps
 ```powershell
-Get-DattoSaaS [-endpoint_CustomerApps] -saasCustomerId <String> [-daysUntil <Int32>] [-includeRemoteID <Int32>]
+Get-DattoSaaS [-endpoint_CustomerApps] -saasCustomerId <Int32> [-daysUntil <Int32>] [-includeRemoteID <Int32>]
  [<CommonParameters>]
 ```
 
@@ -121,13 +121,13 @@ Accept wildcard characters: False
 Defines the ID of the customer to get SaaS information from
 
 ```yaml
-Type: String
+Type: Int32
 Parameter Sets: index_byCustomerSeats, index_byCustomerApps
 Aliases:
 
 Required: True
 Position: Named
-Default value: None
+Default value: 0
 Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
@@ -135,7 +135,9 @@ Accept wildcard characters: False
 ### -daysUntil
 Defines the number of days until the report should be generated
 
-By default '10' days is returned by the API.
+If not set default value of '10' days is returned by the API.
+
+As of 2024-02, maximum value of '30' days returns data from the endpoint.
 
 Parameter Set:
     endpoint_CustomerApps

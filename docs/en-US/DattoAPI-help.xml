@@ -2709,7 +2709,7 @@
     <maml:description>
       <maml:para>The Invoke-DattoRequest cmdlet invokes an API request to Datto API.</maml:para>
       <maml:para>This is an internal function that is used by all public functions</maml:para>
-      <maml:para>As of 2023-08 the Datto v1 API only supports GET requests</maml:para>
+      <maml:para>As of 2023-09 the Datto v1 API only supports GET and PUT requests</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -3595,19 +3595,21 @@
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
           <maml:name>saasCustomerId</maml:name>
           <maml:description>
-            <maml:para>Defines the id of the Datto SaaS organization</maml:para>
+            <maml:para>Defines the ID of the Datto SaaS organization</maml:para>
           </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
-            <maml:name>String</maml:name>
+            <maml:name>Int32</maml:name>
             <maml:uri />
           </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
+          <dev:defaultValue>0</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>daysUntil</maml:name>
           <maml:description>
             <maml:para>Defines the number of days until the report should be generated</maml:para>
+            <maml:para>If not set default value of '10' days is returned by the API.</maml:para>
+            <maml:para>As of 2024-02, maximum value of '30' days returns data from the endpoint.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -3619,7 +3621,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>includeRemoteID</maml:name>
           <maml:description>
-            <maml:para>Defines if remote ids are included in the return</maml:para>
+            <maml:para>Defines if remote IDs are included in the return</maml:para>
             <maml:para>Note:     0 = No     1 = Yes</maml:para>
             <maml:para>Allowed Values:     0, 1</maml:para>
           </maml:description>
@@ -3636,19 +3638,21 @@
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
         <maml:name>saasCustomerId</maml:name>
         <maml:description>
-          <maml:para>Defines the id of the Datto SaaS organization</maml:para>
+          <maml:para>Defines the ID of the Datto SaaS organization</maml:para>
         </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
-          <maml:name>String</maml:name>
+          <maml:name>Int32</maml:name>
           <maml:uri />
         </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
+        <dev:defaultValue>0</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>daysUntil</maml:name>
         <maml:description>
           <maml:para>Defines the number of days until the report should be generated</maml:para>
+          <maml:para>If not set default value of '10' days is returned by the API.</maml:para>
+          <maml:para>As of 2024-02, maximum value of '30' days returns data from the endpoint.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -3660,7 +3664,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>includeRemoteID</maml:name>
         <maml:description>
-          <maml:para>Defines if remote ids are included in the return</maml:para>
+          <maml:para>Defines if remote IDs are included in the return</maml:para>
           <maml:para>Note:     0 = No     1 = Yes</maml:para>
           <maml:para>Allowed Values:     0, 1</maml:para>
         </maml:description>
@@ -3682,16 +3686,16 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Get-DattoApplication -saasCustomerId "12345678"</dev:code>
+        <dev:code>Get-DattoApplication -saasCustomerId "123456"</dev:code>
         <dev:remarks>
-          <maml:para>Gets the Datto SaaS protection backup data from the define customer id and does not include remote ids</maml:para>
+          <maml:para>Gets the Datto SaaS protection backup data from the define customer ID and does not include remote IDs</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>Get-DattoApplication -saasCustomerId "12345678" -includeRemoteID 1</dev:code>
+        <dev:code>Get-DattoApplication -saasCustomerId "123456" -includeRemoteID 1</dev:code>
         <dev:remarks>
-          <maml:para>Gets the Datto SaaS protection backup data from the define customer id and includes remote ids</maml:para>
+          <maml:para>Gets the Datto SaaS protection backup data from the define customer ID and includes remote IDs</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -3789,14 +3793,14 @@
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
           <maml:name>saasCustomerId</maml:name>
           <maml:description>
-            <maml:para>Defines the id of the customer to get SaaS information from</maml:para>
+            <maml:para>Defines the ID of the customer to get SaaS information from</maml:para>
           </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
-            <maml:name>String</maml:name>
+            <maml:name>Int32</maml:name>
             <maml:uri />
           </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
+          <dev:defaultValue>0</dev:defaultValue>
         </command:parameter>
       </command:syntaxItem>
       <command:syntaxItem>
@@ -3816,19 +3820,21 @@
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
           <maml:name>saasCustomerId</maml:name>
           <maml:description>
-            <maml:para>Defines the id of the customer to get SaaS information from</maml:para>
+            <maml:para>Defines the ID of the customer to get SaaS information from</maml:para>
           </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
-            <maml:name>String</maml:name>
+            <maml:name>Int32</maml:name>
             <maml:uri />
           </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
+          <dev:defaultValue>0</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>daysUntil</maml:name>
           <maml:description>
             <maml:para>Defines the number of days until the report should be generated</maml:para>
+            <maml:para>If not set default value of '10' days is returned by the API.</maml:para>
+            <maml:para>As of 2024-02, maximum value of '30' days returns data from the endpoint.</maml:para>
             <maml:para>Parameter Set:     endpoint_CustomerApps</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
@@ -3841,7 +3847,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>includeRemoteID</maml:name>
           <maml:description>
-            <maml:para>Defines if remote ids are included in the return</maml:para>
+            <maml:para>Defines if remote IDs are included in the return</maml:para>
             <maml:para>Note:     0 = No     1 = Yes</maml:para>
             <maml:para>Allowed Values:     0, 1</maml:para>
             <maml:para>Parameter Set:     endpoint_CustomerApps</maml:para>
@@ -3898,19 +3904,21 @@
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
         <maml:name>saasCustomerId</maml:name>
         <maml:description>
-          <maml:para>Defines the id of the customer to get SaaS information from</maml:para>
+          <maml:para>Defines the ID of the customer to get SaaS information from</maml:para>
         </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
-          <maml:name>String</maml:name>
+          <maml:name>Int32</maml:name>
           <maml:uri />
         </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
+        <dev:defaultValue>0</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>daysUntil</maml:name>
         <maml:description>
           <maml:para>Defines the number of days until the report should be generated</maml:para>
+          <maml:para>If not set default value of '10' days is returned by the API.</maml:para>
+          <maml:para>As of 2024-02, maximum value of '30' days returns data from the endpoint.</maml:para>
           <maml:para>Parameter Set:     endpoint_CustomerApps</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
@@ -3923,7 +3931,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>includeRemoteID</maml:name>
         <maml:description>
-          <maml:para>Defines if remote ids are included in the return</maml:para>
+          <maml:para>Defines if remote IDs are included in the return</maml:para>
           <maml:para>Note:     0 = No     1 = Yes</maml:para>
           <maml:para>Allowed Values:     0, 1</maml:para>
           <maml:para>Parameter Set:     endpoint_CustomerApps</maml:para>
@@ -3954,14 +3962,14 @@
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>Get-DattoSaaS -endpoint_CustomerSeats -saasCustomerId 12345678</dev:code>
+        <dev:code>Get-DattoSaaS -endpoint_CustomerSeats -saasCustomerId 123456</dev:code>
         <dev:remarks>
           <maml:para>Returns SaaS protection seats for a given customer</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>Get-DattoSaaS -endpoint_CustomerApps -saasCustomerId 12345678</dev:code>
+        <dev:code>Get-DattoSaaS -endpoint_CustomerApps -saasCustomerId 123456</dev:code>
         <dev:remarks>
           <maml:para>Returns SaaS protection backup data for a given customer</maml:para>
         </dev:remarks>
@@ -3994,12 +4002,12 @@
           <maml:description>
             <maml:para>Defines the id of the Datto SaaS organization</maml:para>
           </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
-            <maml:name>String</maml:name>
+            <maml:name>Int32</maml:name>
             <maml:uri />
           </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
+          <dev:defaultValue>0</dev:defaultValue>
         </command:parameter>
       </command:syntaxItem>
     </command:syntax>
@@ -4009,12 +4017,12 @@
         <maml:description>
           <maml:para>Defines the id of the Datto SaaS organization</maml:para>
         </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
-          <maml:name>String</maml:name>
+          <maml:name>Int32</maml:name>
           <maml:uri />
         </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
+        <dev:defaultValue>0</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes />
@@ -4027,7 +4035,7 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Get-DattoSeat -saasCustomerId "12345678"</dev:code>
+        <dev:code>Get-DattoSeat -saasCustomerId "123456"</dev:code>
         <dev:remarks>
           <maml:para>Gets the Datto SaaS protection seats from the define customer id</maml:para>
         </dev:remarks>
@@ -4056,24 +4064,24 @@
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Set-DattoBulkSeatChange</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none">
           <maml:name>saasCustomerId</maml:name>
           <maml:description>
-            <maml:para>Defines the id of the Datto SaaS organization</maml:para>
+            <maml:para>Defines the ID of the Datto SaaS organization</maml:para>
           </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
-            <maml:name>String</maml:name>
+            <maml:name>Int32</maml:name>
             <maml:uri />
           </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
+          <dev:defaultValue>0</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none">
           <maml:name>externalSubscriptionId</maml:name>
           <maml:description>
             <maml:para>Defines the external Subscription ID used to set SaaS bulk seat changes</maml:para>
             <maml:para>The externalSubscriptionId can be found by referencing the data returned from Get-DattoApplication</maml:para>
-            <maml:para>Example:     'Classic:Office365:123456'     'Classic:GoogleApps:123456'</maml:para>
+            <maml:para>Example:     'Classic:Office365:654321'     'Classic:GoogleApps:654321'</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -4115,8 +4123,8 @@
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none">
           <maml:name>remoteId</maml:name>
           <maml:description>
-            <maml:para>Defines the target ids to change</maml:para>
-            <maml:para>Remote ids can be found by referencing the data returned from Get-DattoApplication</maml:para>
+            <maml:para>Defines the target IDs to change</maml:para>
+            <maml:para>Remote IDs can be found by referencing the data returned from Get-DattoApplication</maml:para>
             <maml:para>Example:     ab23-bdf234-1234-asdf</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
@@ -4151,24 +4159,24 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none">
         <maml:name>saasCustomerId</maml:name>
         <maml:description>
-          <maml:para>Defines the id of the Datto SaaS organization</maml:para>
+          <maml:para>Defines the ID of the Datto SaaS organization</maml:para>
         </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
-          <maml:name>String</maml:name>
+          <maml:name>Int32</maml:name>
           <maml:uri />
         </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
+        <dev:defaultValue>0</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none">
         <maml:name>externalSubscriptionId</maml:name>
         <maml:description>
           <maml:para>Defines the external Subscription ID used to set SaaS bulk seat changes</maml:para>
           <maml:para>The externalSubscriptionId can be found by referencing the data returned from Get-DattoApplication</maml:para>
-          <maml:para>Example:     'Classic:Office365:123456'     'Classic:GoogleApps:123456'</maml:para>
+          <maml:para>Example:     'Classic:Office365:654321'     'Classic:GoogleApps:654321'</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -4210,8 +4218,8 @@
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="named" aliases="none">
         <maml:name>remoteId</maml:name>
         <maml:description>
-          <maml:para>Defines the target ids to change</maml:para>
-          <maml:para>Remote ids can be found by referencing the data returned from Get-DattoApplication</maml:para>
+          <maml:para>Defines the target IDs to change</maml:para>
+          <maml:para>Remote IDs can be found by referencing the data returned from Get-DattoApplication</maml:para>
           <maml:para>Example:     ab23-bdf234-1234-asdf</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
@@ -4250,22 +4258,23 @@
     <command:returnValues />
     <maml:alertSet>
       <maml:alert>
-        <maml:para>This function does not work for legacy Google Seat Management 1.0 system. Seat Management details can be found by referencing Datto's \ documentation\ (https://saasprotection.datto.com/help/Google/Content/Managing_service_seats/01_Exploring_seat_management_features.htm)</maml:para>
+        <maml:para>This function does not work for legacy Google Seat Management 1.0 system Seat Management details can be found by referencing Datto's documentation</maml:para>
+        <maml:para>https://saasprotection.datto.com/help/Google/Content/Managing_service_seats/01_Exploring_seat_management_features.htm</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:Office365:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"</dev:code>
+        <dev:code>Set-DattoBulkSeatChange -saasCustomerId "123456" -externalSubscriptionId 'Classic:Office365:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"</dev:code>
         <dev:remarks>
-          <maml:para>Sets the Datto SaaS protection seats from the defined Office365 customer id</maml:para>
+          <maml:para>Sets the Datto SaaS protection seats from the defined Office365 customer ID</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:GoogleApps:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"</dev:code>
+        <dev:code>Set-DattoBulkSeatChange -saasCustomerId "123456" -externalSubscriptionId 'Classic:GoogleApps:654321' -seatType "SharedDrive" -actionType Pause -remoteId "ab23-bdf234-1234-asdf","cd45-cfe567-5678-1234"</dev:code>
         <dev:remarks>
-          <maml:para>Sets the Datto SaaS protection seats from the defined Google customer id</maml:para>
+          <maml:para>Sets the Datto SaaS protection seats from the defined Google customer ID</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

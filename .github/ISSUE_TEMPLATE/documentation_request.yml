@@ -23,7 +23,7 @@ body:
     id: PowerShellHelp
     attributes:
       label: PowerShell Help
-      description: "Get-Help Get-xxxModulePrefixxxx<RESOURCES-NAME> -Full"
+      description: "Get-Help Get-Datto<RESOURCES-NAME> -Full"
       options:
         - label: "Have you read the help output?"
   - type: textarea

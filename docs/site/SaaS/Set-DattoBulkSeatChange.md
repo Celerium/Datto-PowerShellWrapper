@@ -16,7 +16,7 @@ Sets Datto SaaS Protection bulk seat changes
 ## SYNTAX
 
 ```powershell
-Set-DattoBulkSeatChange -saasCustomerId <String> -externalSubscriptionId <String> -seatType <String>
+Set-DattoBulkSeatChange -saasCustomerId <Int32> -externalSubscriptionId <String> -seatType <String>
  -actionType <String> -remoteId <String[]> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -24,7 +24,7 @@ Set-DattoBulkSeatChange -saasCustomerId <String> -externalSubscriptionId <String
 The Set-DattoBulkSeatChange cmdlet is used to bulk set SaaS
 Protection seat changes
 
-Both `seatType` & `actionType` parameters are case-sensitive
+Both 'seatType' & 'actionType' parameters are case-sensitive
 
 ## EXAMPLES
 
@@ -33,14 +33,14 @@ Both `seatType` & `actionType` parameters are case-sensitive
 Set-DattoBulkSeatChange -saasCustomerId "123456" -externalSubscriptionId 'Classic:Office365:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"
 ```
 
-Sets the Datto SaaS protection seats from the defined Office365 customer ID.
+Sets the Datto SaaS protection seats from the defined Office365 customer ID
 
 ### EXAMPLE 2
 ```powershell
 Set-DattoBulkSeatChange -saasCustomerId "123456" -externalSubscriptionId 'Classic:GoogleApps:654321' -seatType "SharedDrive" -actionType Pause -remoteId "ab23-bdf234-1234-asdf","cd45-cfe567-5678-1234"
 ```
 
-Sets the Datto SaaS protection seats from the defined Google customer ID.
+Sets the Datto SaaS protection seats from the defined Google customer ID
 
 ## PARAMETERS
 
@@ -48,25 +48,26 @@ Sets the Datto SaaS protection seats from the defined Google customer ID.
 Defines the ID of the Datto SaaS organization
 
 ```yaml
-Type: String
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 
 Required: True
 Position: Named
-Default value: None
-Accept pipeline input: True (ByValue)
+Default value: 0
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
 ### -externalSubscriptionId
 Defines the external Subscription ID used to set SaaS bulk seat changes
 
-The externalSubscriptionId can be found by referencing the data returned from Get-DattoApplication
+The externalSubscriptionId can be found by referencing
+the data returned from Get-DattoApplication
 
 Example:
-    'Classic:Office365:123456'
-    'Classic:GoogleApps:123456'
+    'Classic:Office365:654321'
+    'Classic:GoogleApps:654321'
 
 ```yaml
 Type: String
@@ -76,7 +77,7 @@ Aliases:
 Required: True
 Position: Named
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
@@ -88,8 +89,8 @@ This is a case-sensitive value
 Seat Types can be found by referencing the data returned from Get-DattoSeat
 
 Example:
-- Office365: `User`, `SharedMailbox`, `Site`, `TeamSite`, `Team`
-- Google:    `User`, `SharedDrive`
+    Office365: 'User', 'SharedMailbox', 'Site', 'TeamSite', 'Team'
+    Google:    'User', 'SharedDrive'
 
 ```yaml
 Type: String
@@ -128,9 +129,9 @@ Accept wildcard characters: False
 ```
 
 ### -remoteId
-Defines the target ids to change
+Defines the target IDs to change
 
-Remote ids can be found by referencing the data returned from Get-DattoApplication
+Remote IDs can be found by referencing the data returned from Get-DattoApplication
 
 Example:
     ab23-bdf234-1234-asdf
@@ -186,9 +187,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
-This function does not work for legacy Google Seat Management 1.0 system.
-Seat Management details can be found by referencing Datto's [documentation](https://saasprotection.datto.com/help/Google/Content/Managing_service_seats/01_Exploring_seat_management_features.htm).
+This function does not work for legacy Google Seat Management 1.0 system
+Seat Management details can be found by referencing Datto's documentation
 
+https://saasprotection.datto.com/help/Google/Content/Managing_service_seats/01_Exploring_seat_management_features.htm
 
 ## RELATED LINKS
 

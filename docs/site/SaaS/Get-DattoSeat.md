@@ -16,7 +16,7 @@ Get Datto SaaS protection seats for a given customer
 ## SYNTAX
 
 ```powershell
-Get-DattoSeat -saasCustomerId <String> [<CommonParameters>]
+Get-DattoSeat -saasCustomerId <Int32> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -38,13 +38,13 @@ Gets the Datto SaaS protection seats from the define customer id
 Defines the id of the Datto SaaS organization
 
 ```yaml
-Type: String
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 
 Required: True
 Position: Named
-Default value: None
+Default value: 0
 Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```

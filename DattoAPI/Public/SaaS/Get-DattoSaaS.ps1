@@ -29,7 +29,10 @@ function Get-DattoSaaS {
         Defines the ID of the customer to get SaaS information from
 
     .PARAMETER daysUntil
-        Defines the number of days until the report should be generated, if not set default value of '10' days is returned by the API.
+        Defines the number of days until the report should be generated
+
+        If not set default value of '10' days is returned by the API.
+
         As of 2024-02, maximum value of '30' days returns data from the endpoint.
 
         Parameter Set:

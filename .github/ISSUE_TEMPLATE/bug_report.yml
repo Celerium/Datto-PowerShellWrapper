@@ -65,7 +65,7 @@ body:
       description: Please share additional details about your environment.
       value: "$PSversionTable
 
-        Get-Package -Name xxxModuleNamexxx | Select-Object Name,Version,Source,ProviderName
+        Get-Package -Name DattoAPI | Select-Object Name,Version,Source,ProviderName
 
         Get-ComputerInfo -Property @(
         'OsName',

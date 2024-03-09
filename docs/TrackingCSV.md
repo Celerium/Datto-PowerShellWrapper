@@ -19,7 +19,7 @@ I recommend downloading the CSV from the link provided rather then viewing the t
 
 | Category  | EndpointUri                                                  | Method | Function                   | Complete | Notes                                                 |
 | --------- | ------------------------------------------------------------ | ------ | -------------------------- | -------- | ----------------------------------------------------- |
-| BCDR      | /bcdr/agent                                                  | GET    | Get-DattoAgent             | YES      | As of 2022-04 this endpoint does not return any data. |
+| BCDR      | /bcdr/agent                                                  | GET    | Get-DattoAgent             | YES      | Used for Endpoint Backup for PC agents (EB4PC) |
 | BCDR      | /bcdr/device/{serialNumber}/asset/agent                      | GET    | Get-DattoAgent             | YES      |                                                       |
 | BCDR      | /bcdr/device/{serialNumber}/alert                            | GET    | Get-DattoAlert             | YES      |                                                       |
 | BCDR      | /bcdr/device/{serialNumber}/asset                            | GET    | Get-DattoAsset             | YES      |                                                       |

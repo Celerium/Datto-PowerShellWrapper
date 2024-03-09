@@ -102,7 +102,7 @@
         PSData = @{
 
             # Tags applied to this module. These help with module discovery in online galleries.
-            Tags = @('Datto', 'BCDR', 'SaaS', 'API', 'PowerShell', 'PSEdition_Desktop', 'PSEdition_Core', 'Windows', 'Kaseya', 'Celerium')
+            Tags = @('Datto', 'BCDR', 'SaaS', 'API', 'Kaseya', 'PowerShell', 'Windows', 'MacOS', 'Linux', 'PSEdition_Desktop', 'PSEdition_Core', 'Celerium')
 
             # A URL to the license for this module.
             LicenseUri = 'https://github.com/Celerium/Datto-PowerShellWrapper/blob/main/LICENSE'
