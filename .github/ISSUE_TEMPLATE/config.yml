@@ -1,7 +1,7 @@
 blank_issues_enabled: true
 contact_links:
   - name: Project Documentation
-    url: https://celerium.github.io/DattoAPI/
+    url: https://celerium.github.io/Datto-PowerShellWrapper/
     about: Read through the generated documentation
   - name: Vendor Documentation
     url: https://github.com/Celerium

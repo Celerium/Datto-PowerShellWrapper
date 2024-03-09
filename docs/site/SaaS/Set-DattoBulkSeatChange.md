@@ -24,28 +24,28 @@ Set-DattoBulkSeatChange -saasCustomerId <String> -externalSubscriptionId <String
 The Set-DattoBulkSeatChange cmdlet is used to bulk set SaaS
 Protection seat changes
 
-Both 'seatType' & 'actionType' parameters are case-sensitive
+Both `seatType` & `actionType` parameters are case-sensitive
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```powershell
-Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:Office365:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"
+Set-DattoBulkSeatChange -saasCustomerId "123456" -externalSubscriptionId 'Classic:Office365:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"
 ```
 
-Sets the Datto SaaS protection seats from the defined Office365 customer id
+Sets the Datto SaaS protection seats from the defined Office365 customer ID.
 
 ### EXAMPLE 2
 ```powershell
-Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:GoogleApps:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"
+Set-DattoBulkSeatChange -saasCustomerId "123456" -externalSubscriptionId 'Classic:GoogleApps:654321' -seatType "SharedDrive" -actionType Pause -remoteId "ab23-bdf234-1234-asdf","cd45-cfe567-5678-1234"
 ```
 
-Sets the Datto SaaS protection seats from the defined Google customer id
+Sets the Datto SaaS protection seats from the defined Google customer ID.
 
 ## PARAMETERS
 
 ### -saasCustomerId
-Defines the id of the Datto SaaS organization
+Defines the ID of the Datto SaaS organization
 
 ```yaml
 Type: String
@@ -88,8 +88,8 @@ This is a case-sensitive value
 Seat Types can be found by referencing the data returned from Get-DattoSeat
 
 Example:
-    Office365: 'User', 'SharedMailbox', 'Site', 'TeamSite', 'Team'
-    Google:    'User', 'SharedDrive'
+- Office365: `User`, `SharedMailbox`, `Site`, `TeamSite`, `Team`
+- Google:    `User`, `SharedDrive`
 
 ```yaml
 Type: String
@@ -187,7 +187,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 This function does not work for legacy Google Seat Management 1.0 system.
-Seat Management details can be found by referencing Datto's \[documentation\](https://saasprotection.datto.com/help/Google/Content/Managing_service_seats/01_Exploring_seat_management_features.htm)
+Seat Management details can be found by referencing Datto's [documentation](https://saasprotection.datto.com/help/Google/Content/Managing_service_seats/01_Exploring_seat_management_features.htm).
+
 
 ## RELATED LINKS
 

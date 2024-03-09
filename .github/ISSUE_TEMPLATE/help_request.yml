@@ -9,14 +9,14 @@ body:
     id: ReadME
     attributes:
       label: Project README
-      description: "[Project README](https://github.com/Celerium/xxxREPONAMExxx/blob/main/README.md)"
+      description: "[Project README](https://github.com/Celerium/Datto-PowerShellWrapper/blob/main/README.md)"
       options:
         - label: "Have you read the projects README?"
   - type: checkboxes
     id: WebDocumentation
     attributes:
       label: Online Documentation
-      description: "[Online Documentation](https://Celerium.github.io/xxxREPONAMExxx/)"
+      description: "[Online Documentation](https://Celerium.github.io/Datto-PowerShellWrapper/)"
       options:
         - label: "Have you read the online documentation"
   - type: checkboxes

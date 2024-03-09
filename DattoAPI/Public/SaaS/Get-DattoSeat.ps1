@@ -11,7 +11,7 @@ function Get-DattoSeat {
         Defines the id of the Datto SaaS organization
 
     .EXAMPLE
-        Get-DattoSeat -saasCustomerId "12345678"
+        Get-DattoSeat -saasCustomerId "123456"
 
         Gets the Datto SaaS protection seats from the define customer id
 
@@ -26,7 +26,7 @@ function Get-DattoSeat {
     Param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'index')]
         [ValidateNotNullOrEmpty()]
-        [string]$saasCustomerId
+        [int]$saasCustomerId
     )
 
     begin {

@@ -6,7 +6,7 @@ Please include a summary of any changes. Please also include relevant motivation
 
 Fixes: #12345
 
-Fixes: <https://github.com/Celerium/DattoAPI/issues/12345>
+Fixes: <https://github.com/Celerium/Datto-PowerShellWrapper/issues/12345>
 
 ## Type of change
 
@@ -19,8 +19,8 @@ Please delete options that are not relevant.
 
 ## Checklist
 
-- [ ] I have reviewed the [Contributing](https://github.com/Celerium/DattoAPI/blob/main/.github/CONTRIBUTING.md) guide
-- [ ] I am pulling to the **dev** branch
+- [ ] I have reviewed the [Contributing](https://github.com/Celerium/Datto-PowerShellWrapper/blob/main/.github/CONTRIBUTING.md) guide
+- [ ] I am pulling to the **main** branch
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] I have made corresponding changes to the documentation

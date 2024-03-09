@@ -88,8 +88,8 @@ The [DattoAPI](https://www.datto.com/) offers users the ability to extract data 
 
 Datto features a REST API that makes use of common HTTP request methods. In order to maintain PowerShell best practices, only approved verbs are used.
 
-- GET -> Get-
-- PUT -> Set-
+- GET -> `Get-`
+- PUT -> `Set-`
 
 Additionally, PowerShell's `verb-noun` nomenclature is respected. Each noun is prefixed with `Datto` in an attempt to prevent naming problems.
 

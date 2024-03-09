@@ -7,10 +7,10 @@ function Set-DattoBulkSeatChange {
         The Set-DattoBulkSeatChange cmdlet is used to bulk set SaaS
         Protection seat changes
 
-        Both 'seatType' & 'actionType' parameters are case-sensitive
+        Both `seatType` & `actionType` parameters are case-sensitive
 
     .PARAMETER saasCustomerId
-        Defines the id of the Datto SaaS organization
+        Defines the ID of the Datto SaaS organization
 
     .PARAMETER externalSubscriptionId
         Defines the external Subscription ID used to set SaaS bulk seat changes
@@ -18,8 +18,8 @@ function Set-DattoBulkSeatChange {
         The externalSubscriptionId can be found by referencing the data returned from Get-DattoApplication
 
         Example:
-            'Classic:Office365:123456'
-            'Classic:GoogleApps:123456'
+            'Classic:Office365:654321'
+            'Classic:GoogleApps:654321'
 
     .PARAMETER seatType
         Defines the seat type to backup
@@ -45,26 +45,26 @@ function Set-DattoBulkSeatChange {
             'License', 'Pause', 'Unlicense'
 
     .PARAMETER remoteId
-        Defines the target ids to change
+        Defines the target IDs to change
 
-        Remote ids can be found by referencing the data returned from Get-DattoApplication
+        Remote IDs can be found by referencing the data returned from Get-DattoApplication
 
         Example:
             ab23-bdf234-1234-asdf
 
     .EXAMPLE
-        Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:Office365:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"
+        Set-DattoBulkSeatChange -saasCustomerId "123456" -externalSubscriptionId 'Classic:Office365:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"
 
-        Sets the Datto SaaS protection seats from the defined Office365 customer id
+        Sets the Datto SaaS protection seats from the defined Office365 customer ID
 
     .EXAMPLE
-        Set-DattoBulkSeatChange -customerId "123456" -externalSubscriptionId 'Classic:GoogleApps:654321' -seatType "User" -actionType License -remoteId "ab23-bdf234-1234-asdf"
+        Set-DattoBulkSeatChange -saasCustomerId "123456" -externalSubscriptionId 'Classic:GoogleApps:654321' -seatType "SharedDrive" -actionType Pause -remoteId "ab23-bdf234-1234-asdf","cd45-cfe567-5678-1234"
 
-        Sets the Datto SaaS protection seats from the defined Google customer id
+        Sets the Datto SaaS protection seats from the defined Google customer ID
 
     .NOTES
         This function does not work for legacy Google Seat Management 1.0 system.
-        Seat Management details can be found by referencing Datto's [documentation](https://saasprotection.datto.com/help/Google/Content/Managing_service_seats/01_Exploring_seat_management_features.htm)
+        Seat Management details can be found by referencing Datto's [documentation](https://saasprotection.datto.com/help/Google/Content/Managing_service_seats/01_Exploring_seat_management_features.htm).
 
     .LINK
         https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Set-DattoBulkSeatChange.html
@@ -73,23 +73,23 @@ function Set-DattoBulkSeatChange {
 
     [CmdletBinding(DefaultParameterSetName = 'set', SupportsShouldProcess)]
     Param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'set')]
+        [Parameter(Mandatory = $True, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True, ParameterSetName = 'set')]
         [ValidateNotNullOrEmpty()]
-        [string]$saasCustomerId,
+        [int]$saasCustomerId,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'set')]
+        [Parameter(Mandatory = $True, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True, ParameterSetName = 'set')]
         [ValidateNotNullOrEmpty()]
         [string]$externalSubscriptionId,
 
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
-        [ValidateSet( 'User', 'SharedMailbox', 'SharedDrive', 'Site', 'TeamSite', 'Team', IgnoreCase = $false)]
+        [Parameter(Mandatory = $True, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True, ParameterSetName = 'set')]
+        [ValidateSet( 'User', 'SharedMailbox', 'SharedDrive', 'Site', 'TeamSite', 'Team', IgnoreCase = $False)]
         [string]$seatType,
 
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
-        [ValidateSet('License', 'Pause', 'Unlicense', IgnoreCase = $false)]
+        [Parameter(Mandatory = $True, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True, ParameterSetName = 'set')]
+        [ValidateSet('License', 'Pause', 'Unlicense', IgnoreCase = $False)]
         [string]$actionType,
 
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'set')]
+        [Parameter(Mandatory = $True, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True, ParameterSetName = 'set')]
         [ValidateNotNullOrEmpty()]
         [string[]]$remoteId
     )
