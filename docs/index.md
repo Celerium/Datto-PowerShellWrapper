@@ -32,6 +32,7 @@ nav_order: 1
 
 [![Blog][Website-shield]][Website-url]
 [![GitHub_License][GitHub_License-shield]][GitHub_License-url]
+
 ---
 
 ## Buy me a coffee
