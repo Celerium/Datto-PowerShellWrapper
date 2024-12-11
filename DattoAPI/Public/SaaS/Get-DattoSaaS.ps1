@@ -18,12 +18,17 @@ function Get-DattoSaaS {
     .PARAMETER endpoint_CustomerSeats
         Returns SaaS protection seats for a given customer
 
-        Endpoint = /SaaS/domains/{sassCustomerId}/seats
+        Endpoint = /SaaS/{sassCustomerId}/seats
 
     .PARAMETER endpoint_CustomerApps
         Returns SaaS protection backup data for a given customer
 
-        Endpoint = /SaaS/domains/{sassCustomerId}/applications
+        Endpoint = /SaaS/{sassCustomerId}/applications
+
+    .PARAMETER endpoint_CustomerDetailedBackupStats
+        Returns SaaS protection detailed backup stats for a given customer
+
+        Endpoint = /SaaS/{sassCustomerId}/detailedBackupStats
 
     .PARAMETER saasCustomerId
         Defines the ID of the customer to get SaaS information from
@@ -68,6 +73,11 @@ function Get-DattoSaaS {
 
         Returns SaaS protection backup data for a given customer
 
+    .EXAMPLE
+        Get-DattoSaaS -endpoint_CustomerDetailedBackupStats -saasCustomerId 123456
+
+        Returns SaaS protection detailed backup stats for a given customer
+
     .NOTES
         N\A
 
@@ -86,8 +96,12 @@ function Get-DattoSaaS {
         [Parameter(Mandatory = $true, ParameterSetName = 'index_byCustomerApps')]
         [switch]$endpoint_CustomerApps,
 
+        [Parameter(Mandatory = $true, ParameterSetName = 'index_byCustomerDetailedBackupStats')]
+        [switch]$endpoint_CustomerDetailedBackupStats,
+
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'index_byCustomerSeats' )]
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'index_byCustomerApps'  )]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true, ParameterSetName = 'index_byCustomerDetailedBackupStats' )]
         [ValidateNotNullOrEmpty()]
         [int]$saasCustomerId,
 
@@ -106,6 +120,7 @@ function Get-DattoSaaS {
             'index_Domains'         { $resource_uri = "/saas/domains" }
             'index_byCustomerSeats' { $resource_uri = "/saas/$saasCustomerId/seats" }
             'index_byCustomerApps'  { $resource_uri = "/saas/$saasCustomerId/applications" }
+            'index_byCustomerDetailedBackupStats' { $resource_uri = "/saas/$saasCustomerId/detailedBackupStats" }
         }
 
     }

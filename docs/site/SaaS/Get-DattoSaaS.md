@@ -31,6 +31,11 @@ Get-DattoSaaS [-endpoint_CustomerApps] -saasCustomerId <Int32> [-daysUntil <Int3
  [<CommonParameters>]
 ```
 
+### index_byCustomerDetailedBackupStats
+```powershell
+Get-DattoSaaS [-endpoint_CustomerDetailedBackupStats] -saasCustomerId <Int32> [<CommonParameters>]
+```
+
 ## DESCRIPTION
 The Get-DattoSaaS cmdlet gets Datto SaaS protection data by combing all endpoints
 into a single command.
@@ -64,6 +69,13 @@ Get-DattoSaaS -endpoint_CustomerApps -saasCustomerId 123456
 
 Returns SaaS protection backup data for a given customer
 
+### EXAMPLE 4
+```powershell
+Get-DattoSaaS -endpoint_CustomerDetailedBackupStats -saasCustomerId 123456
+```
+
+Returns SaaS protection detailed backup stats for a given customer
+
 ## PARAMETERS
 
 ### -endpoint_Domains
@@ -86,7 +98,7 @@ Accept wildcard characters: False
 ### -endpoint_CustomerSeats
 Returns SaaS protection seats for a given customer
 
-Endpoint = /SaaS/domains/{sassCustomerId}/seats
+Endpoint = /SaaS/{sassCustomerId}/seats
 
 ```yaml
 Type: SwitchParameter
@@ -103,11 +115,28 @@ Accept wildcard characters: False
 ### -endpoint_CustomerApps
 Returns SaaS protection backup data for a given customer
 
-Endpoint = /SaaS/domains/{sassCustomerId}/applications
+Endpoint = /SaaS/{sassCustomerId}/applications
 
 ```yaml
 Type: SwitchParameter
 Parameter Sets: index_byCustomerApps
+Aliases:
+
+Required: True
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -endpoint_CustomerDetailedBackupStats
+Returns SaaS protection detailed backup stats for a given customer
+
+Endpoint = /SaaS/{sassCustomerId}/detailedBackupStats
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: index_byCustomerDetailedBackupStats
 Aliases:
 
 Required: True
@@ -122,7 +151,7 @@ Defines the ID of the customer to get SaaS information from
 
 ```yaml
 Type: Int32
-Parameter Sets: index_byCustomerSeats, index_byCustomerApps
+Parameter Sets: index_byCustomerSeats, index_byCustomerApps, index_byCustomerDetailedBackupStats
 Aliases:
 
 Required: True

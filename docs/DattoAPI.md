@@ -63,6 +63,9 @@ Gets the saved Datto configuration settings
 ### [Get-DattoSaaS](site/SaaS/Get-DattoSaaS.md)
 Gets Datto SaaS protection data
 
+### [Get-DattoSaaSDetailedBackupStats](site/_Unique/Get-DattoSaaSDetailedBackupStats.md)
+Get Datto SaaS protection detailed backup stats for a given customer
+
 ### [Get-DattoSeat](site/SaaS/Get-DattoSeat.md)
 Get Datto SaaS protection seats for a given customer
 

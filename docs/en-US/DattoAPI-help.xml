@@ -2,6 +2,76 @@
 <helpItems schema="maml" xmlns="http://msh">
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-DattoSaaSDetailedBackupStats</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>DattoSaaSDetailedBackupStats</command:noun>
+      <maml:description>
+        <maml:para>Get Datto SaaS protection detailed backup stats for a given customer</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Get-DattoSeat cmdlet gets Datto SaaS protection detailed backup stats for a given customer</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-DattoSaaSDetailedBackupStats</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+          <maml:name>saasCustomerId</maml:name>
+          <maml:description>
+            <maml:para>Defines the id of the Datto SaaS organization</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+        <maml:name>saasCustomerId</maml:name>
+        <maml:description>
+          <maml:para>Defines the id of the Datto SaaS organization</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>N\A</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>Get-DattoSaaSDetailedBackupStats -saasCustomerId "123456"</dev:code>
+        <dev:remarks>
+          <maml:para>Gets the Datto SaaS protection detailed backup stats from the define customer id</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/_Unique/Get-DattoSaaSDetailedBackupStats.html</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Get-DattoSaaSDetailedBackupStats.html</maml:linkText>
+        <maml:uri>https://celerium.github.io/Datto-PowerShellWrapper/site/SaaS/Get-DattoSaaSDetailedBackupStats.html</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Set-DattoAPIKey</command:name>
       <command:verb>Set</command:verb>
       <command:noun>DattoAPIKey</command:noun>
@@ -3782,7 +3852,7 @@
           <maml:name>endpoint_CustomerSeats</maml:name>
           <maml:description>
             <maml:para>Returns SaaS protection seats for a given customer</maml:para>
-            <maml:para>Endpoint = /SaaS/domains/{sassCustomerId}/seats</maml:para>
+            <maml:para>Endpoint = /SaaS/{sassCustomerId}/seats</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -3809,7 +3879,7 @@
           <maml:name>endpoint_CustomerApps</maml:name>
           <maml:description>
             <maml:para>Returns SaaS protection backup data for a given customer</maml:para>
-            <maml:para>Endpoint = /SaaS/domains/{sassCustomerId}/applications</maml:para>
+            <maml:para>Endpoint = /SaaS/{sassCustomerId}/applications</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -3860,6 +3930,33 @@
           <dev:defaultValue>0</dev:defaultValue>
         </command:parameter>
       </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-DattoSaaS</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>endpoint_CustomerDetailedBackupStats</maml:name>
+          <maml:description>
+            <maml:para>Returns SaaS protection detailed backup stats for a given customer</maml:para>
+            <maml:para>Endpoint = /SaaS/{sassCustomerId}/detailedBackupStats</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+          <maml:name>saasCustomerId</maml:name>
+          <maml:description>
+            <maml:para>Defines the ID of the customer to get SaaS information from</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
     </command:syntax>
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
@@ -3879,7 +3976,7 @@
         <maml:name>endpoint_CustomerSeats</maml:name>
         <maml:description>
           <maml:para>Returns SaaS protection seats for a given customer</maml:para>
-          <maml:para>Endpoint = /SaaS/domains/{sassCustomerId}/seats</maml:para>
+          <maml:para>Endpoint = /SaaS/{sassCustomerId}/seats</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -3892,7 +3989,20 @@
         <maml:name>endpoint_CustomerApps</maml:name>
         <maml:description>
           <maml:para>Returns SaaS protection backup data for a given customer</maml:para>
-          <maml:para>Endpoint = /SaaS/domains/{sassCustomerId}/applications</maml:para>
+          <maml:para>Endpoint = /SaaS/{sassCustomerId}/applications</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>endpoint_CustomerDetailedBackupStats</maml:name>
+        <maml:description>
+          <maml:para>Returns SaaS protection detailed backup stats for a given customer</maml:para>
+          <maml:para>Endpoint = /SaaS/{sassCustomerId}/detailedBackupStats</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -3972,6 +4082,13 @@
         <dev:code>Get-DattoSaaS -endpoint_CustomerApps -saasCustomerId 123456</dev:code>
         <dev:remarks>
           <maml:para>Returns SaaS protection backup data for a given customer</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
+        <dev:code>Get-DattoSaaS -endpoint_CustomerDetailedBackupStats -saasCustomerId 123456</dev:code>
+        <dev:remarks>
+          <maml:para>Returns SaaS protection detailed backup stats for a given customer</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
