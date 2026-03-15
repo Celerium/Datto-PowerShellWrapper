@@ -1,3 +1,5 @@
+**This module has been migrated to the [Celerium.DattoBCDR](https://github.com/Celerium/Celerium.DattoBCDR) module as of 2026-03-15**
+
 <h1 align="center">
   <br>
   <a href="http://Celerium.org"><img src="https://raw.githubusercontent.com/Celerium/Datto-PowerShellWrapper/main/.github/images/Celerium_PoSHGallery_DattoAPI.png" alt="_CeleriumDemo" width="200"></a>
